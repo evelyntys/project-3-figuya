@@ -51,15 +51,17 @@ export default function Login(props) {
     };
 
     const Checkout = async () => {
-        let accessToken = JSON.parse(localStorage.getItem('accessToken'))
+        let accessToken = JSON.parse(localStorage.getItem('accessToken'));
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        let checkout = await axios.get(url + "checkout", {
+        console.log(accessToken);
+        let checkoutResponse = await axios.post(url + "checkout", {
             customer_email: "customer@email.com",
             block_street: "testing block",
             unit: "testing unit",
             postal: "testing postal"
         });
-        console.log(checkout.data)
+        console.log(checkoutResponse.data);
+        window.location.href = checkoutResponse.data.url
     }
 
     return (
@@ -67,19 +69,19 @@ export default function Login(props) {
             <div className="container">
                 <h1>Login</h1>
                 <div>
-                <div>
-                    <label>Username/Email:</label>
-                    <input type="text" name="user" className="form-control" value={loginState.user} onChange={updateFormField} />
+                    <div>
+                        <label>Username/Email:</label>
+                        <input type="text" name="user" className="form-control" value={loginState.user} onChange={updateFormField} />
+                    </div>
+                    <div>
+                        <label>Password:</label>
+                        <input type="password" name="password" className="form-control" value={loginState.password} onChange={updateFormField} />
+                    </div>
+                    <button className="btn btn-dark" onClick={Login}>Login</button>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" name="password" className="form-control" value={loginState.password} onChange={updateFormField} />
-                </div>
-                <button className="btn btn-dark" onClick={Login}>Login</button>
-            </div>
-            <button className="btn btn-primary" onClick={GetProfile}>Profile</button>
-            <button className="btn btn-danger" onClick={Checkout}>Checkout</button>
-            <button className="btn btn-warning" onClick={GetNewToken}>Refresh Token</button>
+                <button className="btn btn-primary" onClick={GetProfile}>Profile</button>
+                <button className="btn btn-danger" onClick={Checkout}>Checkout</button>
+                <button className="btn btn-warning" onClick={GetNewToken}>Refresh Token</button>
             </div>
         </React.Fragment>
     )

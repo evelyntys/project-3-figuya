@@ -9,9 +9,11 @@ import './App.css'
 
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import Orders from './pages/Orders';
+import Login from './pages/Login';
 
 export default class App extends React.Component {
   render() {
+    const url ="https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
     return (
       <React.Fragment>
         <Router>
@@ -41,11 +43,12 @@ export default class App extends React.Component {
             </Container>
           </Navbar>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Login url={url} />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/orders" element={<Orders/>} />
+            <Route path="/orders" element={<Orders />} />
           </Routes>
         </Router>
 

@@ -1,7 +1,7 @@
 import CartContext from "../context/CartContext";
 import axios from 'axios';
 import React from 'react';
-
+import { useNavigate } from "react-router-dom";
 export default class CartProvider extends React.Component {
     state = {
         cartItems: []
@@ -31,6 +31,20 @@ export default class CartProvider extends React.Component {
             //     return cart
             // }
             getCart: () => {
+                return this.state.cartItems
+            },
+            addToCart: async (figureId) => {
+                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                let cartResponse = await axios.get(url + "cart/" + figureId + "/add", {
+                    params: {
+                        quantity: 1
+                    }
+                });
+                let newCart = cartResponse.data.cart;
+                await this.setState({
+                    cart: newCart
+                });
                 return this.state.cartItems
             },
             removeItem: async (figureId) => {

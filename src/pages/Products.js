@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CartContext from '../context/CartContext';
 import ProductContext from '../context/ProductContext';
 
 export default function Products() {
-    const context = React.useContext(ProductContext);
-    const [products, setProducts] = React.useState(context.getProducts());
+    const productContext = React.useContext(ProductContext);
+    const cartContext = React.useContext(CartContext);
+    const navigate = useNavigate();
+    const addToCart = (figureId) => {
+        cartContext.addToCart(figureId);
+        navigate("/cart")
+    }
+    // const [cart, setCart] = React.useState([]);
+    // useEffect(() => {
+    //     const cartItems = cartContext.getCart();
+    //     setCart(cartItems)
+    // });
 
     return (
         <React.Fragment>
@@ -31,7 +43,7 @@ export default function Products() {
                 </div>
                 <div className="col-12 col-md-9">
                     <div className="container d-flex justify-content-evenly">
-                        {context.getProducts().map(each => {
+                        {productContext.getProducts().map(each => {
                             return (
                                 <div className="card" style={{ "width": "16rem", "border": "1px solid black" }}>
                                     <img src={each.image_url} className="class-img-top" style={{
@@ -54,7 +66,7 @@ export default function Products() {
                                             <span className="badge bg-dark mx-1">{each.manufacturer.manufacturer_name}</span>
                                         </div>
                                         <div className="d-flex justify-content-end align-items-end">
-                                            <button className="btn btn-sm">Cart</button>
+                                            <button className="btn btn-sm" onClick={() => addToCart(each.id)}>Cart</button>
                                             <button className="btn btn-sm">View more</button>
                                         </div>
                                     </div>

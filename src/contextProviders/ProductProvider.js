@@ -15,14 +15,15 @@ export default class ProductProvider extends React.Component{
         })
       };
       render(){
+        const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
         const productContext = {
             getProducts: () => {
               return this.state.products
             },
-            getProductsAxios: async () => {
-              let response = await axios.get("https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/" + "products");
-              return response.data
-            }
+            // getProductsAxios: async () => {
+            //   let response = await axios.get("https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/" + "products");
+            //   return response.data
+            // }
           }
         return (
             <ProductContext.Provider value={productContext}>

@@ -42,6 +42,7 @@ export default class App extends React.Component {
 
     return (
       <React.Fragment>
+        <CartProvider>
         <Router>
           <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
@@ -76,14 +77,13 @@ export default class App extends React.Component {
                 <Products />
               </ProductProvider>} />
             <Route path="/cart" element={
-              <CartProvider>
             <Cart url={url} />
-            </CartProvider>
             } />
             <Route path="/profile" element={<Profile />} />
             <Route path="/orders" element={<Orders />} />
           </Routes>
         </Router>
+        </CartProvider>
       </React.Fragment>
     )
   }

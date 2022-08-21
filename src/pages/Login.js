@@ -8,7 +8,6 @@ export default function Login(props) {
     });
 
     const url = props.url;
-    const checkoutUrl = url + "checkout";
 
     const updateFormField = (e) => {
         setLoginState({

@@ -63,6 +63,17 @@ export default class CartProvider extends React.Component {
                     total += (each.figure.cost * each.quantity)
                 };
                 return ((total/100).toFixed(2))
+            },
+            getAddress: async () => {
+                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                let customerResponse = await axios.get(url + "users/profile");
+                let email = customerResponse.data.customer.email;
+                let block_street = customerResponse.data.customer.block_street;
+                let unit = customerResponse.data.customer.unit;
+                let postal = customerResponse.data.customer.postal;
+                console.log(customerResponse.data.customer);
+                return [email, block_street, unit, postal];
             }
         };
         return (

@@ -21,12 +21,37 @@ export default function Cart(props) {
         unit: "",
         postal: ""
     });
+    const [selectAddress, setSelectAddress] = React.useState(0);
 
     const updateFormField = (e) => {
         setCheckOutDetails({
             ...checkoutDetails,
             [e.target.name]: e.target.value
         })
+    }
+
+    const updateSelect = async (e) => {
+        await setSelectAddress(e.target.value);
+        if (e.target.value === "1") {
+            console.log('hi')
+            let address = await cartContext.getAddress();
+            console.log("here=> ", address);
+            await setCheckOutDetails({
+                ...checkoutDetails,
+                customer_email: address[0],
+                block_street: address[1],
+                unit: address[2],
+                postal: address[3]
+            })
+        } else {
+            setCheckOutDetails({
+                ...checkoutDetails,
+                customer_email: "",
+                block_street: "",
+                unit: "",
+                postal: ""
+            })
+        }
     }
 
     const Checkout = async () => {
@@ -82,8 +107,8 @@ export default function Cart(props) {
                 </div>
                 <div className="d-flex justify-content-end">
                     <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}
-                    unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
-                    Checkout={Checkout}  />
+                        unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
+                        Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
                     {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
                 </div>
             </div>

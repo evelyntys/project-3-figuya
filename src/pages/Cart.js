@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import CartContext from '../context/CartContext';
 import axios from 'axios';
+import { Button, Modal } from 'react-bootstrap';
+import AddressModal from './AddressModal';
 
 export default function Cart(props) {
     const cartContext = React.useContext(CartContext);
@@ -13,16 +15,29 @@ export default function Cart(props) {
     console.log('cart=>', cart);
     console.log('direct=>', cartContext.getCart());
     const [quantity, setQuantity] = React.useState();
+    const [checkoutDetails, setCheckOutDetails] = React.useState({
+        customer_email: "",
+        block_street: "",
+        unit: "",
+        postal: ""
+    });
+
+    const updateFormField = (e) => {
+        setCheckOutDetails({
+            ...checkoutDetails,
+            [e.target.name]: e.target.value
+        })
+    }
 
     const Checkout = async () => {
         let accessToken = JSON.parse(localStorage.getItem('accessToken'));
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         console.log(accessToken);
         let checkoutResponse = await axios.post(props.url + "checkout", {
-            customer_email: "customer@email.com",
-            block_street: "testing block",
-            unit: "testing unit",
-            postal: "testing postal"
+            customer_email: checkoutDetails.customer_email,
+            block_street: checkoutDetails.block_street,
+            unit: checkoutDetails.unit,
+            postal: checkoutDetails.postal
         });
         console.log(checkoutResponse.data);
         window.location.href = checkoutResponse.data.url
@@ -49,6 +64,7 @@ export default function Cart(props) {
                                                 style={{ "width": "50px", "display": "inline-block" }} />
                                             <button className="btn btn-sm">-</button>
                                         </div>
+                                        <h6>{each.figure.quantity} remaining in stock</h6>
                                         <div className="d-flex justify-content-end align-items-end">
                                             Subtotal: ${((each.figure.cost * each.quantity) / 100).toFixed(2)}
                                         </div>
@@ -65,7 +81,10 @@ export default function Cart(props) {
                     <h6>Total: {cartContext.getTotal()}</h6>
                 </div>
                 <div className="d-flex justify-content-end">
-                    <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button>
+                    <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}
+                    unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
+                    Checkout={Checkout}  />
+                    {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
                 </div>
             </div>
         </React.Fragment>

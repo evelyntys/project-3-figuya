@@ -7,8 +7,8 @@ export default function Products() {
     const productContext = React.useContext(ProductContext);
     const cartContext = React.useContext(CartContext);
     const navigate = useNavigate();
-    const addToCart = (figureId) => {
-        cartContext.addToCart(figureId);
+    const addToCart = async (figureId) => {
+        await cartContext.addToCart(figureId);
         navigate("/cart")
     }
     // const [cart, setCart] = React.useState([]);

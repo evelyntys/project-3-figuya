@@ -11,7 +11,7 @@ export default function Cart(props) {
     });
     // setCart(cartContext.getCart());
     console.log('cart=>', cart);
-    console.log(cartContext.getCart());
+    console.log('direct=>', cartContext.getCart());
     const [quantity, setQuantity] = React.useState();
 
     const Checkout = async () => {
@@ -38,19 +38,19 @@ export default function Cart(props) {
                             <div className="list-group-item">
                                 <div className="row">
                                     <div className="col-3">
-                                        <img src={each.figure.image_url} style={{"height": "150px"}} />
+                                        <img src={each.figure.image_url} style={{ "height": "150px" }} />
                                     </div>
                                     <div className="col-8">
                                         <h4>{each.figure.name}</h4>
-                                        <h6>${(each.figure.cost/100).toFixed(2)}</h6>
+                                        <h6>${(each.figure.cost / 100).toFixed(2)}</h6>
                                         <div className="container">
                                             <button className="btn btn-sm">+</button>
                                             <input type="text" className="form-control text-center" value={each.quantity}
-                                            style={{"width": "50px", "display": "inline-block"}}/>
+                                                style={{ "width": "50px", "display": "inline-block" }} />
                                             <button className="btn btn-sm">-</button>
                                         </div>
                                         <div className="d-flex justify-content-end align-items-end">
-                                            Subtotal: ${((each.figure.cost * each.quantity)/100).toFixed(2)} 
+                                            Subtotal: ${((each.figure.cost * each.quantity) / 100).toFixed(2)}
                                         </div>
                                     </div>
                                     <div className="col-1 text-end">
@@ -62,7 +62,10 @@ export default function Cart(props) {
                     })}
                 </div>
                 <div className="d-flex justify-content-end">
-                <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button>
+                    <h6>Total: {cartContext.getTotal()}</h6>
+                </div>
+                <div className="d-flex justify-content-end">
+                    <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button>
                 </div>
             </div>
         </React.Fragment>

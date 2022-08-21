@@ -43,9 +43,9 @@ export default class CartProvider extends React.Component {
                 });
                 let newCart = cartResponse.data.cart;
                 await this.setState({
-                    cart: newCart
+                    cartItems: newCart
                 });
-                return this.state.cartItems
+                // return this.state.cartItems
             },
             removeItem: async (figureId) => {
                 let accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -55,7 +55,14 @@ export default class CartProvider extends React.Component {
                 await this.setState({
                     cartItems: newCart
                 });
-                return this.state.cartItems;
+                // return this.state.cartItems;
+            },
+            getTotal: () => {
+                let total = 0;
+                for(let each of this.state.cartItems){
+                    total += (each.figure.cost * each.quantity)
+                };
+                return ((total/100).toFixed(2))
             }
         };
         return (

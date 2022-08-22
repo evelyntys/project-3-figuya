@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
+import Register from './pages/Register';
 import axios from 'axios';
 import './App.css'
 
@@ -27,6 +28,20 @@ export default class App extends React.Component {
   //     products: response.data
   //   })
   // };
+  state = {
+    cartItems: []
+  }
+  async componentDidMount() {
+    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
+    let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    console.log(accessToken);
+    let cartResponse = await axios.get(url + "cart");
+    let cart = cartResponse.data;
+    await this.setState({
+      cartItems: cart
+    })
+  }
 
   render() {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
@@ -40,49 +55,59 @@ export default class App extends React.Component {
     //   }
     // }
 
+
     return (
       <React.Fragment>
         <CartProvider>
-        <Router>
-          <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Container>
-              <Navbar.Brand className="me-auto" as={NavLink} to="/">
-                <img src={require("./images/logo.png")} style={{ "height": "40px" }} />
-                FIGU屋
-              </Navbar.Brand>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-              <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="ms-auto">
-                  <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
-                  <Nav.Link as={NavLink} to="/cart">Cart</Nav.Link>
-                  <NavDropdown title="User" id="collasible-nav-dropdown">
-                    <NavDropdown.Item as={NavLink} to="/profile">Profile</NavDropdown.Item>
-                    <NavDropdown.Item as={NavLink} to="/orders">
-                      Orders
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                </Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
-          <Routes>
-            <Route path="/" element={<Login url={url} />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/products" element={
-              <ProductProvider>
-                <Products />
-              </ProductProvider>} />
-            <Route path="/cart" element={
-            <Cart url={url} />
-            } />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/orders" element={<Orders />} />
-          </Routes>
-        </Router>
+          <Router>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+              <Container>
+                <Navbar.Brand className="me-auto" as={NavLink} to="/">
+                  <img src={require("./images/logo.png")} style={{ "height": "40px" }} />
+                  FIGU屋
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                  <Nav className="ms-auto">
+                    <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
+                    <Nav.Link as={NavLink} to="/cart" className="position-relative">Cart
+                      {this.state.cartItems.length ? <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {this.state.cartItems.length}
+                        <span class="visually-hidden">unread messages</span>
+                      </span> : null}
+                    </Nav.Link>
+                    <NavDropdown title="User" id="collasible-nav-dropdown">
+                      <NavDropdown.Item as={NavLink} to="/profile">Profile</NavDropdown.Item>
+                      <NavDropdown.Item as={NavLink} to="/orders">
+                        Orders
+                      </NavDropdown.Item>
+                      <NavDropdown.Item as={NavLink} to="/register">
+                        Register
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item>
+                        Logout
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </Nav>
+                </Navbar.Collapse>
+              </Container>
+            </Navbar>
+            <Routes>
+              <Route path="/" element={<Login url={url} />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/products" element={
+                <ProductProvider>
+                  <Products />
+                </ProductProvider>} />
+              <Route path="/cart" element={
+                <Cart url={url} />
+              } />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/register" element={<Register url={url} />} />
+            </Routes>
+          </Router>
         </CartProvider>
       </React.Fragment>
     )

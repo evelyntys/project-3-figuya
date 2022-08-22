@@ -31,7 +31,8 @@ export default class App extends React.Component {
   // };
   state = {
     cartItems: []
-  }
+  };
+  
   async componentDidMount() {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
     let accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -55,6 +56,17 @@ export default class App extends React.Component {
     //     return response.data
     //   }
     // }
+
+    const logout = async () => {
+      let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
+      let logoutResponse = await axios.post(url + "users/logout", {
+        refreshToken
+      });
+      console.log(logoutResponse.data);
+      await localStorage.removeItem('accessToken');
+      await localStorage.removeItem('refreshToken');
+      
+    }
 
 
     return (
@@ -86,7 +98,7 @@ export default class App extends React.Component {
                         Register
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item>
+                      <NavDropdown.Item onClick={logout}>
                         Logout
                       </NavDropdown.Item>
                     </NavDropdown>

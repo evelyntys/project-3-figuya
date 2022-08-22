@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import ProductContext from './context/ProductContext';
 import ProductProvider from './contextProviders/ProductProvider';
 import CartProvider from './contextProviders/CartProvider';
+import OrderProvider from './contextProviders/OrderProvider';
 
 export default class App extends React.Component {
   // state = {
@@ -104,7 +105,10 @@ export default class App extends React.Component {
                 <Cart url={url} />
               } />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/orders" element={<Orders />} />
+              <Route path="/orders" element={ <OrderProvider>
+              <Orders />
+              </OrderProvider>
+              } />
               <Route path="/register" element={<Register url={url} />} />
             </Routes>
           </Router>

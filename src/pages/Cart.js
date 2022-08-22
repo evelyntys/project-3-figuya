@@ -8,6 +8,7 @@ export default function Cart(props) {
     const cartContext = React.useContext(CartContext);
     const [cart, setCart] = React.useState([]);
     const [quantity, setQuantity] = React.useState([]);
+    const [cartTotal, setCartTotal] = React.useState([]);
 
     useEffect(() => {
         async function setData() {
@@ -16,6 +17,7 @@ export default function Cart(props) {
             // for (let i=0; i<cartItems.length; i++){
             //     quantity[i] = cartItems[i].quantity;
             // }
+            await setCartTotal(cartContext.getTotal(cartItems));
             for (let each of cartItems){
                 console.log(each.figure.id, each.quantity)
                 quantity[each.figure.id] = each.quantity
@@ -31,7 +33,7 @@ export default function Cart(props) {
             [e.target.name]: e.target.value
         });
         let updatedCart = await cartContext.changeQuantity([e.target.name], e.target.value);
-        // await setCart(updatedCart);
+        await setCartTotal(cartContext.getTotal(updatedCart));
 
     }
 
@@ -120,7 +122,7 @@ export default function Cart(props) {
                                         <button className="btn btn-sm" onClick={() => cartContext.removeItem(each.figure.id)}>Delete</button>
                                     </div>
                                     <div className="d-flex justify-content-end align-items-end">
-                                        Subtotal: ${((each.figure.cost * each.quantity) / 100).toFixed(2)}
+                                        Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +130,7 @@ export default function Cart(props) {
                     })}
                 </div>
                 <div className="d-flex justify-content-end">
-                    <h6>Total: {cartContext.getTotal()}</h6>
+                    <h6>Total: {cartTotal}</h6>
                 </div>
                 <div className="d-flex justify-content-end">
                     <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}

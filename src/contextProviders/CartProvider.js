@@ -58,9 +58,9 @@ export default class CartProvider extends React.Component {
                 });
                 // return this.state.cartItems;
             },
-            getTotal: () => {
+            getTotal: (cart) => {
                 let total = 0;
-                for(let each of this.state.cartItems){
+                for(let each of cart){
                     total += (each.figure.cost * each.quantity)
                 };
                 return ((total/100).toFixed(2))
@@ -83,7 +83,7 @@ export default class CartProvider extends React.Component {
                     newQuantity: newQuantity
                 });
                 console.log(updateResponse.data);
-                let updatedCart = updateResponse.data;
+                let updatedCart = updateResponse.data.cart;
                 return (updatedCart)
             }
         };

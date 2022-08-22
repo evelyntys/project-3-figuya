@@ -7,14 +7,35 @@ import AddressModal from './AddressModal';
 export default function Cart(props) {
     const cartContext = React.useContext(CartContext);
     const [cart, setCart] = React.useState([]);
+    const [quantity, setQuantity] = React.useState([]);
+
     useEffect(() => {
-        const cartItems = cartContext.getCart();
-        setCart(cartItems)
-    });
+        async function setData() {
+            const cartItems = await cartContext.getCart();
+            await setCart(cartItems);
+            // for (let i=0; i<cartItems.length; i++){
+            //     quantity[i] = cartItems[i].quantity;
+            // }
+            for (let each of cartItems){
+                console.log(each.figure.id, each.quantity)
+                quantity[each.figure.id] = each.quantity
+            }
+            // setQuantity(quantity)
+        };
+        setData();
+    }, []);
+
+    const updateQuantity = async (e) => {
+        setQuantity({
+            ...quantity,
+            [e.target.name]: e.target.value
+        });
+        let updatedCart = await cartContext.changeQuantity([e.target.name], e.target.value);
+        // await setCart(updatedCart);
+
+    }
+
     // setCart(cartContext.getCart());
-    console.log('cart=>', cart);
-    console.log('direct=>', cartContext.getCart());
-    const [quantity, setQuantity] = React.useState();
     const [checkoutDetails, setCheckOutDetails] = React.useState({
         customer_email: "",
         block_street: "",
@@ -22,6 +43,10 @@ export default function Cart(props) {
         postal: ""
     });
     const [selectAddress, setSelectAddress] = React.useState(0);
+
+    // const getQuantites = () => {
+
+    // }
 
     const updateFormField = (e) => {
         setCheckOutDetails({
@@ -85,17 +110,17 @@ export default function Cart(props) {
                                         <h6>${(each.figure.cost / 100).toFixed(2)}</h6>
                                         <div className="container">
                                             <button className="btn btn-sm">+</button>
-                                            <input type="text" className="form-control text-center" value={each.quantity}
-                                                style={{ "width": "50px", "display": "inline-block" }} />
+                                            <input type="text" className="form-control text-center" name={each.figure.id} value={quantity[each.figure.id]}
+                                                onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
                                             <button className="btn btn-sm">-</button>
                                         </div>
                                         <h6>{each.figure.quantity} remaining in stock</h6>
-                                        <div className="d-flex justify-content-end align-items-end">
-                                            Subtotal: ${((each.figure.cost * each.quantity) / 100).toFixed(2)}
-                                        </div>
                                     </div>
                                     <div className="col-1 text-end">
                                         <button className="btn btn-sm" onClick={() => cartContext.removeItem(each.figure.id)}>Delete</button>
+                                    </div>
+                                    <div className="d-flex justify-content-end align-items-end">
+                                        Subtotal: ${((each.figure.cost * each.quantity) / 100).toFixed(2)}
                                     </div>
                                 </div>
                             </div>

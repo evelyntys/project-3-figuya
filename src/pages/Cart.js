@@ -101,6 +101,8 @@ export default function Cart(props) {
         <React.Fragment>
             <div className="container my-2">
                 <h1>Your cart:</h1>
+                {cart.length ? 
+                <React.Fragment>
                 <div className="list-group my-2">
                     {cart.map(each => {
                         return (
@@ -118,6 +120,7 @@ export default function Cart(props) {
                                                 onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
                                             <button className="btn btn-sm">-</button>
                                         </div>
+                                        {each.figure.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
                                         <h6>{each.figure.quantity} remaining in stock</h6>
                                     </div>
                                     <div className="col-1 text-end">
@@ -140,6 +143,8 @@ export default function Cart(props) {
                         Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
                     {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
                 </div>
+                </React.Fragment>
+                : <div>no items in your cart currently...</div> }
             </div>
         </React.Fragment>
     )

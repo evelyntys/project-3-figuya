@@ -1,7 +1,7 @@
 import CartContext from "../context/CartContext";
-import axios from 'axios';
+// import axios from 'axios';
 import React from 'react';
-import AxiosInterceptor from "../AxiosInterceptor";
+import axios from "../AxiosInterceptor";
 export default class CartProvider extends React.Component {
     state = {
         cartItems: []
@@ -25,7 +25,7 @@ export default class CartProvider extends React.Component {
                 // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 // console.log(accessToken);
-                let cartResponse = await axios.get(url + "cart");
+                let cartResponse = await axios.get("cart");
                 let cart = cartResponse.data;
                 // console.log(cart);
                 return cart
@@ -36,7 +36,7 @@ export default class CartProvider extends React.Component {
             addToCart: async (figureId) => {
                 // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                let cartResponse = await axios.get(url + "cart/" + figureId + "/add", {
+                let cartResponse = await axios.get("cart/" + figureId + "/add", {
                     params: {
                         quantity: 1
                     }
@@ -51,7 +51,7 @@ export default class CartProvider extends React.Component {
             removeItem: async (figureId) => {
                 // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                let cartResponse = await axios.get(url + "cart/" + figureId + "/remove");
+                let cartResponse = await axios.get( "cart/" + figureId + "/remove");
                 let newCart = cartResponse.data.cart;
                 // await this.setState({
                 //     cartItems: newCart
@@ -67,9 +67,9 @@ export default class CartProvider extends React.Component {
                 return ((total/100).toFixed(2))
             },
             getAddress: async () => {
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                let customerResponse = await axios.get(url + "users/profile");
+                // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                let customerResponse = await axios.get("users/profile");
                 let email = customerResponse.data.customer.email;
                 let block_street = customerResponse.data.customer.block_street;
                 let unit = customerResponse.data.customer.unit;
@@ -78,9 +78,9 @@ export default class CartProvider extends React.Component {
                 return [email, block_street, unit, postal];
             },
             changeQuantity: async (figureId, newQuantity) => {
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                let updateResponse = await axios.post(url + "cart/" + figureId + "/quantity/update", {
+                // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                let updateResponse = await axios.post("cart/" + figureId + "/quantity/update", {
                     newQuantity: newQuantity
                 });
                 console.log(updateResponse.data);

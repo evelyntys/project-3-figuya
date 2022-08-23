@@ -1,37 +1,57 @@
 import axios from 'axios';
 
-export default function AxiosInterceptor(){
-const refreshToken = async () => {
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
-    let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-    let refreshResponse = await axios.post(url + "users/refresh", {
-        refreshToken
-    });
-    let newToken = refreshResponse.data.accessToken;
-    await localStorage.setItem('accessToken', JSON.stringify(newToken));
-    return newToken
-}
-const axiosInterceptorReq = axios.interceptors.request.use(
-    (req) => {
-        const accessToken = JSON.parse(localStorage.getItem('accessToken'));
-        if (accessToken) {
-            req.headers['Authorization'] = "Bearer " + accessToken
-        };
+const customAxios = axios.create({
+    baseURL: "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
+});
 
-    },
-    (err) => {
-        return Promise.reject(err)
+const requestHandle = request => {
+    const accessToken = JSON.parse(localStorage.getItem('accessToken'));
+    console.log('hi')
+    request.headers.Authorization = "Bearer " + accessToken;
+    return request
+};
+
+const responseHandle = response => {
+    // if (response.status == 403) {
+    //     console.log('there')
+    //     const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
+    //     return axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/users/refresh", {
+    //         refreshToken
+    //     }).then(res => {
+    //         if (res.status === 200) {
+    //             localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
+    //             axios.defaults.headers.common['Authorization'] = 'Bearer' + JSON.parse(res.data.accessToken);
+    //         }
+    //     })
+    // }
+    return response
+};
+
+const errorHandler = error => {
+    console.log('here')
+    if (error.response.status == 403) {
+        console.log('there')
+        const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
+        return axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/users/refresh", {
+            refreshToken
+        }).then(res => {
+            if (res.status === 200) {
+                localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
+                axios.defaults.headers.common['Authorization'] = 'Bearer' + res.data.accessToken;
+            }
+        })
     }
+    return Promise.reject(error);
+}
+
+customAxios.interceptors.request.use(
+    (request) => requestHandle(request),
+    (error) => errorHandler(error)
 );
 
-const axiosInterceptorRes = axios.interceptors.response.use(
-    (res) => {
-        if (res.status == 403) {
-            res.headers['Authorization'] = "Bearer " + refreshToken();
-        }
-    }, (err) => {
-        return Promise.reject(err);
-    }
+customAxios.interceptors.response.use(
+    (response) => responseHandle(response),
+    (error) => errorHandler(error)
 );
-}
-// export default { axiosInterceptorReq, axiosInterceptorRes }
+
+export default customAxios;

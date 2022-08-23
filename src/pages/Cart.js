@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import CartContext from '../context/CartContext';
-import axios from 'axios';
+import axios from "../AxiosInterceptor";
 import { Button, Modal } from 'react-bootstrap';
 import AddressModal from './AddressModal';
 
@@ -90,10 +90,10 @@ export default function Cart(props) {
     }
 
     const Checkout = async () => {
-        let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        console.log(accessToken);
-        let checkoutResponse = await axios.post(props.url + "checkout", {
+        // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        // console.log(accessToken);
+        let checkoutResponse = await axios.post("checkout", {
             customer_email: checkoutDetails.customer_email,
             block_street: checkoutDetails.block_street,
             unit: checkoutDetails.unit,

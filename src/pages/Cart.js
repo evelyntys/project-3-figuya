@@ -18,7 +18,7 @@ export default function Cart(props) {
             //     quantity[i] = cartItems[i].quantity;
             // }
             await setCartTotal(cartContext.getTotal(cartItems));
-            for (let each of cartItems){
+            for (let each of cartItems) {
                 console.log(each.figure.id, each.quantity)
                 quantity[each.figure.id] = each.quantity
             }
@@ -31,9 +31,11 @@ export default function Cart(props) {
         setQuantity({
             ...quantity,
             [e.target.name]: e.target.value
-        });
+        }); 
+        if (e.target.value) {
         let updatedCart = await cartContext.changeQuantity([e.target.name], e.target.value);
-        await setCartTotal(cartContext.getTotal(updatedCart));
+            await setCartTotal(cartContext.getTotal(updatedCart));
+        }
 
     }
 

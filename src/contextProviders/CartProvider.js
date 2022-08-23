@@ -1,7 +1,7 @@
 import CartContext from "../context/CartContext";
 import axios from 'axios';
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import AxiosInterceptor from "../AxiosInterceptor";
 export default class CartProvider extends React.Component {
     state = {
         cartItems: []
@@ -22,8 +22,8 @@ export default class CartProvider extends React.Component {
         const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
         const cartContext = {
             getCart: async () => {
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 // console.log(accessToken);
                 let cartResponse = await axios.get(url + "cart");
                 let cart = cartResponse.data;
@@ -34,29 +34,30 @@ export default class CartProvider extends React.Component {
             //     return this.state.cartItems
             // },
             addToCart: async (figureId) => {
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 let cartResponse = await axios.get(url + "cart/" + figureId + "/add", {
                     params: {
                         quantity: 1
                     }
                 });
                 let newCart = cartResponse.data.cart;
-                // await this.setState({
-                //     cartItems: newCart
-                // });
-                return newCart;
-                // return this.state.cartItems
-            },
-            removeItem: async (figureId) => {
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                let cartResponse = await axios.get(url + "cart/" + figureId + "/remove");
-                let newCart = cartResponse.data.cart;
                 await this.setState({
                     cartItems: newCart
                 });
-                // return this.state.cartItems;
+                return this.state.cartItems;
+                // return this.state.cartItems
+            },
+            removeItem: async (figureId) => {
+                // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                let cartResponse = await axios.get(url + "cart/" + figureId + "/remove");
+                let newCart = cartResponse.data.cart;
+                // await this.setState({
+                //     cartItems: newCart
+                // });
+                return newCart
+                // navigate(cart);
             },
             getTotal: (cart) => {
                 let total = 0;

@@ -81,6 +81,12 @@ export default function Cart(props) {
                 postal: ""
             })
         }
+    };
+
+    const removeFromCart = async (id) => {
+        let newCart = await cartContext.removeItem(id);
+        await setCart(newCart);
+        await setCartTotal(cartContext.getTotal(newCart));
     }
 
     const Checkout = async () => {
@@ -124,7 +130,7 @@ export default function Cart(props) {
                                         <h6>{each.figure.quantity} remaining in stock</h6>
                                     </div>
                                     <div className="col-1 text-end">
-                                        <button className="btn btn-sm" onClick={() => cartContext.removeItem(each.figure.id)}>Delete</button>
+                                        <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}>Delete</button>
                                     </div>
                                     <div className="d-flex justify-content-end align-items-end">
                                         Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}

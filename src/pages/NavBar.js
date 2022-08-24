@@ -18,13 +18,16 @@ import CartProvider from '../contextProviders/CartProvider';
 import OrderProvider from '../contextProviders/OrderProvider';
 import CartContext from '../context/CartContext';
 import NavBar from '../pages/NavBar';
+import UserContext from '../context/UserContext';
 
 
 export default function NavigationBar() {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
     const cartContext = React.useContext(CartContext);
+    const userContext = React.useContext(UserContext);
+    // const navigate = useNavigate();
+
     const Logout = async () => {
-        const navigate = useNavigate();
         let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
         let logoutResponse = await axios.post(url + "users/logout", {
           refreshToken
@@ -32,11 +35,11 @@ export default function NavigationBar() {
         console.log(logoutResponse.data);
         await localStorage.removeItem('accessToken');
         await localStorage.removeItem('refreshToken');
-        navigate("/")
+        // navigate("/")
       }
 
     return (
-        <Router>
+        
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <div className="container-fluid">
                     <Navbar.Brand className="me-auto" as={NavLink} to="/">
@@ -49,24 +52,15 @@ export default function NavigationBar() {
                             {/* <CartContext.Consumer> */}
                             <Nav.Link as={NavLink} to="/cart" className="position-relative">Cart
                                 {
+                                    userContext.getUserState()? (
                                     cartContext.getState().length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                         {cartContext.getState().length}
                                         <span className="visually-hidden">unread messages</span>
-                                    </span>) : null
+                                    </span>) : null ) : null
                                 }
                             </Nav.Link>
-                            {/* {context => {
-                        return <Nav.Link as={NavLink} to="/cart" className="position-relative">Cart</Nav.Link>
-                        {
-                          context.getCart().length ? <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {context.getCart().length}
-                            <span class="visually-hidden">unread messages</span>
-                          </span> : null
-                        }
-                      }} */}
-
                             <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
-                            {localStorage.getItem('refreshToken') ?
+                            {userContext.getUserState() ?
                                 <React.Fragment>
                                     <img src={require("../images/user.png")} style={{ "height": "30px" }} />
                                     <NavDropdown title="User" id="collasible-nav-dropdown">
@@ -78,7 +72,7 @@ export default function NavigationBar() {
                                             Register
                                         </NavDropdown.Item>
                                         <NavDropdown.Divider />
-                                        <NavDropdown.Item onClick={Logout}>
+                                        <NavDropdown.Item as={NavLink} onClick={() => userContext.logout()} to="/">
                                             Logout
                                         </NavDropdown.Item>
                                     </NavDropdown>
@@ -90,23 +84,7 @@ export default function NavigationBar() {
                 </div>
             </Navbar>
 
-            <Routes>
-                <Route path="/" element={<Login url={url} />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/products" element={
-                    <ProductProvider>
-                        <Products />
-                    </ProductProvider>} />
-                <Route path="/cart" element={
-                    <Cart url={url} />
-                } />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/orders" element={<OrderProvider>
-                    <Orders />
-                </OrderProvider>
-                } />
-                <Route path="/register" element={<Register url={url} />} />
-            </Routes>
-        </Router>
+            
+        
     )
 }

@@ -1,11 +1,15 @@
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import UserContext from '../context/UserContext';
 
 export default function Login(props) {
+    const navigate = useNavigate();
     const [loginState, setLoginState] = React.useState({
         user: "",
         password: ""
     });
+    const userContext = React.useContext(UserContext);
 
     const url = props.url;
 
@@ -16,19 +20,25 @@ export default function Login(props) {
         })
     }
 
+    // const Login = async () => {
+    //     let user = loginState.user;
+    //     let password = loginState.password;
+    //     let loginResponse = await axios.post(url + "users/login", {
+    //         user,
+    //         password
+    //     });
+    //     let tokenData = loginResponse.data;
+    //     await localStorage.setItem('accessToken', JSON.stringify(tokenData.accessToken));
+    //     await localStorage.setItem('refreshToken', JSON.stringify(tokenData.refreshToken));
+    //     console.log(loginResponse.data);
+    //     console.log(localStorage.getItem('accessToken'));
+    //     navigate("/products")
+    // };
+
     const Login = async () => {
-        let user = loginState.user;
-        let password = loginState.password;
-        let loginResponse = await axios.post(url + "users/login", {
-            user,
-            password
-        });
-        let tokenData = loginResponse.data;
-        await localStorage.setItem('accessToken', JSON.stringify(tokenData.accessToken));
-        await localStorage.setItem('refreshToken', JSON.stringify(tokenData.refreshToken));
-        console.log(loginResponse.data);
-        console.log(localStorage.getItem('accessToken'));
-    };
+        await userContext.login(loginState.user, loginState.password);
+        navigate("/products");
+    }
 
     const GetNewToken = async () => {
         let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));

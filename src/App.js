@@ -21,6 +21,7 @@ import Register from './pages/Register';
 import axios from 'axios';
 import UserContext from './context/UserContext';
 import UserProvider from './contextProviders/UserProvider';
+import SingleProduct from './pages/SingleProduct';
 
 
 export default class App extends React.Component {
@@ -48,6 +49,11 @@ export default class App extends React.Component {
                 </OrderProvider>
                 } />
                 <Route path="/register" element={<Register url={url} />} />
+                <Route path="/products/:figureId" element=
+                {<ProductProvider>
+                <SingleProduct/>
+                </ProductProvider>
+                }/>
               </Routes>
             </CartProvider>
           </UserProvider>

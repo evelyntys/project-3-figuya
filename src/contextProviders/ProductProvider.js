@@ -4,7 +4,8 @@ import axios from 'axios'
 
 export default class ProductProvider extends React.Component{
     state = {
-        products: []
+        products: [],
+        productToShow: []
       };
     
       async componentDidMount() {
@@ -14,17 +15,26 @@ export default class ProductProvider extends React.Component{
           products: response.data
         })
       };
+      
       render(){
         const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
         const productContext = {
             getProducts: () => {
               return this.state.products
             },
-            // getProductsAxios: async () => {
-            //   let response = await axios.get("https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/" + "products");
-            //   return response.data
-            // }
-          }
+            showProduct: async (id) => {
+              let productToShowResponse = await axios.get(url + "products/" + id + "/view");
+              let productToShow = productToShowResponse.data.product
+              console.log(productToShow)
+              await this.setState({
+                productToShow: productToShow
+              });
+              return productToShow
+            },
+            getProductToShow: () => {
+              return this.state.productToShow
+            }
+           }
         return (
             <ProductContext.Provider value={productContext}>
                 {this.props.children}

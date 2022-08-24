@@ -39,12 +39,12 @@ export default class CartProvider extends React.Component {
             // getCart: () => {
             //     return this.state.cartItems
             // },
-            addToCart: async (figureId) => {
+            addToCart: async (figureId, qty) => {
                 // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 let cartResponse = await axios.get("cart/" + figureId + "/add", {
                     params: {
-                        quantity: 1
+                        quantity: qty
                     }
                 });
                 let newCart = cartResponse.data.cart;

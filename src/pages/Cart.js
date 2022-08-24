@@ -31,12 +31,36 @@ export default function Cart(props) {
         setQuantity({
             ...quantity,
             [e.target.name]: e.target.value
-        }); 
+        });
         if (e.target.value) {
-        let updatedCart = await cartContext.changeQuantity([e.target.name], e.target.value);
+            let updatedCart = await cartContext.changeQuantity([e.target.name], e.target.value);
             await setCartTotal(cartContext.getTotal(updatedCart));
         }
 
+    };
+
+    const increaseQuantity = async (e) => {
+        setQuantity({
+            ...quantity,
+            [e.target.name]: quantity[e.target.name] + 1
+        });
+        if (quantity[e.target.name]) {
+            let updatedCart = await cartContext.changeQuantity([e.target.name], quantity[e.target.name] + 1);
+            await setCartTotal(cartContext.getTotal(updatedCart));
+        }
+    }
+
+    const decreaseQuantity = async (e) => {
+        if (quantity[e.target.name] > 1) {
+            setQuantity({
+                ...quantity,
+                [e.target.name]: quantity[e.target.name] - 1
+            })
+        }
+        if (quantity[e.target.name]) {
+            let updatedCart = await cartContext.changeQuantity([e.target.name], quantity[e.target.name] -1);
+            await setCartTotal(cartContext.getTotal(updatedCart));
+        }
     }
 
     const [checkoutDetails, setCheckOutDetails] = React.useState({
@@ -103,50 +127,50 @@ export default function Cart(props) {
         <React.Fragment>
             <div className="container my-2">
                 <h1>Your cart:</h1>
-                {cart.length ? 
-                <React.Fragment>
-                <div className="list-group my-2">
-                    {cart.map(each => {
-                        return (
-                            <div className="list-group-item">
-                                <div className="row">
-                                    <div className="col-3">
-                                        <img src={each.figure.image_url} style={{ "height": "150px" }} />
-                                    </div>
-                                    <div className="col-8">
-                                        <h4>{each.figure.name}</h4>
-                                        <h6>${(each.figure.cost / 100).toFixed(2)}</h6>
-                                        <div className="container">
-                                            <button className="btn btn-sm">+</button>
-                                            <input type="text" className="form-control text-center" name={each.figure.id} value={quantity[each.figure.id]}
-                                                onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
-                                            <button className="btn btn-sm">-</button>
+                {cart.length ?
+                    <React.Fragment>
+                        <div className="list-group my-2">
+                            {cart.map(each => {
+                                return (
+                                    <div className="list-group-item">
+                                        <div className="row">
+                                            <div className="col-3">
+                                                <img src={each.figure.image_url} style={{ "height": "150px" }} />
+                                            </div>
+                                            <div className="col-8">
+                                                <h4>{each.figure.name}</h4>
+                                                <h6>${(each.figure.cost / 100).toFixed(2)}</h6>
+                                                <div className="container">
+                                                    <button className="btn btn-sm" name={each.figure.id} onClick={increaseQuantity}>+</button>
+                                                    <input type="text" className="form-control text-center" name={each.figure.id} value={quantity[each.figure.id]}
+                                                        onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
+                                                    <button className="btn btn-sm" name={each.figure.id} onClick={decreaseQuantity}>-</button>
+                                                </div>
+                                                {each.figure.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
+                                                <h6>{each.figure.quantity} remaining in stock</h6>
+                                            </div>
+                                            <div className="col-1 text-end">
+                                                <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}>Delete</button>
+                                            </div>
+                                            <div className="d-flex justify-content-end align-items-end">
+                                                Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}
+                                            </div>
                                         </div>
-                                        {each.figure.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
-                                        <h6>{each.figure.quantity} remaining in stock</h6>
                                     </div>
-                                    <div className="col-1 text-end">
-                                        <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}>Delete</button>
-                                    </div>
-                                    <div className="d-flex justify-content-end align-items-end">
-                                        Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
-                </div>
-                <div className="d-flex justify-content-end">
-                    <h6>Total: {cartTotal}</h6>
-                </div>
-                <div className="d-flex justify-content-end">
-                    <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}
-                        unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
-                        Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
-                    {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
-                </div>
-                </React.Fragment>
-                : <div>no items in your cart currently...</div> }
+                                )
+                            })}
+                        </div>
+                        <div className="d-flex justify-content-end">
+                            <h6>Total: {cartTotal}</h6>
+                        </div>
+                        <div className="d-flex justify-content-end">
+                            <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}
+                                unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
+                                Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
+                            {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
+                        </div>
+                    </React.Fragment>
+                    : <div>no items in your cart currently...</div>}
             </div>
         </React.Fragment>
     )

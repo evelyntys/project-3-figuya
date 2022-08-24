@@ -6,7 +6,7 @@ import UserContext from "../context/UserContext";
 
 export default class UserProvider extends React.Component {
     state = {
-        loggedIn: false
+        loggedIn: localStorage.getItem('refreshToken') ? true: false
     }
     render() {
         const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"

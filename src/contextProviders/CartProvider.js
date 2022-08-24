@@ -21,6 +21,9 @@ export default class CartProvider extends React.Component {
     render() {
         const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
         const cartContext = {
+            getState: () => {
+                return this.state.cartItems
+            },
             getCart: async () => {
                 // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
@@ -28,7 +31,10 @@ export default class CartProvider extends React.Component {
                 let cartResponse = await axios.get("cart");
                 let cart = cartResponse.data;
                 // console.log(cart);
-                return cart
+                await this.setState({
+                    cartItems: cart
+                })
+                return this.state.cartItems
             },
             // getCart: () => {
             //     return this.state.cartItems
@@ -53,10 +59,10 @@ export default class CartProvider extends React.Component {
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 let cartResponse = await axios.get( "cart/" + figureId + "/remove");
                 let newCart = cartResponse.data.cart;
-                // await this.setState({
-                //     cartItems: newCart
-                // });
-                return newCart
+                await this.setState({
+                    cartItems: newCart
+                });
+                return this.state.cartItems
                 // navigate(cart);
             },
             getTotal: (cart) => {

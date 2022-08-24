@@ -39,7 +39,6 @@ export default function Cart(props) {
 
     }
 
-    // setCart(cartContext.getCart());
     const [checkoutDetails, setCheckOutDetails] = React.useState({
         customer_email: "",
         block_street: "",
@@ -47,10 +46,6 @@ export default function Cart(props) {
         postal: ""
     });
     const [selectAddress, setSelectAddress] = React.useState(0);
-
-    // const getQuantites = () => {
-
-    // }
 
     const updateFormField = (e) => {
         setCheckOutDetails({
@@ -85,6 +80,7 @@ export default function Cart(props) {
 
     const removeFromCart = async (id) => {
         let newCart = await cartContext.removeItem(id);
+        console.log(newCart);
         await setCart(newCart);
         await setCartTotal(cartContext.getTotal(newCart));
     }

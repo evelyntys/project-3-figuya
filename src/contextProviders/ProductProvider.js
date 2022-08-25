@@ -5,14 +5,17 @@ import axios from 'axios'
 export default class ProductProvider extends React.Component {
   state = {
     products: [],
-    productToShow: []
+    productToShow: [],
+    figureTypes: []
   };
 
   async componentDidMount() {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
-    let response = await axios.get(url + "products");
-    this.setState({
-      products: response.data
+    let productResponse = await axios.get(url + "products");
+    let searchFieldsResponse = await axios.get(url + "products/fields");
+    await this.setState({
+      products: productResponse.data,
+      figureTypes: searchFieldsResponse.data.allFigureTypes
     })
   };
 
@@ -39,7 +42,8 @@ export default class ProductProvider extends React.Component {
           params: {
             name: searchBox.search,
             min_cost: searchBox.min_cost,
-            max_cost: searchBox.max_cost
+            max_cost: searchBox.max_cost,
+            figure_type_id: searchBox.figureType
           }
         });
         console.log(productResponse.data)
@@ -49,6 +53,10 @@ export default class ProductProvider extends React.Component {
           products: products
         });
         // return productContext.getProducts()
+      },
+      getFigureType: () => {
+        return this.state.figureTypes
+        console.log(this.state.figureTypes)
       }
     }
     return (

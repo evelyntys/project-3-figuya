@@ -11,16 +11,36 @@ export default function Products() {
         await cartContext.addToCart(figureId, 1);
         navigate("/cart")
     }
-    // const [cart, setCart] = React.useState([]);
-    // useEffect(() => {
-    //     const cartItems = cartContext.getCart();
-    //     setCart(cartItems)
-    // });
+    const [searchBox, setSearchBox] = React.useState({
+        search: "",
+        min_cost: "",
+        max_cost: "",
+        figureType: 0
+    })
+
+    const [figureTypes, setFigureTypes] = React.useState([]);
+
+    useEffect(() => {
+        async function defaultState() {
+            let figureTypes = productContext.getFigureType();
+            await setFigureTypes(figureTypes);
+        }
+        defaultState();
+    }, []);
 
     const showProduct = async (id) => {
+        console.log(productContext.getFigureType());
         let product = await productContext.showProduct(id);
         navigate(`/products/${id}`)
     }
+
+    const updateSearchField = (e) => {
+        setSearchBox({
+            ...searchBox,
+            [e.target.name]: e.target.value
+        })
+    }
+
     return (
         <React.Fragment>
             <div className="container">
@@ -41,8 +61,30 @@ export default function Products() {
                         <div className="container m-2" style={{ "border": "1px solid black", "borderRadius": "0.25rem" }}>
                             <div>
                                 <label>Search:</label>
-                                <input type="text" className="form-control" placeholder="e.g. one piece, levi ackerman" />
-                                <button className="btn btn-dark btn-sm">Search</button>
+                                <input type="text" className="form-control" value={searchBox.search}
+                                    placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
+                                    name="search" />
+                                <div className="row">
+                                    <div className="col">
+                                        <label>Min cost:</label>
+                                        <input type="text" className="form-control" value={searchBox.min_cost}
+                                            placeholder="0" onChange={updateSearchField}
+                                            name="min_cost" />
+                                        <div className="col">
+                                            <label>Max cost:</label>
+                                            <input type="text" className="form-control" value={searchBox.max_cost}
+                                                placeholder="100" onChange={updateSearchField}
+                                                name="max_cost" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <select className="form-select" value={searchBox.figureType} onChange={updateSearchField} name="figureType">
+                                    <option selected={searchBox.figureType == 0}>Choose a figure type</option>
+                                    {productContext.getFigureType().map(each => {
+                                        return <option value={each[0]} selected={searchBox.figureType == each[0]}>{each[1]}</option>
+                                    })}
+                                </select>
+                                <button className="btn btn-dark btn-sm my-2" onClick={() => productContext.filterProducts(searchBox)}>Search</button>
                             </div>
                         </div>
                     </div>

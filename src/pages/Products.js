@@ -15,7 +15,8 @@ export default function Products() {
         search: "",
         min_cost: "",
         max_cost: "",
-        figureType: 0
+        figureType: 0,
+        collection: 0
     })
 
     const [figureTypes, setFigureTypes] = React.useState([]);
@@ -52,7 +53,7 @@ export default function Products() {
                     </div>
                     <div className="col-12 col-md-9">
                         <div className="container">
-                            <h1>Products</h1>
+                            <h1>Showing {productContext.getProducts().length} product(s)</h1>
                         </div>
                     </div>
                 </div>
@@ -82,6 +83,12 @@ export default function Products() {
                                     <option selected={searchBox.figureType == 0}>Choose a figure type</option>
                                     {productContext.getFigureType().map(each => {
                                         return <option value={each[0]} selected={searchBox.figureType == each[0]}>{each[1]}</option>
+                                    })}
+                                </select>
+                                <select className="form-select" value={searchBox.collection} onChange={updateSearchField} name="collection">
+                                    <option selected={searchBox.collection == 0}>Choose a collection</option>
+                                    {productContext.getCollections().map(each => {
+                                        return <option value={each[0]} selected={searchBox.collection == each[0]}>{each[1]}</option>
                                     })}
                                 </select>
                                 <button className="btn btn-dark btn-sm my-2" onClick={() => productContext.filterProducts(searchBox)}>Search</button>

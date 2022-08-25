@@ -6,7 +6,8 @@ export default class ProductProvider extends React.Component {
   state = {
     products: [],
     productToShow: [],
-    figureTypes: []
+    figureTypes: [],
+    collections: []
   };
 
   async componentDidMount() {
@@ -15,7 +16,8 @@ export default class ProductProvider extends React.Component {
     let searchFieldsResponse = await axios.get(url + "products/fields");
     await this.setState({
       products: productResponse.data,
-      figureTypes: searchFieldsResponse.data.allFigureTypes
+      figureTypes: searchFieldsResponse.data.allFigureTypes,
+      collections: searchFieldsResponse.data.allCollections
     })
   };
 
@@ -43,7 +45,8 @@ export default class ProductProvider extends React.Component {
             name: searchBox.search,
             min_cost: searchBox.min_cost,
             max_cost: searchBox.max_cost,
-            figure_type_id: searchBox.figureType
+            figure_type_id: searchBox.figureType,
+            collection_id: searchBox.collection
           }
         });
         console.log(productResponse.data)
@@ -57,6 +60,9 @@ export default class ProductProvider extends React.Component {
       getFigureType: () => {
         return this.state.figureTypes
         console.log(this.state.figureTypes)
+      },
+      getCollections: () => {
+        return this.state.collections
       }
     }
     return (

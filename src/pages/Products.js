@@ -9,18 +9,6 @@ export default function Products() {
     const cartContext = React.useContext(CartContext);
     const navigate = useNavigate();
     
-    const addToCart = async (figureId) => {
-        const addToast = toast.loading("Adding to cart");
-        await cartContext.addToCart(figureId, 1);
-        toast.update(addToast, {
-            render: 'Added to cart',
-            type: "success",
-            isLoading: false,
-            autoClose: 1000
-        })
-        
-    }
-
     const [searchBox, setSearchBox] = React.useState({
         search: "",
         min_cost: "",
@@ -131,7 +119,7 @@ export default function Products() {
                                                 <span className="badge bg-dark mx-1">{each.manufacturer.manufacturer_name}</span>
                                             </div>
                                             <div className="d-flex justify-content-end align-items-end">
-                                                <button className="btn btn-sm" onClick={() => addToCart(each.id)}>Cart</button>
+                                                <button className="btn btn-sm" onClick={() => cartContext.addToCart(each.id, 1)}>Cart</button>
                                                 <button className="btn btn-sm" onClick={() => showProduct(each.id)}>View more</button>
                                             </div>
                                         </div>

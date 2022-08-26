@@ -2,6 +2,7 @@ import CartContext from "../context/CartContext";
 // import axios from 'axios';
 import React from 'react';
 import axios from "../AxiosInterceptor";
+import {toast} from 'react-toastify';
 export default class CartProvider extends React.Component {
     state = {
         cartItems: []
@@ -42,6 +43,8 @@ export default class CartProvider extends React.Component {
             addToCart: async (figureId, qty) => {
                 // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                const addToast = toast.loading("Adding to cart");
+                // await cartContext.addToCart(figureId, 1);
                 let cartResponse = await axios.get("cart/" + figureId + "/add", {
                     params: {
                         quantity: qty
@@ -51,13 +54,19 @@ export default class CartProvider extends React.Component {
                 await this.setState({
                     cartItems: newCart
                 });
+                toast.update(addToast, {
+                    render: 'Added to cart',
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 1000
+                })
                 return true
                 // return this.state.cartItems
             },
             removeItem: async (figureId) => {
                 // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                let cartResponse = await axios.get( "cart/" + figureId + "/remove");
+                let cartResponse = await axios.get("cart/" + figureId + "/remove");
                 let newCart = cartResponse.data.cart;
                 await this.setState({
                     cartItems: newCart
@@ -67,10 +76,10 @@ export default class CartProvider extends React.Component {
             },
             getTotal: (cart) => {
                 let total = 0;
-                for(let each of cart){
+                for (let each of cart) {
                     total += (each.figure.cost * each.quantity)
                 };
-                return ((total/100).toFixed(2))
+                return ((total / 100).toFixed(2))
             },
             getAddress: async () => {
                 // let accessToken = JSON.parse(localStorage.getItem('accessToken'));

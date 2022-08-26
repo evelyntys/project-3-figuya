@@ -1,6 +1,7 @@
 import React from 'react';
 import CartContext from '../context/CartContext';
 import ProductContext from '../context/ProductContext';
+import {ToastContainer} from 'react-toastify';
 
 export default function SingleProduct() {
     const productContext = React.useContext(ProductContext);
@@ -15,6 +16,7 @@ export default function SingleProduct() {
     return (
         <React.Fragment>
             <div className="container">
+                <ToastContainer/>
                 <img src={product.image_url} style={{ "height": "200px" }} />
                 <h3>{product.name}</h3>
                 {!product.launch_status ?

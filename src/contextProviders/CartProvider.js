@@ -51,7 +51,7 @@ export default class CartProvider extends React.Component {
                 await this.setState({
                     cartItems: newCart
                 });
-                return this.state.cartItems;
+                return true
                 // return this.state.cartItems
             },
             removeItem: async (figureId) => {

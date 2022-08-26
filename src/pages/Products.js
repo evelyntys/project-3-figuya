@@ -2,15 +2,25 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../context/CartContext';
 import ProductContext from '../context/ProductContext';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function Products() {
     const productContext = React.useContext(ProductContext);
     const cartContext = React.useContext(CartContext);
     const navigate = useNavigate();
+    
     const addToCart = async (figureId) => {
+        const addToast = toast.loading("Adding to cart");
         await cartContext.addToCart(figureId, 1);
-        navigate("/cart")
+        toast.update(addToast, {
+            render: 'Added to cart',
+            type: "success",
+            isLoading: false,
+            autoClose: 1000
+        })
+        
     }
+
     const [searchBox, setSearchBox] = React.useState({
         search: "",
         min_cost: "",
@@ -44,6 +54,7 @@ export default function Products() {
 
     return (
         <React.Fragment>
+            <ToastContainer position="bottom-right"/>
             <div className="container">
                 <div className="row my-2">
                     <div className="col-12 col-md-3">

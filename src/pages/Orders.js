@@ -26,7 +26,7 @@ export default function Orders() {
                                 <h4>Order #{each.id}</h4>
                                 <h5>Total amount: ${(each.total_cost / 100).toFixed(2)}</h5>
                                 <h6>Ordered on: {moment(each.ordered_date).format('DD/MM/YYYY, LTS')}</h6>
-                                <h6>{each.shipping_type.shipping_type} delivery</h6>
+                                <h6>{each.shipping_type.shipping_type} delivery (+${(each.shipping_type.amount/100).toFixed(2)})</h6>
                                 <p>delivers in {each.shipping_type.min_day} - {each.shipping_type.max_day} business days</p>
                             </div>
                             <div className="col-9">

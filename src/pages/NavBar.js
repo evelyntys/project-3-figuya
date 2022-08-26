@@ -22,7 +22,7 @@ import UserContext from '../context/UserContext';
 
 
 export default function NavigationBar() {
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
+    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     const cartContext = React.useContext(CartContext);
     const userContext = React.useContext(UserContext);
     // const navigate = useNavigate();

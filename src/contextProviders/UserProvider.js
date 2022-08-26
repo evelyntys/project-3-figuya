@@ -9,7 +9,7 @@ export default class UserProvider extends React.Component {
         loggedIn: localStorage.getItem('refreshToken') ? true: false
     }
     render() {
-        const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/"
+        const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
         // const navigate = useNavigate();
         const userContext = {
             login: async (user, password) => {
@@ -38,7 +38,6 @@ export default class UserProvider extends React.Component {
                 await this.setState({
                     loggedIn: false
                 });
-                return this.state.loggedIn
             },
             getUserState: () => {
                 return this.state.loggedIn

@@ -5,7 +5,6 @@ import OrderContext from '../context/OrderContext';
 export default class OrderProvider extends React.Component {
 
     render() {
-        const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us62.gitpod.io/api/";
 
         const orderContext = {
             getOrders: async (Id) => {

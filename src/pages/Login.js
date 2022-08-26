@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login(props) {
     const navigate = useNavigate();
@@ -36,8 +38,23 @@ export default function Login(props) {
     // };
 
     const Login = async () => {
-        await userContext.login(loginState.user, loginState.password);
-        navigate("/products");
+        const loginToast = toast.loading("Logging you in...");
+        let validLogin = await userContext.login(loginState.user, loginState.password);
+        console.log(validLogin);
+        if (validLogin) {
+            toast.update(loginToast, {
+                render: "Logged in successfully",
+                type: "success",
+                isLoading: false
+            })
+            navigate("/products");
+        } else {
+            toast.update(loginToast, {
+                render: "Invalid credentials",
+                type: "error",
+                isLoading: false
+            });
+        }
     }
 
     const GetNewToken = async () => {
@@ -86,11 +103,9 @@ export default function Login(props) {
                         <label>Password:</label>
                         <input type="password" name="password" className="form-control" value={loginState.password} onChange={updateFormField} />
                     </div>
-                    <button className="btn btn-dark" onClick={Login}>Login</button>
+                    <button className="btn btn-dark my-2" onClick={Login}>Login</button>
+                    <ToastContainer />
                 </div>
-                <button className="btn btn-primary" onClick={GetProfile}>Profile</button>
-                <button className="btn btn-danger" onClick={Checkout}>Checkout</button>
-                <button className="btn btn-warning" onClick={GetNewToken}>Refresh Token</button>
             </div>
         </React.Fragment>
     )

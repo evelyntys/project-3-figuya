@@ -88,6 +88,10 @@ export default function Login(props) {
         });
         console.log(checkoutResponse.data);
         window.location.href = checkoutResponse.data.url
+    };
+
+    const directToRegister = () => {
+        navigate("/register")
     }
 
     return (
@@ -106,6 +110,7 @@ export default function Login(props) {
                     <button className="btn btn-dark my-2" onClick={Login}>Login</button>
                     <ToastContainer />
                 </div>
+                Don't have an account? <span className="to-register" onClick={directToRegister}>Register</span> for an account now!
             </div>
         </React.Fragment>
     )

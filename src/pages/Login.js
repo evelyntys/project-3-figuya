@@ -43,16 +43,20 @@ export default function Login(props) {
         console.log(validLogin);
         if (validLogin) {
             toast.update(loginToast, {
-                render: "Logged in successfully",
+                render: `Welcome back, ${validLogin}`,
                 type: "success",
-                isLoading: false
-            })
-            navigate("/products");
+                isLoading: false,
+                autoClose: 2000
+            });
+            setTimeout(function(){
+                navigate("/products");
+            }, 2000)
         } else {
             toast.update(loginToast, {
                 render: "Invalid credentials",
                 type: "error",
-                isLoading: false
+                isLoading: false,
+                autoClose: 2000
             });
         }
     }

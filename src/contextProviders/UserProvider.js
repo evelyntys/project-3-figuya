@@ -43,8 +43,7 @@ export default class UserProvider extends React.Component {
                         first_name: tokenData.first_name,
                         last_name: tokenData.last_name
                     });
-                    return true
-                    console.log("here => ")
+                    return (this.state.first_name + " " + this.state.last_name)
                 } catch (e) {
                     console.log("there =>")
                     return false

@@ -22,6 +22,9 @@ import axios from 'axios';
 import UserContext from './context/UserContext';
 import UserProvider from './contextProviders/UserProvider';
 import SingleProduct from './pages/SingleProduct';
+import Landing from './pages/Landing';
+import CancelCheckout from './pages/CancelCheckout';
+import SuccessCheckout from './pages/SuccessCheckout';
 
 
 export default class App extends React.Component {
@@ -34,7 +37,8 @@ export default class App extends React.Component {
             <CartProvider>
               <NavigationBar />
               <Routes>
-                <Route path="/" element={<Login url={url} />} />
+                <Route path="/" element={<Landing url={url} />} />
+                <Route path="/login" element={<Login url={url} />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/products" element={
                   <ProductProvider>
@@ -54,6 +58,8 @@ export default class App extends React.Component {
                 <SingleProduct/>
                 </ProductProvider>
                 }/>
+                <Route path="/checkout/cancel" element={<CancelCheckout/>} />
+                <Route path="/checkout/success" element={<SuccessCheckout />} />
               </Routes>
             </CartProvider>
           </UserProvider>

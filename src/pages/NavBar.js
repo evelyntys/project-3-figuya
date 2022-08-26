@@ -63,7 +63,7 @@ export default function NavigationBar() {
                             {userContext.getUserState() ?
                                 <React.Fragment>
                                     <img src={require("../images/user.png")} style={{ "height": "30px" }} />
-                                    <NavDropdown title="User" id="collasible-nav-dropdown">
+                                    <NavDropdown title={userContext.getName()} id="collasible-nav-dropdown">
                                         <NavDropdown.Item as={NavLink} to="/profile">Profile</NavDropdown.Item>
                                         <NavDropdown.Item as={NavLink} to="/orders">
                                             Orders

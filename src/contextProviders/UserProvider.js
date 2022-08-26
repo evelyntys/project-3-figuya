@@ -8,14 +8,17 @@ import { toast, ToastContainer } from "react-toastify";
 
 export default class UserProvider extends React.Component {
     state = {
-        refreshToken: localStorage.getItem('refreshToken') ? true : false,
-        loggedIn: false
+        loggedIn: false,
+        first_name: "",
+        last_name: ""
     }
 
     async componentDidMount() {
         if (localStorage.getItem('refreshToken')) {
             await this.setState({
-                loggedIn: true
+                loggedIn: true,
+                first_name: JSON.parse(localStorage.getItem('first_name')),
+                last_name: JSON.parse(localStorage.getItem('last_name'))
             })
         }
     }
@@ -33,12 +36,14 @@ export default class UserProvider extends React.Component {
                     let tokenData = loginResponse.data;
                     await localStorage.setItem('accessToken', JSON.stringify(tokenData.accessToken));
                     await localStorage.setItem('refreshToken', JSON.stringify(tokenData.refreshToken));
+                    await localStorage.setItem('first_name', JSON.stringify(tokenData.first_name));
+                    await localStorage.setItem('last_name', JSON.stringify(tokenData.last_name));
                     await this.setState({
-                        loggedIn: true
+                        loggedIn: true,
+                        first_name: tokenData.first_name,
+                        last_name: tokenData.last_name
                     });
-                    console.log(loginResponse.data);
                     return true
-                    console.log(this.state.loggedIn);
                     console.log("here => ")
                 } catch (e) {
                     console.log("there =>")
@@ -59,6 +64,9 @@ export default class UserProvider extends React.Component {
             },
             getUserState: () => {
                 return this.state.loggedIn
+            },
+            getName: () => {
+                return this.state.first_name
             }
         }
         return (

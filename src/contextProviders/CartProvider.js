@@ -18,7 +18,7 @@ export default class CartProvider extends React.Component {
         console.log(decoded);
         if (decoded.exp * 1000 < currentDate.getTime()) {
             const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-            return axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/users/refresh", {
+            return axios.post("https://etys-figuya-express.herokuapp.com/api/users/refresh", {
                 refreshToken
             }).then(res => {
                 if (res.status === 200) {
@@ -27,7 +27,7 @@ export default class CartProvider extends React.Component {
                 }
             })
         };
-        const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
+        const url = "https://etys-figuya-express.herokuapp.com/api/"
         axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
         let cartResponse = await axios.get(url + "cart");
         let cart = cartResponse.data;
@@ -37,7 +37,7 @@ export default class CartProvider extends React.Component {
     }
 
     render() {
-        const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
+        const url = "https://etys-figuya-express.herokuapp.com/api/"
         const cartContext = {
             getState: () => {
                 return this.state.cartItems

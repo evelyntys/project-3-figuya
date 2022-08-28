@@ -11,7 +11,7 @@ export default class ProductProvider extends React.Component {
   };
 
   async componentDidMount() {
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
+    const url = "https://etys-figuya-express.herokuapp.com/api/"
     let productResponse = await axios.get(url + "products");
     let searchFieldsResponse = await axios.get(url + "products/fields");
     await this.setState({
@@ -22,7 +22,7 @@ export default class ProductProvider extends React.Component {
   };
 
   render() {
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
+    const url = "https://etys-figuya-express.herokuapp.com/api/"
     const productContext = {
       getProducts: () => {
         return this.state.products

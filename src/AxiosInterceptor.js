@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const customAxios = axios.create({
-    baseURL: "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
+    baseURL: "https://etys-figuya-express.herokuapp.com/api/"
 });
 
 const requestHandle = request => {

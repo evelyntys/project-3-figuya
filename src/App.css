@@ -54,3 +54,14 @@
   color: #FFC276;
   text-decoration: underline;
 }
+
+.bottom-nav{
+  position: fixed;
+  height: 8vh;
+  background-color: #FFC276;
+  bottom: 0px;
+}
+
+.translate-middle{
+  transform: translate(-50%, -20%) !important;
+}

@@ -44,14 +44,14 @@ export default function NavigationBar() {
 
     return (
         
-            <Navbar collapseOnSelect expand="lg" className="navbar-color">
+            <Navbar collapseOnSelect expand="lg" className="navbar-color d-none d-lg-block">
                 <div className="container-fluid">
-                    <Navbar.Brand className="me-auto" as={NavLink} to="/">
+                    <Navbar.Brand className="mx-auto me-lg-auto" as={NavLink} to="/">
                         <img src={require("../images/logo.png")} style={{ "height": "40px" }} />
                         FIGU屋
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" className="d-none" />
+                    <Navbar.Collapse className="d-none d-lg-block" id="responsive-navbar-nav">
                         <Nav className="ms-auto me-5">
                             {/* <CartContext.Consumer> */}
                             <Nav.Link as={NavLink} to="/cart" className="position-relative"><i class="bi bi-cart4"></i>

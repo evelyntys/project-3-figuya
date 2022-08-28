@@ -26,6 +26,7 @@ import SingleProduct from './pages/SingleProduct';
 import Landing from './pages/Landing';
 import CancelCheckout from './pages/CancelCheckout';
 import SuccessCheckout from './pages/SuccessCheckout';
+import MobileNav from './pages/MobileNav';
 
 
 export default class App extends React.Component {
@@ -33,10 +34,10 @@ export default class App extends React.Component {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     return (
       <React.Fragment>
-        <Router>
-          <UserProvider>
-            <CartProvider>
-              <NavigationBar />
+        <UserProvider>
+          <CartProvider>
+            <Router>
+            <NavigationBar />
               <Routes>
                 <Route path="/" element={<Landing url={url} />} />
                 <Route path="/login" element={<Login url={url} />} />
@@ -55,16 +56,17 @@ export default class App extends React.Component {
                 } />
                 <Route path="/register" element={<Register url={url} />} />
                 <Route path="/products/:figureId" element=
-                {<ProductProvider>
-                <SingleProduct/>
-                </ProductProvider>
-                }/>
-                <Route path="/checkout/cancel" element={<CancelCheckout/>} />
+                  {<ProductProvider>
+                    <SingleProduct />
+                  </ProductProvider>
+                  } />
+                <Route path="/checkout/cancel" element={<CancelCheckout />} />
                 <Route path="/checkout/success" element={<SuccessCheckout />} />
               </Routes>
-            </CartProvider>
-          </UserProvider>
-        </Router>
+              <MobileNav />
+            </Router>
+          </CartProvider>
+        </UserProvider>
       </React.Fragment>
     )
   }

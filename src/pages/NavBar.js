@@ -44,7 +44,7 @@ export default function NavigationBar() {
 
     return (
         
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar collapseOnSelect expand="lg" className="navbar-color">
                 <div className="container-fluid">
                     <Navbar.Brand className="me-auto" as={NavLink} to="/">
                         <img src={require("../images/logo.png")} style={{ "height": "40px" }} />
@@ -54,7 +54,7 @@ export default function NavigationBar() {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ms-auto me-5">
                             {/* <CartContext.Consumer> */}
-                            <Nav.Link as={NavLink} to="/cart" className="position-relative">Cart
+                            <Nav.Link as={NavLink} to="/cart" className="position-relative"><i class="bi bi-cart4"></i>
                                 {
                                     userContext.getUserState()? (
                                     cartContext.getState().length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -65,7 +65,7 @@ export default function NavigationBar() {
                             </Nav.Link>
                             <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
                             {userContext.getUserState() ?
-                                <React.Fragment>
+                                <React.Fragment className="d-none d-lg-block">
                                     <img src={require("../images/user.png")} style={{ "height": "30px" }} />
                                     <NavDropdown title={userContext.getName()} id="collasible-nav-dropdown">
                                         <NavDropdown.Item as={NavLink} to="/profile" onClick={() => userContext.getProfile()}>Profile</NavDropdown.Item>

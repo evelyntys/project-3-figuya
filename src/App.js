@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'
+import './App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // import CartProvider from './contextProviders/CartProvider';
 // import NavigationBar from './pages/NavBar';

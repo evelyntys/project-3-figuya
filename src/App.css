@@ -1,5 +1,5 @@
 .dropdown-menu {
-  min-width:inherit;
+  min-width: inherit;
 }
 
 .to-register {
@@ -7,6 +7,50 @@
   cursor: pointer;
 }
 
-.error-msg{
+.error-msg {
   color: red;
+}
+
+.navbar-color {
+  background-color: #FFC276;
+  color: #66402B
+}
+
+.card-border {
+  border: 1px solid #FFC276;
+}
+
+.card-img {
+  height: 10rem;
+  width: 100%;
+  object-fit: contain;
+  border-bottom: 1px solid #FFC276;
+  border-radius: 0px;
+
+}
+
+.card-btn {
+  background-color: #FFECD3;
+  color: #66402B;
+  border-color: #66402B;
+}
+
+.main-btn {
+  background-color: #FFECD3;
+  color: #66402B;
+  border-color: #66402B;
+}
+
+.search-box {
+  border: 1px solid #FFC276;
+  border-radius: 0.25rem;
+}
+
+.view-more {
+  cursor: pointer
+}
+
+.view-more:hover{
+  color: #FFC276;
+  text-decoration: underline;
 }

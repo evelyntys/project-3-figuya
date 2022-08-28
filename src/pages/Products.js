@@ -8,7 +8,7 @@ export default function Products() {
     const productContext = React.useContext(ProductContext);
     const cartContext = React.useContext(CartContext);
     const navigate = useNavigate();
-    
+
     const [searchBox, setSearchBox] = React.useState({
         search: "",
         min_cost: "",
@@ -42,7 +42,7 @@ export default function Products() {
 
     return (
         <React.Fragment>
-            <ToastContainer position="bottom-right"/>
+            <ToastContainer position="bottom-right" />
             <div className="container">
                 <div className="row my-2">
                     <div className="col-12 col-md-3">
@@ -58,7 +58,7 @@ export default function Products() {
                 </div>
                 <div className="row my-2">
                     <div className="col-12 col-md-3">
-                        <div className="container m-2" style={{ "border": "1px solid black", "borderRadius": "0.25rem" }}>
+                        <div className="container m-2 search-box">
                             <div>
                                 <label>Search:</label>
                                 <input type="text" className="form-control" value={searchBox.search}
@@ -90,7 +90,7 @@ export default function Products() {
                                         return <option value={each[0]} selected={searchBox.collection == each[0]}>{each[1]}</option>
                                     })}
                                 </select>
-                                <button className="btn btn-dark btn-sm my-2" onClick={() => productContext.filterProducts(searchBox)}>Search</button>
+                                <button className="btn main-btn btn-sm my-2" onClick={() => productContext.filterProducts(searchBox)}>Search</button>
                             </div>
                         </div>
                     </div>
@@ -98,19 +98,17 @@ export default function Products() {
                         <div className="container d-flex justify-content-evenly flex-wrap">
                             {productContext.getProducts().map(each => {
                                 return (
-                                    <div className="card my-2" style={{ "width": "16rem", "border": "1px solid black" }}>
-                                        <img src={each.image_url} className="class-img-top" style={{
-                                            "height": "10rem",
-                                            "width": "100%", "objectFit": "contain", "border": "1px solid black"
-                                        }} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{each.name}</h5>
+                                    <div className="card my-2 card-border" style={{ "width": "16rem" }}>
+                                        <img src={each.image_url} className="class-img-top card-img" />
+                                        <div className="card-body pb-0">
+                                        {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
+                                            <h5 className="card-title view-more" onClick={() => showProduct(each.id)}>{each.name}</h5>
                                             <span className="card-text d-inline-block text-truncate"
                                                 style={{ "maxWidth": "100%", "maxHeight": "200px" }}>
                                                 {each.description}</span><br />
                                             <h6>${(each.cost / 100).toFixed(2)}</h6>
-                                            {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
                                             <div>
+                                                <span><i class="bi bi-tags-fill"></i></span>
                                                 <span className="badge bg-dark mx-1">{each.figure_type.figure_type} figure</span>
                                                 <span className="badge bg-dark mx-1">{each.series.series_name}</span>
                                                 <span className="badge bg-dark mx-1">{each.collection.collection_name}</span>
@@ -119,10 +117,9 @@ export default function Products() {
                                                 })}
                                                 <span className="badge bg-dark mx-1">{each.manufacturer.manufacturer_name}</span>
                                             </div>
-                                            <div className="d-flex justify-content-end align-items-end">
-                                                <button className="btn btn-sm" onClick={() => cartContext.addToCart(each.id, 1)}>Cart</button>
-                                                <button className="btn btn-sm" onClick={() => showProduct(each.id)}>View more</button>
-                                            </div>
+                                        </div>
+                                        <div className="d-flex justify-content-end align-items-end my-1">
+                                            <button className="btn btn-sm card-btn mx-1" onClick={() => cartContext.addToCart(each.id, 1)}><i class="bi bi-cart-plus-fill"></i></button>
                                         </div>
                                     </div>
                                 )

@@ -50,18 +50,59 @@
   cursor: pointer
 }
 
-.view-more:hover{
+.view-more:hover {
   color: #FFC276;
   text-decoration: underline;
 }
 
-.bottom-nav{
+.bottom-nav {
   position: fixed;
   height: 8vh;
   background-color: #FFC276;
   bottom: 0px;
 }
 
-.translate-middle{
+.translate-middle {
   transform: translate(-50%, -20%) !important;
+}
+
+.cart-img {
+  height: 150px;
+  object-fit: cover;
+  width: 90px;
+}
+
+.list-group-item {
+  border-top: 1px solid #ced4da;
+}
+
+.cart-preorder {
+  margin-left: 12px;
+}
+
+.cart-name-mob {
+  text-transform: capitalize;
+}
+
+.form-control {
+  height: 30px;
+}
+
+.mob-nav {
+  border: 0px;
+}
+
+.mob-nav:hover {
+  border: 0px;
+}
+
+@media screen and (min-width: 768px) {
+  .cart-img {
+    height: 150px;
+    width: auto;
+  }
+
+  .cart-name {
+    font-size: 15px;
+  }
 }

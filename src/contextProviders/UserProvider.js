@@ -4,13 +4,15 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { toast, ToastContainer } from "react-toastify";
+import jwt_decode from "jwt-decode";
 
 
 export default class UserProvider extends React.Component {
     state = {
         loggedIn: false,
         first_name: "",
-        last_name: ""
+        last_name: "",
+        user: "",
     }
 
     async componentDidMount() {
@@ -20,7 +22,22 @@ export default class UserProvider extends React.Component {
                 first_name: JSON.parse(localStorage.getItem('first_name')),
                 last_name: JSON.parse(localStorage.getItem('last_name'))
             })
+        };
+        let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+        let decoded = jwt_decode(accessToken);
+        let currentDate = new Date();
+        if (decoded.exp * 1000 < currentDate.getTime()) {
+            const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
+            return axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/users/refresh", {
+                refreshToken
+            }).then(res => {
+                if (res.status === 200) {
+                    localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
+                    axios.defaults.headers.common['Authorization'] = 'Bearer' + res.data.accessToken;
+                }
+            })
         }
+
     }
 
     render() {
@@ -66,6 +83,15 @@ export default class UserProvider extends React.Component {
             },
             getName: () => {
                 return this.state.first_name
+            },
+            getProfile: async () => {
+                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                let userProfileResponse = await axios.get(url + "users/profile");
+                await this.setState({
+                    user: userProfileResponse.data
+                });
+                return userProfileResponse.data
             }
         }
         return (

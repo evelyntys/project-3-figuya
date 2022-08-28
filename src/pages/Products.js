@@ -79,13 +79,13 @@ export default function Products() {
                                     </div>
                                 </div>
                                 <select className="form-select" value={searchBox.figureType} onChange={updateSearchField} name="figureType">
-                                    <option selected={searchBox.figureType == 0}>Choose a figure type</option>
+                                    <option value={0} selected={searchBox.figureType == 0}>Choose a figure type</option>
                                     {productContext.getFigureType().map(each => {
                                         return <option value={each[0]} selected={searchBox.figureType == each[0]}>{each[1]}</option>
                                     })}
                                 </select>
                                 <select className="form-select" value={searchBox.collection} onChange={updateSearchField} name="collection">
-                                    <option selected={searchBox.collection == 0}>Choose a collection</option>
+                                    <option value={0} selected={searchBox.collection == 0}>Choose a collection</option>
                                     {productContext.getCollections().map(each => {
                                         return <option value={each[0]} selected={searchBox.collection == each[0]}>{each[1]}</option>
                                     })}
@@ -111,6 +111,7 @@ export default function Products() {
                                             <h6>${(each.cost / 100).toFixed(2)}</h6>
                                             {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
                                             <div>
+                                                <span className="badge bg-dark mx-1">{each.figure_type.figure_type} figure</span>
                                                 <span className="badge bg-dark mx-1">{each.series.series_name}</span>
                                                 <span className="badge bg-dark mx-1">{each.collection.collection_name}</span>
                                                 {each.series.mediums.map(eachMedium => {

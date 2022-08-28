@@ -36,7 +36,11 @@ export default function NavigationBar() {
         await localStorage.removeItem('accessToken');
         await localStorage.removeItem('refreshToken');
         // navigate("/")
-      }
+      };
+      
+    //   const getProfile = () => {
+
+    //   }
 
     return (
         
@@ -64,7 +68,7 @@ export default function NavigationBar() {
                                 <React.Fragment>
                                     <img src={require("../images/user.png")} style={{ "height": "30px" }} />
                                     <NavDropdown title={userContext.getName()} id="collasible-nav-dropdown">
-                                        <NavDropdown.Item as={NavLink} to="/profile">Profile</NavDropdown.Item>
+                                        <NavDropdown.Item as={NavLink} to="/profile" onClick={() => userContext.getProfile()}>Profile</NavDropdown.Item>
                                         <NavDropdown.Item as={NavLink} to="/orders">
                                             Orders
                                         </NavDropdown.Item>

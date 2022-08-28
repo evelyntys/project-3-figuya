@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link, NavLink, useNavigate } from 'react-router-dom';
-import Home from './Home';
 import Products from './Products';
 import Cart from './Cart';
 import Profile from './Profile';
@@ -65,7 +64,7 @@ export default function NavigationBar() {
                             </Nav.Link>
                             <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
                             {userContext.getUserState() ?
-                                <React.Fragment className="d-none d-lg-block">
+                                <React.Fragment>
                                     <img src={require("../images/user.png")} style={{ "height": "30px" }} />
                                     <NavDropdown title={userContext.getName()} id="collasible-nav-dropdown">
                                         <NavDropdown.Item as={NavLink} to="/profile" onClick={() => userContext.getProfile()}>Profile</NavDropdown.Item>

@@ -96,6 +96,39 @@
   border: 0px;
 }
 
+.header-wrapper{
+  position: relative;
+  height: 400px;
+  width: 100vw;
+}
+
+.header-banner{
+  height: 400px;
+  width: 100vw;
+  object-fit: cover;
+  position: absolute;
+}
+
+.overlay{
+  color: white;
+  position: relative;
+  height: 250px;
+  width: 400px;
+  left: 720px;
+  top: 50px;
+  font-size: 40px;
+}
+
+.header-btn{
+  background-color: white;
+
+}
+
+.landing-box{
+  border: 1px solid black;
+  text-align: center;
+}
+
 @media screen and (min-width: 768px) {
   .cart-img {
     height: 150px;

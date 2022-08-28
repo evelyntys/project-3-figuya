@@ -14,7 +14,6 @@ import CartProvider from './contextProviders/CartProvider';
 import OrderProvider from './contextProviders/OrderProvider';
 import CartContext from './context/CartContext';
 import NavigationBar from './pages/NavBar';
-import Home from './pages/Home';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
@@ -41,7 +40,6 @@ export default class App extends React.Component {
               <Routes>
                 <Route path="/" element={<Landing url={url} />} />
                 <Route path="/login" element={<Login url={url} />} />
-                <Route path="/home" element={<Home />} />
                 <Route path="/products" element={
                   <ProductProvider>
                     <Products />

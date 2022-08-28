@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
-import Home from './Home';
 import Products from './Products';
 import Cart from './Cart';
 import Profile from './Profile';

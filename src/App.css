@@ -138,6 +138,11 @@
   text-transform: capitalize;
 }
 
+.desktop-single-product{
+  width: 100%;
+  border: 1px solid black;
+}
+
 @media screen and (min-width: 768px) {
   .cart-img {
     height: 150px;

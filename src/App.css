@@ -60,6 +60,7 @@
   height: 8vh;
   background-color: #FFC276;
   bottom: 0px;
+  margin-top: 8vh;
 }
 
 .translate-middle {
@@ -124,9 +125,17 @@
 
 }
 
+.detail-text{
+  text-transform: capitalize;
+}
+
 .landing-box{
   border: 1px solid black;
   text-align: center;
+}
+
+.product-name{
+  text-transform: capitalize;
 }
 
 @media screen and (min-width: 768px) {

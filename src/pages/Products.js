@@ -45,19 +45,19 @@ export default function Products() {
             <ToastContainer position="bottom-right" />
             <div className="container">
                 <div className="row my-2">
-                    <div className="col-12 col-md-3">
+                    <div className="col-12 col-lg-3">
                         <div className="container">
                             <h1>Search</h1>
                         </div>
                     </div>
-                    <div className="col-12 col-md-9">
+                    <div className="col-12 col-lg-9">
                         <div className="container">
                             <h1>Showing {productContext.getProducts().length} product(s)</h1>
                         </div>
                     </div>
                 </div>
                 <div className="row my-2">
-                    <div className="col-12 col-md-3">
+                    <div className="col-12 col-lg-3">
                         <div className="container m-2 search-box">
                             <div>
                                 <label>Search:</label>
@@ -94,7 +94,7 @@ export default function Products() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-9">
+                    <div className="col-12 col-lg-9">
                         <div className="container d-flex justify-content-evenly flex-wrap">
                             {productContext.getProducts().map(each => {
                                 return (

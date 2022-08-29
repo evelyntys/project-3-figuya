@@ -14,7 +14,11 @@ export default function Products() {
         min_cost: "",
         max_cost: "",
         figureType: 0,
-        collection: 0
+        collection: 0,
+        min_height: "",
+        max_height: "",
+        blind_boxes: "",
+        launch_status: ""
     })
 
     const [figureTypes, setFigureTypes] = React.useState([]);
@@ -46,14 +50,22 @@ export default function Products() {
             min_cost: "",
             max_cost: "",
             figureType: 0,
-            collection: 0
+            collection: 0,
+            min_height: "",
+            max_height: "",
+            blind_boxes: "",
+            launch_status: ""
         });
         const emptySearch = {
             search: "",
             min_cost: "",
             max_cost: "",
             figureType: 0,
-            collection: 0
+            collection: 0,
+            min_height: "",
+            max_height: "",
+            blind_boxes: "",
+            launch_status: ""
         };
         await productContext.filterProducts(emptySearch);
     }
@@ -108,6 +120,40 @@ export default function Products() {
                                         return <option value={each[0]} selected={searchBox.collection == each[0]}>{each[1]}</option>
                                     })}
                                 </select>
+                                <div className="col">
+                                    <label>Min height:</label>
+                                    <input type="text" className="form-control" value={searchBox.min_height}
+                                        placeholder="0" onChange={updateSearchField}
+                                        name="min_height" />
+                                    <div className="col">
+                                        <label>Max height:</label>
+                                        <input type="text" className="form-control" value={searchBox.max_height}
+                                            placeholder="100" onChange={updateSearchField}
+                                            name="max_height" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label>Preorder?</label>
+                                    <label>
+                                        <input type="radio" className="form-check-inline" name="launch_status" 
+                                        value="0" onChange={updateSearchField} />
+                                        Yes</label>
+                                    <label>
+                                        <input type="radio" className="form-check-inline" name="launch_status" 
+                                        value="1"  onChange={updateSearchField} />
+                                        No</label>
+                                </div>
+                                <div>
+                                    <label>Blindbox?</label>
+                                    <label>
+                                        <input type="radio" className="form-check-inline" name="blind_box" 
+                                        value="1" onChange={updateSearchField} />
+                                        Yes</label>
+                                    <label>
+                                        <input type="radio" className="form-check-inline" name="blind_box" 
+                                        value="0"  onChange={updateSearchField} />
+                                        No</label>
+                                </div>
                                 <button className="btn main-btn btn-sm my-2" onClick={() => productContext.filterProducts(searchBox)}>Search</button>
                                 <button className="btn main-btn btn-sm my-2" onClick={resetSearch}>Reset</button>
                             </div>

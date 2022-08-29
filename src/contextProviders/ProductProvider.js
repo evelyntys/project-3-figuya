@@ -11,7 +11,7 @@ export default class ProductProvider extends React.Component {
   };
 
   async componentDidMount() {
-    const url = "https://etys-figuya-express.herokuapp.com/api/"
+    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     let productResponse = await axios.get(url + "products");
     let searchFieldsResponse = await axios.get(url + "products/fields");
     await this.setState({
@@ -22,7 +22,7 @@ export default class ProductProvider extends React.Component {
   };
 
   render() {
-    const url = "https://etys-figuya-express.herokuapp.com/api/"
+    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     const productContext = {
       getProducts: () => {
         return this.state.products
@@ -46,7 +46,11 @@ export default class ProductProvider extends React.Component {
             min_cost: searchBox.min_cost,
             max_cost: searchBox.max_cost,
             figure_type_id: searchBox.figureType,
-            collection_id: searchBox.collection
+            collection_id: searchBox.collection,
+            min_height: searchBox.min_height,
+            max_height: searchBox.max_height,
+            blind_box: searchBox.blind_box,
+            launch_status: searchBox.launch_status
           }
         });
         console.log(productResponse.data)

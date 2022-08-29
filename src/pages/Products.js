@@ -17,8 +17,9 @@ export default function Products() {
         collection: 0,
         min_height: "",
         max_height: "",
-        blind_boxes: "",
-        launch_status: ""
+        blind_box: "a",
+        launch_status: "a",
+        series:""
     })
 
     const [figureTypes, setFigureTypes] = React.useState([]);
@@ -53,8 +54,9 @@ export default function Products() {
             collection: 0,
             min_height: "",
             max_height: "",
-            blind_boxes: "",
-            launch_status: ""
+            blind_box: "a",
+            launch_status: "a",
+            series:""
         });
         const emptySearch = {
             search: "",
@@ -64,8 +66,9 @@ export default function Products() {
             collection: 0,
             min_height: "",
             max_height: "",
-            blind_boxes: "",
-            launch_status: ""
+            blind_box: "a",
+            launch_status: "a",
+            series: ""
         };
         await productContext.filterProducts(emptySearch);
     }
@@ -94,6 +97,10 @@ export default function Products() {
                                 <input type="text" className="form-control" value={searchBox.search}
                                     placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
                                     name="search" />
+                                    <label>Series:</label>
+                                <input type="text" className="form-control" value={searchBox.series}
+                                    placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
+                                    name="series" />
                                 <div className="row">
                                     <div className="col">
                                         <label>Min cost:</label>
@@ -136,23 +143,31 @@ export default function Products() {
                                     <label>Preorder?</label>
                                     <label>
                                         <input type="radio" className="form-check-inline" name="launch_status" 
-                                        value="0" onChange={updateSearchField} />
+                                        value="0" onChange={updateSearchField} checked={searchBox.launch_status == "0"}/>
                                         Yes</label>
                                     <label>
                                         <input type="radio" className="form-check-inline" name="launch_status" 
-                                        value="1"  onChange={updateSearchField} />
+                                        value="1"  onChange={updateSearchField} checked={searchBox.launch_status == "1"}/>
                                         No</label>
+                                        <label>
+                                        <input type="radio" className="form-check-inline" name="launch_status" 
+                                        value="a"  onChange={updateSearchField} checked={searchBox.launch_status == "a"} />
+                                        Any</label>
                                 </div>
                                 <div>
                                     <label>Blindbox?</label>
                                     <label>
                                         <input type="radio" className="form-check-inline" name="blind_box" 
-                                        value="1" onChange={updateSearchField} />
+                                        value="1" onChange={updateSearchField} checked={searchBox.blind_box = "1"} />
                                         Yes</label>
                                     <label>
                                         <input type="radio" className="form-check-inline" name="blind_box" 
-                                        value="0"  onChange={updateSearchField} />
+                                        value="0"  onChange={updateSearchField}  checked={searchBox.blind_box = "0"} />
                                         No</label>
+                                        <label>
+                                        <input type="radio" className="form-check-inline" name="blind_box" 
+                                        value="a"  onChange={updateSearchField}  checked={searchBox.blind_box = "a"} />
+                                        Any</label>
                                 </div>
                                 <button className="btn main-btn btn-sm my-2" onClick={() => productContext.filterProducts(searchBox)}>Search</button>
                                 <button className="btn main-btn btn-sm my-2" onClick={resetSearch}>Reset</button>

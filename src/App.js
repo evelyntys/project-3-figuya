@@ -34,36 +34,39 @@ export default class App extends React.Component {
     return (
       <React.Fragment>
         <UserProvider>
-          <CartProvider>
-            <Router>
-            <NavigationBar />
-              <Routes>
-                <Route path="/" element={<Landing url={url} />} />
-                <Route path="/login" element={<Login url={url} />} />
-                <Route path="/products" element={
-                  <ProductProvider>
-                    <Products />
-                  </ProductProvider>} />
-                <Route path="/cart" element={
-                  <Cart url={url} />
-                } />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/orders" element={<OrderProvider>
-                  <Orders />
-                </OrderProvider>
-                } />
-                <Route path="/register" element={<Register url={url} />} />
-                <Route path="/products/:figureId" element=
-                  {<ProductProvider>
-                    <SingleProduct />
-                  </ProductProvider>
-                  } />
-                <Route path="/checkout/cancel" element={<CancelCheckout />} />
-                <Route path="/checkout/success" element={<SuccessCheckout />} />
-              </Routes>
-              <MobileNav />
-            </Router>
-          </CartProvider>
+          <ProductProvider>
+            <CartProvider>
+              <OrderProvider>
+                <Router>
+                  <NavigationBar />
+                  <Routes>
+                    <Route path="/" element={<Landing url={url} />} />
+                    <Route path="/login" element={<Login url={url} />} />
+                    <Route path="/products" element={
+                      <ProductProvider>
+                        <Products />
+                      </ProductProvider>} />
+                    <Route path="/cart" element={
+                      <Cart url={url} />
+                    } />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/orders" element={
+                      <Orders />
+
+                    } />
+                    <Route path="/register" element={<Register url={url} />} />
+                    <Route path="/products/:figureId" element=
+                      {
+                        <SingleProduct />
+                      } />
+                    <Route path="/checkout/cancel" element={<CancelCheckout />} />
+                    <Route path="/checkout/success" element={<SuccessCheckout />} />
+                  </Routes>
+                  <MobileNav />
+                </Router>
+              </OrderProvider>
+            </CartProvider>
+          </ProductProvider>
         </UserProvider>
       </React.Fragment>
     )

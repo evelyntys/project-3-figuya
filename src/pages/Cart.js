@@ -3,12 +3,16 @@ import CartContext from '../context/CartContext';
 import axios from "../AxiosInterceptor";
 import { Button, Modal } from 'react-bootstrap';
 import AddressModal from './AddressModal';
+import ProductContext from '../context/ProductContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart(props) {
     const cartContext = React.useContext(CartContext);
     const [cart, setCart] = React.useState([]);
     const [quantity, setQuantity] = React.useState([]);
     const [cartTotal, setCartTotal] = React.useState([]);
+    const productContext = React.useContext(ProductContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function setData() {
@@ -121,6 +125,11 @@ export default function Cart(props) {
         });
         console.log(checkoutResponse.data);
         window.location.href = checkoutResponse.data.url
+    };
+
+    const showProduct = async (id) => {
+        let product = await productContext.showProduct(id);
+        navigate(`/products/${id}`)
     }
 
     return (
@@ -142,7 +151,7 @@ export default function Cart(props) {
                                                     <img src={each.figure.image_url} className="cart-img" />
                                                 </div>
                                                 <div className="col-12 col-md-8">
-                                                    <h4>{each.figure.name}</h4>
+                                                    <h4 className="view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</h4>
                                                     <h6>${(each.figure.cost / 100).toFixed(2)}</h6>
                                                     <div className="container">
                                                         <button className="btn btn-sm" name={each.figure.id} onClick={increaseQuantity}><i class="bi bi-plus-circle-fill"></i></button>
@@ -161,14 +170,16 @@ export default function Cart(props) {
                                                 </div>
                                             </div>
                                         </div>
+
+
                                         <div className="list-group-item d-md-none">
                                             <div className="row">
                                                 <div className="col-3 pe-0">
                                                     <img src={each.figure.image_url} className="cart-img" />
                                                 </div>
                                                 <div className="col-8">
-                                                {each.figure.launch_status ? "" : <span className="badge bg-danger cart-preorder">PRE-ORDER</span>}
-                                                    <p className="cart-name-mob text-center m-0">{each.figure.name}</p>
+                                                    {each.figure.launch_status ? "" : <span className="badge bg-danger cart-preorder">PRE-ORDER</span>}
+                                                    <p className="cart-name-mob text-center m-0 view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</p>
                                                     <p className="cart-cost-mob text-center m-0">${(each.figure.cost / 100).toFixed(2)}</p>
                                                     <div className="container text-center">
                                                         <button className="btn btn-sm" name={each.figure.id} onClick={increaseQuantity}><i class="bi bi-plus-circle-fill"></i></button>

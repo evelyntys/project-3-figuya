@@ -55,6 +55,9 @@ export default class ProductProvider extends React.Component {
         });
         console.log(productResponse.data)
         let products = productResponse.data;
+        if (searchBox.series){
+          products = products.filter(each => {return each.series.series_name.includes(searchBox.series.toLowerCase())})
+        }
         console.log(products);
         await this.setState({
           products: products

@@ -12,53 +12,93 @@
 }
 
 .navbar-color {
-  background-color: #FFC276;
+  background-color: #FFC277;
   color: #66402B
 }
 
 .card-border {
-  border: 1px solid #FFC276;
+  border: 1px solid #FB8A00;
 }
 
 .card-img {
   height: 10rem;
   width: 100%;
   object-fit: contain;
-  border-bottom: 1px solid #FFC276;
+  border-bottom: 1px solid #FB8A00;
   border-radius: 0px;
 
 }
 
 .card-btn {
-  background-color: #FFECD3;
+  /* background-color: #FFC279;
   color: #66402B;
-  border-color: #66402B;
+  border-color: #66402B; */
+  
+  background-color: #FB8A00;
+  color: white;
+  /* border-color: #4499FF; */
+}
+
+.card-btn:hover{
+  color: #FB8A00;
+  border-color: #FB8A00;
+}
+
+.form-check-input:checked{
+  background-color: #Fb8A00;
+  border-color: #Fb8A00;
 }
 
 .main-btn {
-  background-color: #FFECD3;
+  /* background-color: #FFC279;
   color: #66402B;
-  border-color: #66402B;
+  border-color: #66402B; */
+  background-color: #FB8A00;
+  color: white;
+}
+
+.main-btn:hover{
+  color: #FB8A00;
+  border-color: #Fb8A00;
 }
 
 .search-box {
-  border: 1px solid #FFC276;
+  border: 1px solid #FB8A00;
   border-radius: 0.25rem;
 }
 
 .view-more {
-  cursor: pointer
+  cursor: pointer;
+  text-transform: capitalize;
 }
 
 .view-more:hover {
-  color: #FFC276;
+  color: #FB8A00;
   text-decoration: underline;
+}
+
+/* .card-badges{
+  color: #FB8A00;
+  border: 1px solid #FB8A00;
+} */
+
+.form-label{
+  text-transform: capitalize;
+}
+
+.card-badges {
+  /* color: black;
+  background-color: #C4DFFF; */
+  /* color: #4499FF;
+  border: 1px solid #4499FF; */
+  color: #F18300;
+  border: 1px solid #F18300;
 }
 
 .bottom-nav {
   position: fixed;
   height: 8vh;
-  background-color: #FFC276;
+  background-color: #B9E8FA;
   bottom: 0px;
   margin-top: 8vh;
 }
@@ -97,20 +137,20 @@
   border: 0px;
 }
 
-.header-wrapper{
+.header-wrapper {
   position: relative;
   height: 400px;
   width: 100vw;
 }
 
-.header-banner{
+.header-banner {
   height: 400px;
   width: 100vw;
   object-fit: cover;
   position: absolute;
 }
 
-.overlay{
+.overlay {
   color: white;
   position: relative;
   height: 250px;
@@ -120,25 +160,25 @@
   font-size: 40px;
 }
 
-.header-btn{
+.header-btn {
   background-color: white;
 
 }
 
-.detail-text{
+.detail-text {
   text-transform: capitalize;
 }
 
-.landing-box{
+.landing-box {
   border: 1px solid black;
   text-align: center;
 }
 
-.product-name{
+.product-name {
   text-transform: capitalize;
 }
 
-.desktop-single-product{
+.desktop-single-product {
   width: 100%;
   border: 1px solid black;
 }

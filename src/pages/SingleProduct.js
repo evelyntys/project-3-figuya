@@ -45,21 +45,21 @@ export default function SingleProduct() {
                             <img src={product.image_url} className="desktop-single-product" />
                         </div>
                         <div className="col-7">
-                            <h3 className="m-0">{product.name}</h3>
+                            <h3 className="m-0 pdt-padding">{product.name}</h3>
                             {!product.launch_status ?
-                                <span className="badge bg-danger">
+                                <span className="badge bg-danger pdt-padding">
                                     PRE-ORDER
                                 </span>
                                 : null
                             }
                             {product.blind_box ?
-                                <span className="badge bg-warning text-dark">
+                                <span className="badge bg-warning text-dark pdt-padding">
                                     BLIND BOX
                                 </span>
                                 : null
                             }
-                            <h4>${(product.cost / 100).toFixed(2)}</h4>
-                            <div className="d-flex">
+                            <h4 className="pdt-padding">${(product.cost / 100).toFixed(2)}</h4>
+                            <div className="d-flex pdt-padding">
                                 <table className="text-start" width="100%">
                                     <tr>
                                         <td width="50%">Height</td>
@@ -89,12 +89,19 @@ export default function SingleProduct() {
                                     </tr>
                                 </table>
                             </div>
-                            <p>{product.description}</p>
+                            <Accordion flush>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>Description</Accordion.Header>
+                                    <Accordion.Body>
+                                        {product.description}
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
                             <div className="container">
-                                <button className="btn btn-sm" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null}><i class="bi bi-plus-circle-fill"></i></button>
+                                <button className="btn btn-sm qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null}><i class="bi bi-plus-circle-fill"></i></button>
                                 <input type="text" className="form-control text-center" name="productQty" value={productQty}
                                     onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} />
-                                <button className="btn btn-sm" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
+                                <button className="btn btn-sm qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
                                 <button className="btn main-btn" onClick={() => cartContext.addToCart(product.id, productQty)}>Add to cart</button>
                             </div>
                             <h6>{product.quantity} left in stock</h6>
@@ -158,14 +165,14 @@ export default function SingleProduct() {
                             </div>
                             <h4>${(product.cost / 100).toFixed(2)}</h4>
                             <div className="container my-1">
-                                <button className="btn btn-sm" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null}><i class="bi bi-plus-circle-fill"></i></button>
+                                <button className="btn btn-sm qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null}><i class="bi bi-plus-circle-fill"></i></button>
                                 <input type="text" className="form-control text-center" name="productQty" value={productQty}
                                     onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} />
-                                <button className="btn btn-sm" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
+                                <button className="btn btn-sm qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
                                 <button className="btn main-btn my-1" onClick={() => cartContext.addToCart(product.id, productQty)}>Add to cart</button>
                             </div>
                             <h6>{product.quantity} left in stock</h6>
-                            <Accordion defaultActiveKey="0" flush>
+                            <Accordion flush>
                                 <Accordion.Item eventKey="0">
                                     <Accordion.Header>Description</Accordion.Header>
                                     <Accordion.Body>
@@ -177,11 +184,11 @@ export default function SingleProduct() {
                     </div>
                 </div>
             </React.Fragment>
-                : 
+                :
                 <div className="d-flex justify-content-center">
                     <img src={require("../images/loader.gif")} />
                 </div>
-                }
+            }
         </React.Fragment >
 
     )

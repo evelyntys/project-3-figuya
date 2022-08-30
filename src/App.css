@@ -33,18 +33,18 @@
   /* background-color: #FFC279;
   color: #66402B;
   border-color: #66402B; */
-  
+
   background-color: #FB8A00;
   color: white;
   /* border-color: #4499FF; */
 }
 
-.card-btn:hover{
+.card-btn:hover {
   color: #FB8A00;
   border-color: #FB8A00;
 }
 
-.form-check-input:checked{
+.form-check-input:checked {
   background-color: #Fb8A00;
   border-color: #Fb8A00;
 }
@@ -57,7 +57,7 @@
   color: white;
 }
 
-.main-btn:hover{
+.main-btn:hover {
   color: #FB8A00;
   border-color: #Fb8A00;
 }
@@ -77,12 +77,36 @@
   text-decoration: underline;
 }
 
+.qty-btn {
+  color: #FB8A00;
+}
+
+.qty-btn:hover {
+  color: #FB8A00;
+  border-color: transparent;
+}
+
+.pdt-padding {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #face98;
+  color: #361900;
+}
+
+.accordion-button:focus {
+  border-color: transparent !important;
+  box-shadow: none;
+}
+
 /* .card-badges{
   color: #FB8A00;
   border: 1px solid #FB8A00;
 } */
 
-.form-label{
+.form-label {
   text-transform: capitalize;
 }
 

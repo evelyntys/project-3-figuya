@@ -151,15 +151,15 @@ export default function Cart(props) {
                                                     <img src={each.figure.image_url} className="cart-img" />
                                                 </div>
                                                 <div className="col-12 col-md-8">
+                                                    {each.figure.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
                                                     <h4 className="view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</h4>
                                                     <h6>${(each.figure.cost / 100).toFixed(2)}</h6>
                                                     <div className="container">
-                                                        <button className="btn btn-sm" name={each.figure.id} onClick={increaseQuantity}><i class="bi bi-plus-circle-fill"></i></button>
+                                                        <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={decreaseQuantity}><i class="bi bi-dash-circle-fill"></i></button>
                                                         <input type="text" className="form-control text-center" name={each.figure.id} value={quantity[each.figure.id]}
                                                             onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
-                                                        <button className="btn btn-sm" name={each.figure.id} onClick={decreaseQuantity}><i class="bi bi-dash-circle-fill"></i></button>
+                                                        <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={increaseQuantity}><i class="bi bi-plus-circle-fill"></i></button>
                                                     </div>
-                                                    {each.figure.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
                                                     <h6>{each.figure.quantity} remaining in stock</h6>
                                                 </div>
                                                 <div className="col-1 text-end d-none d-md-block">
@@ -182,10 +182,10 @@ export default function Cart(props) {
                                                     <p className="cart-name-mob text-center m-0 view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</p>
                                                     <p className="cart-cost-mob text-center m-0">${(each.figure.cost / 100).toFixed(2)}</p>
                                                     <div className="container text-center">
-                                                        <button className="btn btn-sm" name={each.figure.id} onClick={increaseQuantity}><i class="bi bi-plus-circle-fill"></i></button>
+                                                    <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={decreaseQuantity}><i class="bi bi-dash-circle-fill"></i></button>
                                                         <input type="text" className="form-control text-center" name={each.figure.id} value={quantity[each.figure.id]}
                                                             onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
-                                                        <button className="btn btn-sm" name={each.figure.id} onClick={decreaseQuantity}><i class="bi bi-dash-circle-fill"></i></button>
+                                                        <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={increaseQuantity}><i class="bi bi-plus-circle-fill"></i></button>
                                                     </div>
                                                     <h6 className="text-center">{each.figure.quantity} remaining in stock</h6>
                                                 </div>

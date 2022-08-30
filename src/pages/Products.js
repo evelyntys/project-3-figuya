@@ -269,9 +269,9 @@ export default function Products() {
                 </div>
             </div>
 
-            <div className="d-lg-none">
+            <div className="d-lg-none mob-content">
                 <div className="row my-2">
-                    <div className="col-12 col-lg-3">
+                    <div className="col-12 pe-0">
                         <div className="row search-box mx-2">
                             {showSearch ? <div className="col-12 my-1 d-flex justify-content-end">
                                 <button className="btn main-btn btn-sm"
@@ -416,7 +416,7 @@ export default function Products() {
                             }
                         </div>
                     </div>
-                    <div className="col-12 col-lg-9">
+                    <div className="col-12 pe-0">
                         <div className="container">
                             <h1>Showing {productContext.getProducts().length} product(s):</h1>
                         </div>

@@ -195,7 +195,7 @@ export default function Cart(props) {
                                         </div>
 
 
-                                        <div className="list-group-item d-md-none">
+                                        <div className="list-group-item d-lg-none">
                                             <div className="row">
                                                 <div className="col-3 pe-0">
                                                     <img src={each.figure.image_url} className="cart-img" />
@@ -224,6 +224,7 @@ export default function Cart(props) {
                                 )
                             })}
                         </div>
+                        <div className="mob-content">
                         <div className="d-flex justify-content-end">
                             <h6>Total: {cartTotal}</h6>
                         </div>
@@ -232,6 +233,7 @@ export default function Cart(props) {
                                 unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
                                 Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
                             {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
+                        </div>
                         </div>
                     </React.Fragment>
                     : <div>no items in your cart currently...</div>}

@@ -114,7 +114,7 @@ export default function SingleProduct() {
                 </div>
 
 
-                <div className="container d-lg-none">
+                <div className="container d-lg-none mob-content">
                     <div className="row">
                         <div className="col-12">
                             <button className="btn" onClick={products}><i class="bi bi-arrow-90deg-left"></i></button>

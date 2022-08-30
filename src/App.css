@@ -13,7 +13,7 @@
 
 .navbar-color {
   background-color: #FFC277;
-  color: #66402B
+  color: #66402B;
 }
 
 .card-border {
@@ -122,9 +122,9 @@
 .bottom-nav {
   position: fixed;
   height: 8vh;
-  background-color: #B9E8FA;
+  background-color: #FFC277;
   bottom: 0px;
-  margin-top: 8vh;
+  /* margin-top: 8vh; */
 }
 
 .translate-middle {
@@ -155,10 +155,15 @@
 
 .mob-nav {
   border: 0px;
+  font-size: 30px;
 }
 
 .mob-nav:hover {
   border: 0px;
+}
+
+.mob-content{
+  margin-bottom: 10vh;
 }
 
 .header-wrapper {

@@ -19,7 +19,7 @@ export default function Profile() {
 
     return (
         <React.Fragment>
-            <div className="container-fluid my-2">
+            <div className="container-fluid my-2 mob-content">
                 <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                     <Row>
                         <Col sm={3}>

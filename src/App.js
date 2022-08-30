@@ -43,9 +43,7 @@ export default class App extends React.Component {
                     <Route path="/" element={<Landing url={url} />} />
                     <Route path="/login" element={<Login url={url} />} />
                     <Route path="/products" element={
-                      <ProductProvider>
-                        <Products />
-                      </ProductProvider>} />
+                      <Products />} />
                     <Route path="/cart" element={
                       <Cart url={url} />
                     } />

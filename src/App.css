@@ -155,14 +155,14 @@
 
 .mob-nav {
   border: 0px;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .mob-nav:hover {
   border: 0px;
 }
 
-.mob-content{
+.mob-content {
   margin-bottom: 10vh;
 }
 
@@ -177,6 +177,35 @@
   width: 100vw;
   object-fit: cover;
   position: absolute;
+}
+
+.header-mobile {
+  position: relative;
+  width: 100vw;
+}
+
+.video-mobile {
+  width: 100vw;
+  object-fit: cover;
+  position: absolute
+}
+
+.mobile-overlay {
+  color: white;
+  position: relative;
+  height: 50vw;
+  width: 40vw;
+  top: 3vh;
+  left: 58vw;
+  margin: 0px;
+}
+
+.mob-container{
+  margin-top: 8vh;
+}
+
+.figures-container{
+  border: 1px solid black;
 }
 
 .overlay {

@@ -7,15 +7,16 @@ export default class ProductProvider extends React.Component {
     products: [],
     productToShow: [],
     figureTypes: [],
-    collections: []
+    collections: [],
+    filter: ""
   };
 
   async componentDidMount() {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
-    let productResponse = await axios.get(url + "products");
+    // let productResponse = await axios.get(url + "products");
     let searchFieldsResponse = await axios.get(url + "products/fields");
     await this.setState({
-      products: productResponse.data,
+      // products: productResponse.data,
       figureTypes: searchFieldsResponse.data.allFigureTypes,
       collections: searchFieldsResponse.data.allCollections
     })
@@ -24,8 +25,10 @@ export default class ProductProvider extends React.Component {
   render() {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     const productContext = {
-      getProducts: () => {
-        return this.state.products
+      getProducts: async () => {
+        let productResponse = await axios.get(url + "products");
+        return productResponse.data;
+        // return this.state.products
       },
       showProduct: async (id) => {
         let productToShowResponse = await axios.get(url + "products/" + id + "/view");
@@ -55,14 +58,14 @@ export default class ProductProvider extends React.Component {
         });
         console.log(productResponse.data)
         let products = productResponse.data;
-        if (searchBox.series){
-          products = products.filter(each => {return each.series.series_name.includes(searchBox.series.toLowerCase())})
+        if (searchBox.series) {
+          products = products.filter(each => { return each.series.series_name.includes(searchBox.series.toLowerCase()) })
         }
         console.log(products);
         await this.setState({
           products: products
         });
-        // return productContext.getProducts()
+        return products
       },
       getFigureType: () => {
         return this.state.figureTypes
@@ -70,6 +73,61 @@ export default class ProductProvider extends React.Component {
       },
       getCollections: () => {
         return this.state.collections
+      },
+      getActionFigures: async () => {
+        let productResponse = await axios.get(url + "products/search", {
+          params: {
+            figure_type_id: [1]
+          }
+        });
+        let products = productResponse.data;
+        await this.setState({
+          products: products,
+          filter: "action"
+        })
+        console.log(products);
+      },
+      getState: () => {
+        return this.state.products
+      },
+      getCompleteFigures: async () => {
+        let productResponse = await axios.get(url + "products/search", {
+          params: {
+            figure_type_id: [2]
+          }
+        });
+        let products = productResponse.data;
+        await this.setState({
+          products: products,
+          filter: "complete"
+        })
+      },
+      getScaleFigures: async () => {
+        let productResponse = await axios.get(url + "products/search", {
+          params: {
+            figure_type_id: [3]
+          }
+        });
+        let products = productResponse.data;
+        await this.setState({
+          products: products,
+          filter: "scale"
+        })
+      },
+      getBlindBox: async () => {
+        let productResponse = await axios.get(url + "products/search", {
+          params: {
+            blind_box: 1
+          }
+        });
+        let products = productResponse.data;
+        await this.setState({
+          products: products,
+          filter: "blind-box"
+        })
+      },
+      getFiltered: async () => {
+        return this.state.filter
       }
     }
     return (

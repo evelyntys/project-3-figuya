@@ -15,6 +15,7 @@ export default function Cart(props) {
     const productContext = React.useContext(ProductContext);
     const navigate = useNavigate();
 
+    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     useEffect(() => {
         async function setData() {
             let accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -22,6 +23,7 @@ export default function Cart(props) {
             let currentDate = new Date();
             console.log(decoded);
             if (decoded.exp * 1000 < currentDate.getTime()) {
+                console.log("from cart component, expired")
                 const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
                 const newAccessTokenResponse = await axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/users/refresh", {
                     refreshToken
@@ -34,7 +36,7 @@ export default function Cart(props) {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
             } else {
                 console.log(accessToken)
-                console.log('here')
+                console.log('from cart component')
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             }
             const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
@@ -140,7 +142,7 @@ export default function Cart(props) {
         // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
         // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         // console.log(accessToken);
-        let checkoutResponse = await axios.post("checkout", {
+        let checkoutResponse = await axios.post(url + "checkout", {
             customer_email: checkoutDetails.customer_email,
             block_street: checkoutDetails.block_street,
             unit: checkoutDetails.unit,

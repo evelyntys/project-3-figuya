@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import CartContext from '../context/CartContext';
-import axios from "../AxiosInterceptor";
+import axios from "axios";
 import { Button, Modal } from 'react-bootstrap';
 import AddressModal from './AddressModal';
 import ProductContext from '../context/ProductContext';
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
 export default function Cart(props) {
     const cartContext = React.useContext(CartContext);
@@ -16,13 +17,35 @@ export default function Cart(props) {
 
     useEffect(() => {
         async function setData() {
-            const cartItems = await cartContext.getCart();
-            await setCart(cartItems);
+            let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+            let decoded = jwt_decode(accessToken);
+            let currentDate = new Date();
+            console.log(decoded);
+            if (decoded.exp * 1000 < currentDate.getTime()) {
+                const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
+                const newAccessTokenResponse = await axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/users/refresh", {
+                    refreshToken
+                });
+                const newAccessToken = newAccessTokenResponse.data.accessToken;
+                console.log(JSON.stringify(newAccessToken));
+                console.log(newAccessToken)
+                console.log(decoded.exp)
+                localStorage.setItem('accessToken', JSON.stringify(newAccessToken));
+                axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+            } else {
+                console.log(accessToken)
+                console.log('here')
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+            }
+            const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
+            let cartResponse = await axios.get(url + "cart");
+            let cart = cartResponse.data;
+            await setCart(cart);
             // for (let i=0; i<cartItems.length; i++){
             //     quantity[i] = cartItems[i].quantity;
             // }
-            await setCartTotal(cartContext.getTotal(cartItems));
-            for (let each of cartItems) {
+            await setCartTotal(cartContext.getTotal(cart));
+            for (let each of cart) {
                 console.log(each.figure.id, each.quantity)
                 quantity[each.figure.id] = each.quantity
             }
@@ -182,7 +205,7 @@ export default function Cart(props) {
                                                     <p className="cart-name-mob text-center m-0 view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</p>
                                                     <p className="cart-cost-mob text-center m-0">${(each.figure.cost / 100).toFixed(2)}</p>
                                                     <div className="container text-center">
-                                                    <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={decreaseQuantity}><i class="bi bi-dash-circle-fill"></i></button>
+                                                        <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={decreaseQuantity}><i class="bi bi-dash-circle-fill"></i></button>
                                                         <input type="text" className="form-control text-center" name={each.figure.id} value={quantity[each.figure.id]}
                                                             onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
                                                         <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={increaseQuantity}><i class="bi bi-plus-circle-fill"></i></button>

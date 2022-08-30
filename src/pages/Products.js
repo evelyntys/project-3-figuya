@@ -22,6 +22,8 @@ export default function Products() {
         series: ""
     })
 
+    const [showSearch, setShowSearch] = React.useState(false)
+
     const [figureTypes, setFigureTypes] = React.useState([]);
 
     useEffect(() => {
@@ -239,6 +241,7 @@ export default function Products() {
                                         <img src={each.image_url} className="class-img-top card-img" />
                                         <div className="card-body pb-0">
                                             {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
+                                            {each.blind_box ? <span className="badge bg-warning text-dark">BLIND-BOX</span> : ""}
                                             <h5 className="card-title view-more" onClick={() => showProduct(each.id)}>{each.name}</h5>
                                             <span className="card-text d-inline-block text-truncate"
                                                 style={{ "maxWidth": "100%", "maxHeight": "200px" }}>
@@ -269,41 +272,148 @@ export default function Products() {
             <div className="d-lg-none">
                 <div className="row my-2">
                     <div className="col-12 col-lg-3">
-                        <div className="container search-box mx-1">
-                            <div className="row">
-                                <div className="col-5 my-1">
-                                    <label>Search:</label>
-                                    <input type="text" className="form-control" value={searchBox.search}
-                                        placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
-                                        name="search" />
-                                </div>
-                                <div className="col-3 my-1">
-                                    <label>Min cost:</label>
-                                    <input type="text" className="form-control" value={searchBox.min_cost}
-                                        placeholder="0" onChange={updateSearchField}
-                                        name="min_cost" />
-                                </div>
-                                <div className="col-4 my-1">
-                                    <label>Max cost:</label>
-                                    <input type="text" className="form-control" value={searchBox.max_cost}
-                                        placeholder="100" onChange={updateSearchField}
-                                        name="max_cost" />
-                                </div>
+                        <div className="row search-box mx-2">
+                            {showSearch ? <div className="col-12 my-1 d-flex justify-content-end">
+                                <button className="btn main-btn btn-sm"
+                                    onClick={() => setShowSearch(!showSearch)}>
+                                    <i class="bi bi-caret-up-fill"></i>
+                                </button>
+                            </div> : ""}
+                            <div className={showSearch ? "col-12" : "col-8 my-2"}>
+                                <label>Search:</label>
+                                <input type="text" className="form-control" value={searchBox.search}
+                                    placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
+                                    name="search" />
                             </div>
-                            <select className="form-select my-1" value={searchBox.figureType} onChange={updateSearchField} name="figureType">
-                                <option value={0} selected={searchBox.figureType == 0}>Choose a figure type</option>
-                                {productContext.getFigureType().map(each => {
-                                    return <option value={each[0]} selected={searchBox.figureType == each[0]}>{each[1]}</option>
-                                })}
-                            </select>
-                            <select className="form-select my-1" value={searchBox.collection} onChange={updateSearchField} name="collection">
-                                <option value={0} selected={searchBox.collection == 0}>Choose a collection</option>
-                                {productContext.getCollections().map(each => {
-                                    return <option value={each[0]} selected={searchBox.collection == each[0]}>{each[1]}</option>
-                                })}
-                            </select>
-                            <button className="btn main-btn btn-sm my-2" onClick={() => productContext.filterProducts(searchBox)}>Search</button>
-                            <button className="btn main-btn btn-sm my-2" onClick={resetSearch}>Reset</button>
+                            {showSearch ?
+                                <React.Fragment>
+                                    <div className="col-12">
+                                        <label>Series:</label>
+                                        <input type="text" className="form-control" value={searchBox.series}
+                                            placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
+                                            name="series" />
+                                    </div>
+
+                                    <div className="col-6">
+                                        <label>Min cost:</label>
+                                        <input type="text" className="form-control" value={searchBox.min_cost}
+                                            placeholder="0" onChange={updateSearchField}
+                                            name="min_cost" />
+                                    </div>
+                                    <div className="col-6">
+                                        <label>Max cost:</label>
+                                        <input type="text" className="form-control" value={searchBox.max_cost}
+                                            placeholder="100" onChange={updateSearchField}
+                                            name="max_cost" />
+                                    </div>
+
+                                    <div className="col-12">
+                                        <div><label>Figure Type: </label></div>
+                                        {/* <select className="form-select" value={searchBox.figureType} onChange={updateSearchField} name="figureType">
+        <option value={0} selected={searchBox.figureType == 0}>Choose a figure type</option>
+        {productContext.getFigureType().map(each => {
+            return <option value={each[0]} selected={searchBox.figureType == each[0]}>{each[1]}</option>
+        })}
+    </select> */}
+                                        {productContext.getFigureType().map(each => {
+                                            return (
+                                                <div className="form-check">
+                                                    <label className="form-label">{each[1]}
+                                                        <input type="checkbox" className="form-check-input"
+                                                            value={each[0]} name="figureType"
+                                                            checked={searchBox.figureType.includes(each[0].toString())} onChange={updateCheckboxes} />
+                                                    </label>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+
+                                    <div className="col-12">
+                                        <select className="form-select" value={searchBox.collection} onChange={updateSearchField} name="collection">
+                                            <option value={0} selected={searchBox.collection == 0}>Choose a collection</option>
+                                            {productContext.getCollections().map(each => {
+                                                return <option value={each[0]} selected={searchBox.collection == each[0]}>{each[1]}</option>
+                                            })}
+                                        </select>
+                                    </div>
+
+                                    <div className="col-6">
+                                        <label>Min height:</label>
+                                        <input type="text" className="form-control" value={searchBox.min_height}
+                                            placeholder="0" onChange={updateSearchField}
+                                            name="min_height" />
+                                    </div>
+                                    <div className="col-6">
+                                        <label>Max height:</label>
+                                        <input type="text" className="form-control" value={searchBox.max_height}
+                                            placeholder="100" onChange={updateSearchField}
+                                            name="max_height" />
+                                    </div>
+
+                                    <div>
+                                        <div><label>Preorder?</label></div>
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input type="radio" className="form-check-input" name="launch_status"
+                                                    value="0" onChange={updateSearchField} checked={searchBox.launch_status == "0"} />
+                                                Yes</label>
+                                        </div>
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input type="radio" className="form-check-input" name="launch_status"
+                                                    value="1" onChange={updateSearchField} checked={searchBox.launch_status == "1"} />
+                                                No</label>
+                                        </div>
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input type="radio" className="form-check-input" name="launch_status"
+                                                    value="a" onChange={updateSearchField} checked={searchBox.launch_status == "a"} />
+                                                Any</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div><label>Blindbox?</label></div>
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input type="radio" className="form-check-input" name="blind_box"
+                                                    value="1" onChange={updateSearchField} checked={searchBox.blind_box = "1"} />
+                                                Yes</label>
+                                        </div>
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input type="radio" className="form-check-input" name="blind_box"
+                                                    value="0" onChange={updateSearchField} checked={searchBox.blind_box = "0"} />
+                                                No</label>
+                                        </div>
+                                        <div className="form-check form-check-inline">
+                                            <label className="form-check-label">
+                                                <input type="radio" className="form-check-input" name="blind_box"
+                                                    value="a" onChange={updateSearchField} checked={searchBox.blind_box = "a"} />
+                                                Any</label>
+                                        </div>
+                                    </div>
+                                    <div className="d-flex justify-content-end">
+                                        <button className="btn main-btn btn-sm my-2 mx-1" onClick={resetSearch}>Reset</button>
+                                        <button className="btn main-btn btn-sm my-2 mx-1" onClick={() => productContext.filterProducts(searchBox)}>Search</button>
+                                    </div>
+                                </React.Fragment> :
+                                <React.Fragment>
+                                    <div className="col">
+                                        <div style={{ "height": "30px" }}></div>
+                                        <button className="btn main-btn btn-sm"
+                                            onClick={() => productContext.filterProducts(searchBox)}>
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
+                                    <div className="col">
+                                        <div style={{ "height": "30px" }}></div>
+                                        <button className="btn main-btn btn-sm"
+                                            onClick={() => setShowSearch(!showSearch)}>
+                                            <i class="bi bi-caret-down-fill"></i>
+                                        </button>
+                                    </div>
+                                </React.Fragment>
+                            }
                         </div>
                     </div>
                     <div className="col-12 col-lg-9">
@@ -317,6 +427,7 @@ export default function Products() {
                                         <img src={each.image_url} className="class-img-top card-img" />
                                         <div className="card-body pb-0">
                                             {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
+                                            {each.blind_box ? <span className="badge bg-warning text-dark">BLIND-BOX</span> : ""}
                                             <h5 className="card-title view-more" onClick={() => showProduct(each.id)}>{each.name}</h5>
                                             <span className="card-text d-inline-block text-truncate"
                                                 style={{ "maxWidth": "100%", "maxHeight": "200px" }}>

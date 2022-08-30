@@ -47,15 +47,19 @@ export default function SingleProduct() {
                         <div className="col-7">
                             <h3 className="m-0 pdt-padding">{product.name}</h3>
                             {!product.launch_status ?
-                                <span className="badge bg-danger pdt-padding">
+                            <div className="pdt-padding">
+                                <span className="badge bg-danger">
                                     PRE-ORDER
                                 </span>
+                                </div>
                                 : null
                             }
                             {product.blind_box ?
-                                <span className="badge bg-warning text-dark pdt-padding">
+                             <div className="pdt-padding">
+                                <span className="badge bg-warning text-dark">
                                     BLIND BOX
                                 </span>
+                                </div>
                                 : null
                             }
                             <h4 className="pdt-padding">${(product.cost / 100).toFixed(2)}</h4>

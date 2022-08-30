@@ -9,6 +9,10 @@ export default function Products() {
     const cartContext = React.useContext(CartContext);
     const navigate = useNavigate();
 
+    let figureType = [];
+    let blind_box = "a";
+
+    const [products, setProducts] = React.useState({})
     const [searchBox, setSearchBox] = React.useState({
         search: "",
         min_cost: "",
@@ -20,19 +24,39 @@ export default function Products() {
         blind_box: "a",
         launch_status: "a",
         series: ""
-    })
-
-    const [showSearch, setShowSearch] = React.useState(false)
-
-    const [figureTypes, setFigureTypes] = React.useState([]);
+    });
 
     useEffect(() => {
         async function defaultState() {
             let figureTypes = productContext.getFigureType();
             await setFigureTypes(figureTypes);
+            let products = await productContext.getProducts();
+            let filtered = await productContext.getState();
+            // console.log(products);
+            // console.log(filtered);
+            if (filtered.length == 0) {
+                await setProducts(products);
+            }
+            else {
+                await setProducts(filtered)
+            }
+            if (productContext.getFiltered() == "action") {
+                searchBox.figureType = ['1']
+            } else if (productContext.getFiltered() == "complete") {
+                searchBox.figureType = ['2']
+            } else if (productContext.getFiltered() == "scale") {
+                searchBox.figureType = ['3']
+            } else {
+                searchBox.blind_box = "1"
+            }
         }
         defaultState();
     }, []);
+
+
+    const [showSearch, setShowSearch] = React.useState(false)
+
+    const [figureTypes, setFigureTypes] = React.useState([]);
 
     const showProduct = async (productId) => {
         // let product = await productContext.showProduct(productId);
@@ -92,14 +116,20 @@ export default function Products() {
             launch_status: "a",
             series: ""
         };
-        await productContext.filterProducts(emptySearch);
+        let baseProducts = await productContext.filterProducts(emptySearch);
+        await setProducts(baseProducts)
+    };
+
+    const filterProducts = async () => {
+        let filteredProducts = await productContext.filterProducts(searchBox);
+        await setProducts(filteredProducts)
     }
 
     return (
         <React.Fragment>
             <ToastContainer position="bottom-right" />
             <div className="d-none d-lg-block">
-                <div className="row my-2 mx-2">
+                <div className="row my-2 mx-5">
                     <div className="col-12 col-lg-3">
                         <div className="container">
                             <h1>Search</h1>
@@ -107,11 +137,11 @@ export default function Products() {
                     </div>
                     <div className="col-12 col-lg-9">
                         <div className="container">
-                            <h1>Showing {productContext.getProducts().length} product(s):</h1>
+                            <h1>Showing {products.length} product(s):</h1>
                         </div>
                     </div>
                 </div>
-                <div className="row my-2 mx-2">
+                <div className="row my-2 mx-5">
                     <div className="col-12 col-lg-3">
                         <div className="row search-box">
 
@@ -228,50 +258,54 @@ export default function Products() {
                             </div>
                             <div className="d-flex justify-content-end">
                                 <button className="btn main-btn btn-sm my-2 mx-1" onClick={resetSearch}>Reset</button>
-                                <button className="btn main-btn btn-sm my-2 mx-1" onClick={() => productContext.filterProducts(searchBox)}>Search</button>
+                                <button className="btn main-btn btn-sm my-2 mx-1" onClick={filterProducts}>Search</button>
                             </div>
 
                         </div>
                     </div>
                     <div className="col-12 col-lg-9">
                         <div className="container d-flex justify-content-evenly flex-wrap">
-                            {productContext.getProducts().map(each => {
-                                return (
-                                    <div className="card my-2 card-border" style={{ "width": "16rem" }}>
-                                        <img src={each.image_url} className="class-img-top card-img" />
-                                        <div className="card-body pb-0">
-                                            {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
-                                            {each.blind_box ? <span className="badge bg-warning text-dark">BLIND-BOX</span> : ""}
-                                            <h5 className="card-title view-more" onClick={() => showProduct(each.id)}>{each.name}</h5>
-                                            <span className="card-text d-inline-block text-truncate"
-                                                style={{ "maxWidth": "100%", "maxHeight": "200px" }}>
-                                                {each.description}</span><br />
-                                            <h6>${(each.cost / 100).toFixed(2)}</h6>
-                                            <div>
-                                                <span><i class="bi bi-tags-fill" style={{ "color": "#F18300" }}></i></span>
-                                                <span className="badge card-badges mx-1">{each.figure_type.figure_type} figure</span>
-                                                <span className="badge card-badges mx-1">{each.series.series_name}</span>
-                                                <span className="badge card-badges mx-1">{each.collection.collection_name}</span>
-                                                {each.series.mediums.map(eachMedium => {
-                                                    return (<span className="badge card-badges mx-1">{eachMedium.media_medium}</span>)
-                                                })}
-                                                <span className="badge card-badges mx-1">{each.manufacturer.manufacturer_name}</span>
+                            {products.length ?
+                                <React.Fragment>
+                                    {products.map(each => {
+                                        return (
+                                            <div className="card my-2 card-border" style={{ "width": "16rem" }}>
+                                                <img src={each.image_url} className="class-img-top card-img" />
+                                                <div className="card-body pb-0">
+                                                    {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
+                                                    {each.blind_box ? <span className="badge bg-warning text-dark">BLIND-BOX</span> : ""}
+                                                    <h5 className="card-title view-more" onClick={() => showProduct(each.id)}>{each.name}</h5>
+                                                    <span className="card-text d-inline-block text-truncate"
+                                                        style={{ "maxWidth": "100%", "maxHeight": "200px" }}>
+                                                        {each.description}</span><br />
+                                                    <h6>${(each.cost / 100).toFixed(2)}</h6>
+                                                    <div>
+                                                        <span><i class="bi bi-tags-fill" style={{ "color": "#F18300" }}></i></span>
+                                                        <span className="badge card-badges mx-1">{each.figure_type.figure_type} figure</span>
+                                                        <span className="badge card-badges mx-1">{each.series.series_name}</span>
+                                                        <span className="badge card-badges mx-1">{each.collection.collection_name}</span>
+                                                        {each.series.mediums.map(eachMedium => {
+                                                            return (<span className="badge card-badges mx-1">{eachMedium.media_medium}</span>)
+                                                        })}
+                                                        <span className="badge card-badges mx-1">{each.manufacturer.manufacturer_name}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="d-flex justify-content-end align-items-end my-1">
+                                                    <button className="btn btn-sm card-btn mx-1" onClick={() => cartContext.addToCart(each.id, 1)}><i class="bi bi-cart-plus-fill"></i></button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end align-items-end my-1">
-                                            <button className="btn btn-sm card-btn mx-1" onClick={() => cartContext.addToCart(each.id, 1)}><i class="bi bi-cart-plus-fill"></i></button>
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                                        )
+                                    })}
+                                </React.Fragment>
+                                : null}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="d-lg-none mob-content">
+            <div className="d-lg-none container mob-content">
                 <div className="row my-2">
-                    <div className="col-12 pe-0">
+                    <div className="col-12 p-0">
                         <div className="row search-box mx-2">
                             {showSearch ? <div className="col-12 my-1 d-flex justify-content-end">
                                 <button className="btn main-btn btn-sm"
@@ -416,40 +450,44 @@ export default function Products() {
                             }
                         </div>
                     </div>
-                    <div className="col-12 pe-0">
-                        <div className="container">
-                            <h1>Showing {productContext.getProducts().length} product(s):</h1>
+                    <div className="col-12 p-0">
+                        <div className="container text-center">
+                            <h1>Showing {products.length} product(s):</h1>
                         </div>
                         <div className="container d-flex justify-content-evenly flex-wrap">
-                            {productContext.getProducts().map(each => {
-                                return (
-                                    <div className="card my-2 card-border" style={{ "width": "16rem" }}>
-                                        <img src={each.image_url} className="class-img-top card-img" />
-                                        <div className="card-body pb-0">
-                                            {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
-                                            {each.blind_box ? <span className="badge bg-warning text-dark">BLIND-BOX</span> : ""}
-                                            <h5 className="card-title view-more" onClick={() => showProduct(each.id)}>{each.name}</h5>
-                                            <span className="card-text d-inline-block text-truncate"
-                                                style={{ "maxWidth": "100%", "maxHeight": "200px" }}>
-                                                {each.description}</span><br />
-                                            <h6>${(each.cost / 100).toFixed(2)}</h6>
-                                            <div>
-                                                <span><i className="bi bi-tags-fill" style={{ "color": "#F18300" }}></i></span>
-                                                <span className="badge card-badges mx-1">{each.figure_type.figure_type} figure</span>
-                                                <span className="badge card-badges mx-1">{each.series.series_name}</span>
-                                                <span className="badge card-badges mx-1">{each.collection.collection_name}</span>
-                                                {each.series.mediums.map(eachMedium => {
-                                                    return (<span className="badge card-badges mx-1">{eachMedium.media_medium}</span>)
-                                                })}
-                                                <span className="badge card-badges mx-1">{each.manufacturer.manufacturer_name}</span>
+                            {products.length ?
+                                <React.Fragment>
+                                    {products.map(each => {
+                                        return (
+                                            <div className="card my-2 card-border" style={{ "width": "16rem" }}>
+                                                <img src={each.image_url} className="class-img-top card-img" />
+                                                <div className="card-body pb-0">
+                                                    {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
+                                                    {each.blind_box ? <span className="badge bg-warning text-dark">BLIND-BOX</span> : ""}
+                                                    <h5 className="card-title view-more" onClick={() => showProduct(each.id)}>{each.name}</h5>
+                                                    <span className="card-text d-inline-block text-truncate"
+                                                        style={{ "maxWidth": "100%", "maxHeight": "200px" }}>
+                                                        {each.description}</span><br />
+                                                    <h6>${(each.cost / 100).toFixed(2)}</h6>
+                                                    <div>
+                                                        <span><i className="bi bi-tags-fill" style={{ "color": "#F18300" }}></i></span>
+                                                        <span className="badge card-badges mx-1">{each.figure_type.figure_type} figure</span>
+                                                        <span className="badge card-badges mx-1">{each.series.series_name}</span>
+                                                        <span className="badge card-badges mx-1">{each.collection.collection_name}</span>
+                                                        {each.series.mediums.map(eachMedium => {
+                                                            return (<span className="badge card-badges mx-1">{eachMedium.media_medium}</span>)
+                                                        })}
+                                                        <span className="badge card-badges mx-1">{each.manufacturer.manufacturer_name}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="d-flex justify-content-end align-items-end my-1">
+                                                    <button className="btn btn-sm card-btn mx-1" onClick={() => cartContext.addToCart(each.id, 1)}><i class="bi bi-cart-plus-fill"></i></button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="d-flex justify-content-end align-items-end my-1">
-                                            <button className="btn btn-sm card-btn mx-1" onClick={() => cartContext.addToCart(each.id, 1)}><i class="bi bi-cart-plus-fill"></i></button>
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                                        )
+                                    })
+                                    }
+                                </React.Fragment> : null}
                         </div>
                     </div>
                 </div>

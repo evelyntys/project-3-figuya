@@ -16,6 +16,7 @@ export default class CartProvider extends React.Component {
         let currentDate = new Date();
         console.log(decoded);
         if (decoded.exp * 1000 < currentDate.getTime()) {
+            console.log("cart provider expired")
             const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
             const newAccessTokenResponse = await axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/users/refresh", {
                 refreshToken
@@ -28,7 +29,7 @@ export default class CartProvider extends React.Component {
             axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
         } else {
             console.log(accessToken)
-            console.log('here')
+            console.log('cart provider here')
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         }
         const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"

@@ -29,43 +29,43 @@ export default function NavigationBar() {
     const Logout = async () => {
         let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
         let logoutResponse = await axios.post(url + "users/logout", {
-          refreshToken
+            refreshToken
         });
         console.log(logoutResponse.data);
         await localStorage.removeItem('accessToken');
         await localStorage.removeItem('refreshToken');
         // navigate("/")
-      };
-      
+    };
+
     //   const getProfile = () => {
 
     //   }
 
     return (
-        
-            <Navbar collapseOnSelect expand="lg" className="navbar-color d-none d-lg-block">
-                <div className="container-fluid">
-                    <Navbar.Brand className="mx-auto me-lg-auto" as={NavLink} to="/">
-                        <img src={require("../images/logo.png")} style={{ "height": "40px" }} />
-                        FIGU屋
-                    </Navbar.Brand>
+
+        <Navbar collapseOnSelect expand="lg" className="navbar-color">
+            <div className="container-fluid">
+                <Navbar.Brand className="mx-auto m-lg-0" as={NavLink} to="/">
+                    <img src={require("../images/logo.png")} style={{ "height": "40px" }} />
+                    FIGU屋
+                </Navbar.Brand>
+                <div className="d-none d-lg-block">
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" className="d-none" />
                     <Navbar.Collapse className="d-none d-lg-block" id="responsive-navbar-nav">
                         <Nav className="ms-auto me-5">
                             {/* <CartContext.Consumer> */}
-                            <Nav.Link as={NavLink} to="/cart" className="position-relative"><i class="bi bi-cart4"></i>
+                            <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
+                            <Nav.Link as={NavLink} to="/cart" className="position-relative mx-2">Cart
                                 {
-                                    userContext.getUserState()? (
-                                    cartContext.getState().length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {cartContext.getState().length}
-                                        <span className="visually-hidden">unread messages</span>
-                                    </span>) : null ) : null
+                                    userContext.getUserState() ? (
+                                        cartContext.getState().length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            {cartContext.getState().length}
+                                        </span>) : null) : null
                                 }
                             </Nav.Link>
-                            <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
                             {userContext.getUserState() ?
                                 <React.Fragment>
-                                    <img src={require("../images/user.png")} style={{ "height": "30px" }} />
+                                    <img className="ms-2" src={require("../images/user.png")} style={{ "height": "30px" }} />
                                     <NavDropdown title={userContext.getName()} id="collasible-nav-dropdown">
                                         <NavDropdown.Item as={NavLink} to="/profile" onClick={() => userContext.getProfile()}>Profile</NavDropdown.Item>
                                         <NavDropdown.Item as={NavLink} to="/orders">
@@ -82,9 +82,10 @@ export default function NavigationBar() {
                         </Nav>
                     </Navbar.Collapse>
                 </div>
-            </Navbar>
+            </div>
+        </Navbar>
 
-            
-        
+
+
     )
 }

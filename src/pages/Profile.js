@@ -52,13 +52,13 @@ export default function Profile() {
                                                     <p>Postal code:</p>
                                                 </div>
                                                 <div className="col-6">
-                                                <p>{user.customer.first_name}</p>
-                                                <p>{user.customer.last_name}</p>
-                                                <p>{user.customer.email}</p>
-                                                <p>{user.customer.contact_number}</p>
-                                                <p>{user.customer.block_street}</p>
-                                                <p>{user.customer.unit}</p>
-                                                <p>{user.customer.postal}</p>
+                                                    <p>{user.customer.first_name}</p>
+                                                    <p>{user.customer.last_name}</p>
+                                                    <p>{user.customer.email}</p>
+                                                    <p>{user.customer.contact_number}</p>
+                                                    <p>{user.customer.block_street}</p>
+                                                    <p>{user.customer.unit}</p>
+                                                    <p>{user.customer.postal}</p>
                                                 </div>
                                             </div>
                                         </div> :
@@ -67,7 +67,9 @@ export default function Profile() {
                                         </div>}
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="second">
-                                    <Orders />
+                                    <div className="mob-content">
+                                        <Orders />
+                                    </div>
                                 </Tab.Pane>
                             </Tab.Content>
                         </Col>

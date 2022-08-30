@@ -30,7 +30,7 @@ export default class ProductProvider extends React.Component {
       showProduct: async (id) => {
         let productToShowResponse = await axios.get(url + "products/" + id + "/view");
         let productToShow = productToShowResponse.data.product
-        console.log(productToShow)
+        console.log("here=>", productToShow)
         await this.setState({
           productToShow: productToShow
         });

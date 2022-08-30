@@ -55,7 +55,7 @@ export default class App extends React.Component {
 
                     } />
                     <Route path="/register" element={<Register url={url} />} />
-                    <Route path="/products/:figureId" element=
+                    <Route path="/products/:productId" element=
                       {
                         <SingleProduct />
                       } />

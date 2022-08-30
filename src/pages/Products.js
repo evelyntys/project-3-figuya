@@ -32,10 +32,10 @@ export default function Products() {
         defaultState();
     }, []);
 
-    const showProduct = async (id) => {
-        console.log(productContext.getFigureType());
-        let product = await productContext.showProduct(id);
-        navigate(`/products/${id}`)
+    const showProduct = async (productId) => {
+        // let product = await productContext.showProduct(productId);
+        // console.log(product)
+        navigate(`/products/${productId}`)
     }
 
     const updateSearchField = (e) => {

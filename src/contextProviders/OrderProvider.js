@@ -7,7 +7,7 @@ export default class OrderProvider extends React.Component {
     render() {
 
         const orderContext = {
-            getOrders: async (Id) => {
+            getOrders: async () => {
                 // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 // console.log(accessToken);

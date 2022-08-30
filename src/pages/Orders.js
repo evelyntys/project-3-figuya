@@ -13,7 +13,7 @@ export default function Orders() {
             await setOrders(orders);
         }
         setData();
-    });
+    }, []);
 
     return (
         <React.Fragment>

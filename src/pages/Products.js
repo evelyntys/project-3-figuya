@@ -291,7 +291,10 @@ export default function Products() {
                                                     </div>
                                                 </div>
                                                 <div className="d-flex justify-content-end align-items-end my-1">
-                                                    <button className="btn btn-sm card-btn mx-1" onClick={() => cartContext.addToCart(each.id, 1)}><i class="bi bi-cart-plus-fill"></i></button>
+                                                    <button className="btn btn-sm card-btn mx-1" disabled={each.quantity < 1}
+                                                    onClick={() => cartContext.addToCart(each.id, 1)}>
+                                                        <i class="bi bi-cart-plus-fill"></i>
+                                                        </button>
                                                 </div>
                                             </div>
                                         )

@@ -6,6 +6,7 @@ import AddressModal from './AddressModal';
 import ProductContext from '../context/ProductContext';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import { loadStripe } from '@stripe/stripe-js';
 
 export default function Cart(props) {
     const cartContext = React.useContext(CartContext);
@@ -149,6 +150,9 @@ export default function Cart(props) {
             postal: checkoutDetails.postal
         });
         console.log(checkoutResponse.data);
+        // let stripePromise = loadStripe(checkoutResponse.data.publishableKey);
+        // const stripe = await stripePromise;
+        // stripe.redirectToCheckout({sessionId: checkoutResponse.data.sessionId})
         window.location.href = checkoutResponse.data.url
     };
 

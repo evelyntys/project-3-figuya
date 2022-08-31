@@ -66,22 +66,38 @@ export default class CartProvider extends React.Component {
                 // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 const addToast = toast.loading("Adding to cart");
                 // await cartContext.addToCart(figureId, 1);
-                let cartResponse = await axios.get(url + "cart/" + figureId + "/add", {
-                    params: {
-                        quantity: qty
+                try {
+                    let cartResponse = await axios.get(url + "cart/" + figureId + "/add", {
+                        params: {
+                            quantity: qty
+                        }
+                    });
+                    let newCart = cartResponse.data.cart;
+                    await this.setState({
+                        cartItems: newCart
+                    });
+                    toast.update(addToast, {
+                        render: 'Added to cart',
+                        type: "success",
+                        isLoading: false,
+                        autoClose: 1000
+                    })
+                } catch (e) {
+                    let errorMessage = ""
+                    if (e.request.status == 400) {
+                        errorMessage = "There is not enough stock quantity"
+
+                    } else if (e.request.status == 403) {
+                        errorMessage = "Please try again"
                     }
-                });
-                let newCart = cartResponse.data.cart;
-                await this.setState({
-                    cartItems: newCart
-                });
-                toast.update(addToast, {
-                    render: 'Added to cart',
-                    type: "success",
-                    isLoading: false,
-                    autoClose: 1000
-                })
-                return true
+                    toast.update(addToast, {
+                        render: errorMessage,
+                        type: "error",
+                        isLoading: false,
+                        autoClose: 1000
+                    })
+                }
+                // return true
                 // return this.state.cartItems
             },
             removeItem: async (figureId) => {

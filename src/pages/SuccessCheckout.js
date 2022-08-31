@@ -11,7 +11,7 @@ export default function SuccessCheckout() {
     }
     return (
         <React.Fragment>
-            <div className="container d-flex align-items-center" style={{"height": "80vh"}}>
+            <div className="container d-flex align-items-center justify-content-center" style={{"height": "80vh"}}>
                 <div className="row">
                     <div className="col d-flex justify-content-center">
                         <img src={require("../images/checkout.png")} style={{"height": "200px"}} />

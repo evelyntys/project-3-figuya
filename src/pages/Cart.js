@@ -171,16 +171,19 @@ export default function Cart(props) {
                             {cart.map(each => {
                                 return (
                                     <React.Fragment>
-                                        <div className="list-group-item d-none d-md-block">
-                                            <div className="col-1 text-end d-block d-md-none">
+                                        <div className="list-group-item d-none d-lg-block">
+                                            <div className="col-1 text-end d-block d-lg-none">
                                                 <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
                                             </div>
                                             <div className="row">
-                                                <div className="col-11 col-md-3">
-                                                    <img src={each.figure.image_url} className="cart-img" />
+                                                <div className="col-11 col-lg-3">
+                                                    <div className="tags-overlay d-flex justify-content-center">
+                                                        <img src={each.figure.image_url} className="cart-img" />
+                                                        {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
+                                                        {!each.figure.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
+                                                    </div>
                                                 </div>
-                                                <div className="col-12 col-md-8">
-                                                    {each.figure.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
+                                                <div className="col-12 col-lg-8">
                                                     <h4 className="view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</h4>
                                                     <h6>${(each.figure.cost / 100).toFixed(2)}</h6>
                                                     <div className="container">
@@ -191,7 +194,7 @@ export default function Cart(props) {
                                                     </div>
                                                     <h6>{each.figure.quantity} remaining in stock</h6>
                                                 </div>
-                                                <div className="col-1 text-end d-none d-md-block">
+                                                <div className="col-1 text-end d-none d-lg-block">
                                                     <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
                                                 </div>
                                                 <div className="d-flex justify-content-end align-items-end">
@@ -204,10 +207,13 @@ export default function Cart(props) {
                                         <div className="list-group-item d-lg-none">
                                             <div className="row">
                                                 <div className="col-3 pe-0">
-                                                    <img src={each.figure.image_url} className="cart-img" />
+                                                    <div className="tags-overlay">
+                                                        <img src={each.figure.image_url} className="cart-img" />
+                                                        {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
+                                                        {!each.figure.launch_status ? <div className="cart-po-sm"><span>PRE-ORDER</span></div> : null}
+                                                    </div>
                                                 </div>
                                                 <div className="col-8">
-                                                    {each.figure.launch_status ? "" : <span className="badge bg-danger cart-preorder">PRE-ORDER</span>}
                                                     <p className="cart-name-mob text-center m-0 view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</p>
                                                     <p className="cart-cost-mob text-center m-0">${(each.figure.cost / 100).toFixed(2)}</p>
                                                     <div className="container text-center">
@@ -218,7 +224,7 @@ export default function Cart(props) {
                                                     </div>
                                                     <h6 className="text-center">{each.figure.quantity} remaining in stock</h6>
                                                 </div>
-                                                <div className="col-1 p-0 text-end d-block d-md-none">
+                                                <div className="col-1 p-0 text-end d-block d-lg-none">
                                                     <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
                                                 </div>
                                                 <div className="d-flex justify-content-end align-items-end">
@@ -231,15 +237,15 @@ export default function Cart(props) {
                             })}
                         </div>
                         <div className="mob-content">
-                        <div className="d-flex justify-content-end">
-                            <h6>Total: {cartTotal}</h6>
-                        </div>
-                        <div className="d-flex justify-content-end">
-                            <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}
-                                unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
-                                Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
-                            {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
-                        </div>
+                            <div className="d-flex justify-content-end">
+                                <h6>Total: {cartTotal}</h6>
+                            </div>
+                            <div className="d-flex justify-content-end">
+                                <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}
+                                    unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
+                                    Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
+                                {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
+                            </div>
                         </div>
                     </React.Fragment>
                     : <div>no items in your cart currently...</div>}

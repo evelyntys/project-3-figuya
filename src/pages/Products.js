@@ -32,22 +32,37 @@ export default function Products() {
             await setFigureTypes(figureTypes);
             let products = await productContext.getProducts();
             let filtered = await productContext.getState();
+            let filterChose = await productContext.getFiltered();
             // console.log(products);
             // console.log(filtered);
             if (filtered.length == 0) {
                 await setProducts(products);
             }
             else {
+                if (filterChose == "action") {
+                    console.log("action")
+                    await setSearchBox({
+                        ...searchBox,
+                        figureType: ['1']
+                    })
+                } else if (filterChose == "complete") {
+                    await setSearchBox({
+                        ...searchBox,
+                        figureType: ['2']
+                    })
+                } else if (filterChose == "scale") {
+                    await setSearchBox({
+                        ...searchBox,
+                        figureType: ['3']
+                    })
+                } else {
+                    console.log("BLIND")
+                    await setSearchBox({
+                        ...searchBox,
+                        blind_box: '1'
+                    })
+                }
                 await setProducts(filtered)
-            }
-            if (productContext.getFiltered() == "action") {
-                searchBox.figureType = ['1']
-            } else if (productContext.getFiltered() == "complete") {
-                searchBox.figureType = ['2']
-            } else if (productContext.getFiltered() == "scale") {
-                searchBox.figureType = ['3']
-            } else {
-                searchBox.blind_box = "1"
             }
         }
         defaultState();
@@ -240,19 +255,19 @@ export default function Products() {
                                 <div className="form-check form-check-inline">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" name="blind_box"
-                                            value="1" onChange={updateSearchField} checked={searchBox.blind_box = "1"} />
+                                            value="1" onChange={updateSearchField} checked={searchBox.blind_box == "1"} />
                                         Yes</label>
                                 </div>
                                 <div className="form-check form-check-inline">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" name="blind_box"
-                                            value="0" onChange={updateSearchField} checked={searchBox.blind_box = "0"} />
+                                            value="0" onChange={updateSearchField} checked={searchBox.blind_box == "0"} />
                                         No</label>
                                 </div>
                                 <div className="form-check form-check-inline">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" name="blind_box"
-                                            value="a" onChange={updateSearchField} checked={searchBox.blind_box = "a"} />
+                                            value="a" onChange={updateSearchField} checked={searchBox.blind_box == "a"} />
                                         Any</label>
                                 </div>
                             </div>
@@ -417,19 +432,19 @@ export default function Products() {
                                         <div className="form-check form-check-inline">
                                             <label className="form-check-label">
                                                 <input type="radio" className="form-check-input" name="blind_box"
-                                                    value="1" onChange={updateSearchField} checked={searchBox.blind_box = "1"} />
+                                                    value="1" onChange={updateSearchField} checked={searchBox.blind_box == "1"} />
                                                 Yes</label>
                                         </div>
                                         <div className="form-check form-check-inline">
                                             <label className="form-check-label">
                                                 <input type="radio" className="form-check-input" name="blind_box"
-                                                    value="0" onChange={updateSearchField} checked={searchBox.blind_box = "0"} />
+                                                    value="0" onChange={updateSearchField} checked={searchBox.blind_box == "0"} />
                                                 No</label>
                                         </div>
                                         <div className="form-check form-check-inline">
                                             <label className="form-check-label">
                                                 <input type="radio" className="form-check-input" name="blind_box"
-                                                    value="a" onChange={updateSearchField} checked={searchBox.blind_box = "a"} />
+                                                    value="a" onChange={updateSearchField} checked={searchBox.blind_box == "a"} />
                                                 Any</label>
                                         </div>
                                     </div>

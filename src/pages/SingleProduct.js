@@ -110,15 +110,16 @@ export default function SingleProduct() {
                                     </Accordion.Body>
                                 </Accordion.Item>
                             </Accordion>
-                            <div className="container d-flex justify-content-center">
-                                <button className="btn btn-sm qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
+                            <div className="container d-flex justify-content-center align-items-center">
+                                <button className="btn qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
                                 <input type="text" className="form-control text-center" name="productQty" value={productQty}
                                     onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} />
-                                <button className="btn btn-sm qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null}><i class="bi bi-plus-circle-fill"></i></button>
+                                <button className="btn qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null}><i class="bi bi-plus-circle-fill"></i></button>
                                 <button className="btn main-btn"  onClick={() => cartContext.addToCart(product.id, productQty)} disabled={productQty > product.quantity}>Add to cart</button>
                             </div>
-                            <div className="container d-flex justify-content-center">
-                                <h6>{product.quantity} left in stock</h6>
+                            <div className="container d-flex justify-content-center my-2">
+                            {product.quantity? <h6>{product.quantity} left in stock</h6> 
+                            : <h6 style={{"color": "red"}}>SOLD OUT</h6>}
                             </div>
                         </div>
                     </div>
@@ -179,14 +180,15 @@ export default function SingleProduct() {
                                     </tr>
                                 </table>
                             </div>
-                            <div className="container my-1">
+                            <div className="container d-flex justify-content-center align-items-center">
                                 <button className="btn btn-sm qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
                                 <input type="text" className="form-control text-center" name="productQty" value={productQty}
                                     onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} />
                                 <button className="btn btn-sm qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null}><i class="bi bi-plus-circle-fill"></i></button>
-                                <button className="btn main-btn my-1" onClick={() => cartContext.addToCart(product.id, productQty)}>Add to cart</button>
+                                <button className="btn btn-sm main-btn my-1" onClick={() => cartContext.addToCart(product.id, productQty)}>Add to cart</button>
                             </div>
-                            <h6>{product.quantity} left in stock</h6>
+                            {product.quantity? <h6>{product.quantity} left in stock</h6> 
+                            : <h6 style={{"color": "red"}}>SOLD OUT</h6>}
                             <Accordion flush>
                                 <Accordion.Item eventKey="0">
                                     <Accordion.Header>Description</Accordion.Header>

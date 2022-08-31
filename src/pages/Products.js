@@ -270,10 +270,14 @@ export default function Products() {
                                     {products.map(each => {
                                         return (
                                             <div className="card my-2 card-border" style={{ "width": "16rem" }}>
-                                                <img src={each.image_url} className="class-img-top card-img" />
+                                                <div className="tags-overlay">
+                                                    <img src={each.image_url} className="class-img-top card-img" />
+                                                    {!each.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
+                                                    {!each.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
+                                                </div>
                                                 <div className="card-body pb-0">
-                                                    {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
-                                                    {each.blind_box ? <span className="badge bg-warning text-dark">BLIND-BOX</span> : ""}
+                                                    {/* {each.launch_status ? "" : <span className="badge pre-order text-dark">PRE-ORDER</span>} */}
+                                                    {each.blind_box ? <span className="badge blind-box">BLIND-BOX</span> : ""}
                                                     <h5 className="card-title view-more" onClick={() => showProduct(each.id)}>{each.name}</h5>
                                                     <span className="card-text d-inline-block text-truncate"
                                                         style={{ "maxWidth": "100%", "maxHeight": "200px" }}>
@@ -292,9 +296,9 @@ export default function Products() {
                                                 </div>
                                                 <div className="d-flex justify-content-end align-items-end my-1">
                                                     <button className="btn btn-sm card-btn mx-1" disabled={each.quantity < 1}
-                                                    onClick={() => cartContext.addToCart(each.id, 1)}>
+                                                        onClick={() => cartContext.addToCart(each.id, 1)}>
                                                         <i class="bi bi-cart-plus-fill"></i>
-                                                        </button>
+                                                    </button>
                                                 </div>
                                             </div>
                                         )
@@ -463,10 +467,13 @@ export default function Products() {
                                     {products.map(each => {
                                         return (
                                             <div className="card my-2 card-border" style={{ "width": "16rem" }}>
-                                                <img src={each.image_url} className="class-img-top card-img" />
+                                                <div className="tags-overlay">
+                                                    <img src={each.image_url} className="class-img-top card-img" />
+                                                    {!each.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
+                                                    {!each.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
+                                                </div>
                                                 <div className="card-body pb-0">
-                                                    {each.launch_status ? "" : <span className="badge bg-danger">PRE-ORDER</span>}
-                                                    {each.blind_box ? <span className="badge bg-warning text-dark">BLIND-BOX</span> : ""}
+                                                    {each.blind_box ? <span className="badge blind-box">BLIND-BOX</span> : ""}
                                                     <h5 className="card-title view-more" onClick={() => showProduct(each.id)}>{each.name}</h5>
                                                     <span className="card-text d-inline-block text-truncate"
                                                         style={{ "maxWidth": "100%", "maxHeight": "200px" }}>

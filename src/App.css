@@ -359,7 +359,7 @@ fieldset:disabled {
   background:rgba(40, 38, 38, 0.391);
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .cart-img {
     height: 150px;
     width: 150px;
@@ -375,5 +375,9 @@ fieldset:disabled {
     position: relative;
     font-size: 38px;
     top: 0vh;
+  }
+
+  .mob-content{
+    margin-bottom: 0;
   }
 }

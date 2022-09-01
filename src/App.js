@@ -33,40 +33,40 @@ export default class App extends React.Component {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     return (
       <React.Fragment>
+        <Router>
         <UserProvider>
           <ProductProvider>
             <CartProvider>
               <OrderProvider>
-                <Router>
-                  <NavigationBar />
-                  <Routes>
-                    <Route path="/" element={<Landing url={url} />} />
-                    <Route path="/login" element={<Login url={url} />} />
-                    <Route path="/products" element={
-                      <Products />} />
-                    <Route path="/cart" element={
-                      <Cart url={url} />
-                    } />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/orders" element={
-                      <Orders />
+                <NavigationBar />
+                <Routes>
+                  <Route path="/" element={<Landing url={url} />} />
+                  <Route path="/login" element={<Login url={url} />} />
+                  <Route path="/products" element={
+                    <Products />} />
+                  <Route path="/cart" element={
+                    <Cart url={url} />
+                  } />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/orders" element={
+                    <Orders />
 
+                  } />
+                  <Route path="/register" element={<Register url={url} />} />
+                  <Route path="/products/:productId" element=
+                    {
+                      <SingleProduct />
                     } />
-                    <Route path="/register" element={<Register url={url} />} />
-                    <Route path="/products/:productId" element=
-                      {
-                        <SingleProduct />
-                      } />
-                    <Route path="/checkout/cancel" element={<CancelCheckout />} />
-                    <Route path="/checkout/success" element={<SuccessCheckout />} />
-                  </Routes>
-                  <MobileNav />
-                </Router>
+                  <Route path="/checkout/cancel" element={<CancelCheckout />} />
+                  <Route path="/checkout/success" element={<SuccessCheckout />} />
+                </Routes>
+                <MobileNav />
               </OrderProvider>
             </CartProvider>
           </ProductProvider>
         </UserProvider>
-      </React.Fragment>
+      </Router>
+      </React.Fragment >
     )
   }
 }

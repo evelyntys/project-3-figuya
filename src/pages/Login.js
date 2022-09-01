@@ -100,7 +100,7 @@ export default function Login(props) {
 
     return (
         <React.Fragment>
-            <div className="container">
+            <div className="container mob-content">
                 <h1>Login</h1>
                 <div>
                     <div>

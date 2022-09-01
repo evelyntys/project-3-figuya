@@ -67,6 +67,10 @@
   border-radius: 0.25rem;
 }
 
+.search-container{
+  margin-left: 5px;
+}
+
 .view-more {
   cursor: pointer;
   text-transform: capitalize;
@@ -389,7 +393,8 @@ fieldset:disabled {
   }
 
   .mob-content{
-    margin-bottom: 0;
+    /* margin-bottom: 0; */
+    margin: 0;
   }
 
   .parent-contain{

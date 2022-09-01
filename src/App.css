@@ -287,7 +287,10 @@
 }
 
 .blind-box {
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.29);
+  color: white;
+  text-align: center;
+  font-weight: 800;
 }
 
 .pre-order {
@@ -304,6 +307,26 @@
   font-weight: 800;
   font-size: 10px;
   background-color: rgba(255, 155, 5, 0.798);
+}
+
+.first-list{
+  border-top: 1px solid #ced4da !important;
+  border-radius: 0.25rem;
+}
+
+.sold-out-img{
+  filter: grayscale(100%);
+}
+
+.qty-btn.disabled, .qty-btn:disabled, fieldset:disabled{
+  border: 0px !important;
+}
+
+.figure-type{
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+  color: grey;
 }
 
 @media screen and (min-width: 768px) {

@@ -41,7 +41,7 @@ export default function Orders() {
                                 </div>
                                 <div className="col-12 col-lg-6 text-lg-end">
                                     <p>Total amount: ${(each.total_cost / 100).toFixed(2)}</p>
-                                    <button className="btn btn-sm" onClick={() => toggleDetails(each.id)}>View details</button>
+                                    <button className="btn btn-sm mb-2 view-more" style={{"color": "orange"}} onClick={() => toggleDetails(each.id)}>View details</button>
                                 </div>
                             </div>
                             {showDetails == each.id ?

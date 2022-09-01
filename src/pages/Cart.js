@@ -168,7 +168,7 @@ export default function Cart(props) {
                 {cart.length ?
                     <React.Fragment>
                         <div className="list-group my-2">
-                            {cart.map(each => {
+                            {cart.map((each, index) => {
                                 return (
                                     <React.Fragment>
                                         <div className="list-group-item d-none d-lg-block">
@@ -204,7 +204,7 @@ export default function Cart(props) {
                                         </div>
 
 
-                                        <div className="list-group-item d-lg-none">
+                                        <div className={"list-group-item d-lg-none " + (index == 0? "first-list": "")}>
                                             <div className="row">
                                                 <div className="col-3 pe-0">
                                                     <div className="tags-overlay">

@@ -26,7 +26,7 @@ export default function Orders() {
 
     return (
         <React.Fragment>
-            <div className="container">
+            <div className="container mob-content">
                 <h1>Your orders</h1>
                 {orders.map(each => {
                     return (

@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function SuccessCheckout() {
     const navigate = useNavigate();
-    const profile = () => {
-        navigate("/profile")
+    const orders = () => {
+        navigate("/orders")
     }
     const products = () => {
         navigate("/products")
@@ -19,7 +19,7 @@ export default function SuccessCheckout() {
                     <div className="col align-self-center" style={{"fontSize": "40px"}}>
                         Congratulations, you've managed to checkout successfully!
                         <div style={{"fontSize": "20px"}}>
-                    Head to your <span className="view-more" onClick={profile}>profile</span> now to view your orders,
+                    Head to view your <span className="view-more" onClick={orders}>Orders</span> now,
                     or go to <span className="view-more" onClick={products}>shop more</span>.
                     </div>
                     </div>

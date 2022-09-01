@@ -37,7 +37,8 @@ export default function Orders() {
 
                                 <div className="col-12 col-lg-6">
                                     <a className="link-dec" href={each.receipt_url}>{each.payment_reference}</a>, via <span style={{ "text-transform": "uppercase" }}>{each.payment_method}</span><br />
-                                    Order status:  <span style={{ "text-transform": "uppercase" }}>{each.order_status.order_status}</span>
+                                    Order status:  <span style={{ "text-transform": "uppercase" }}>{each.order_status.order_status}</span><br/>
+                                    {each.remarks}
                                 </div>
                                 <div className="col-12 col-lg-6 text-lg-end">
                                     <p>Total amount: ${(each.total_cost / 100).toFixed(2)}</p>

@@ -152,8 +152,8 @@ export default function Register(props) {
                     <div className="col-12 col-lg-6 d-flex flex-col justify-content-center align-items-center login-img">
                         <img src={require("../images/logo.png")} className="login-img-logo" /><br />
                     </div>
-                    <div className="container col-12 col-lg-6">
-                        <h1>Sign up for a new account</h1>
+                    <div className="p-5 container col-12 col-lg-6">
+                        <h1 className="text-center text-lg-start">Sign up for a new account</h1>
                         {toShow == 1 ?
                             <div className="first-page">
                                 <div>

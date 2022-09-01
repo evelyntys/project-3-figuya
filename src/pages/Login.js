@@ -105,8 +105,8 @@ export default function Login(props) {
                     <div className="col-12 col-lg-6 d-flex flex-col justify-content-center align-items-center login-img">
                         <img src={require("../images/logo.png")} className="login-img-logo" /><br />
                     </div>
-                    <div className="container col-12 col-lg-6">
-                        <h1>Login</h1>
+                    <div className="container p-5 col-12 col-lg-6">
+                        <h1 className="text-center text-lg-start">Login</h1>
                         <div>
                             <div>
                                 <label>Username/Email:</label>

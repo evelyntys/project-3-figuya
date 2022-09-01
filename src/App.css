@@ -359,6 +359,17 @@ fieldset:disabled {
   background:rgba(40, 38, 38, 0.391);
 }
 
+.login-img-logo{
+  height: 100px;
+}
+
+
+/* .login-img{
+  background-color: #FFC277;
+  height: 100vh;
+} */
+
+
 @media screen and (min-width: 992px) {
   .cart-img {
     height: 150px;
@@ -380,4 +391,22 @@ fieldset:disabled {
   .mob-content{
     margin-bottom: 0;
   }
+
+  .parent-contain{
+    height: 90vh;
+  }
+
+  .login-container{
+    margin: 0 !important;
+  }
+
+  .login-img{
+    background-color: #ffc2773e;
+    height: 100%;
+  }
+  
+  .login-img-logo{
+    height: 200px;
+  }
+
 }

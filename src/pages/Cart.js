@@ -7,6 +7,7 @@ import ProductContext from '../context/ProductContext';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import { loadStripe } from '@stripe/stripe-js';
+import { checkAccessExpiry } from '../helpers/helper';
 
 export default function Cart(props) {
     const cartContext = React.useContext(CartContext);
@@ -19,29 +20,14 @@ export default function Cart(props) {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     useEffect(() => {
         async function setData() {
+            checkAccessExpiry();
+            const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/";
             let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-            let decoded = jwt_decode(accessToken);
-            let currentDate = new Date();
-            console.log(decoded);
-            if (decoded.exp * 1000 < currentDate.getTime()) {
-                console.log("from cart component, expired")
-                const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-                const newAccessTokenResponse = await axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/users/refresh", {
-                    refreshToken
-                });
-                const newAccessToken = newAccessTokenResponse.data.accessToken;
-                console.log(JSON.stringify(newAccessToken));
-                console.log(newAccessToken)
-                console.log(decoded.exp)
-                localStorage.setItem('accessToken', JSON.stringify(newAccessToken));
-                axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-            } else {
-                console.log(accessToken)
-                console.log('from cart component')
-                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-            }
-            const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
-            let cartResponse = await axios.get(url + "cart");
+            let cartResponse = await axios.get(url + "cart", {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            });
             let cart = cartResponse.data;
             await setCart(cart);
             // for (let i=0; i<cartItems.length; i++){
@@ -140,10 +126,13 @@ export default function Cart(props) {
     }
 
     const Checkout = async () => {
-        // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+        let accessToken = JSON.parse(localStorage.getItem('accessToken'));
         // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         // console.log(accessToken);
         let checkoutResponse = await axios.post(url + "checkout", {
+            headers: {
+                Authorization: 'Bearer ' + accessToken
+            },
             customer_email: checkoutDetails.customer_email,
             block_street: checkoutDetails.block_street,
             unit: checkoutDetails.unit,
@@ -204,7 +193,7 @@ export default function Cart(props) {
                                         </div>
 
 
-                                        <div className={"list-group-item d-lg-none " + (index == 0? "first-list": "")}>
+                                        <div className={"list-group-item d-lg-none " + (index == 0 ? "first-list" : "")}>
                                             <div className="row">
                                                 <div className="col-3 pe-0">
                                                     <div className="tags-overlay">

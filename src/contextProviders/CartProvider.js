@@ -5,9 +5,10 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { checkAccessExpiry } from "../helpers/helper";
 
 export default function CartProvider(props) {
-    const [cartItems, setCartItems] = React.useState();
+    const [cartItems, setCartItems] = React.useState([]);
     const navigate = useNavigate();
 
     React.useEffect(() => {
@@ -15,31 +16,18 @@ export default function CartProvider(props) {
             let accessToken = JSON.parse(localStorage.getItem('accessToken'));
             let refreshToken = JSON.parse(localStorage.getItem('refreshToken'))
             if (accessToken && refreshToken) {
-                let decoded = jwt_decode(accessToken);
-                let currentDate = new Date();
-                console.log(decoded);
-                if (decoded.exp * 1000 < currentDate.getTime()) {
-                    console.log("cart provider expired")
-                    const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-                    const newAccessTokenResponse = await axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/users/refresh", {
-                        refreshToken
-                    });
-                    const newAccessToken = newAccessTokenResponse.data.accessToken;
-                    console.log(JSON.stringify(newAccessToken));
-                    console.log(newAccessToken)
-                    console.log(decoded.exp)
-                    localStorage.setItem('accessToken', JSON.stringify(newAccessToken));
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-                } else {
-                    console.log(accessToken)
-                    console.log('cart provider here')
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                }
-                const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
-                let cartResponse = await axios.get(url + "cart");
-                let cart = cartResponse.data;
-                await setCartItems(cart);
+                await checkAccessExpiry();
             }
+            const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
+            let cartResponse = await axios.get(url + "cart", {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            });
+            let cart = cartResponse.data;
+            console.log(cart)
+            await setCartItems(cart);
+            console.log(cartItems)
         }
         checkLogin();
     }, [])
@@ -47,28 +35,29 @@ export default function CartProvider(props) {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     const cartContext = {
         getState: () => {
+            console.log(cartItems)
             return cartItems
         },
         getCart: async () => {
-            // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-            // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-            // console.log(accessToken);
-            let cartResponse = await axios.get(url + "cart");
+            let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+            let cartResponse = await axios.get(url + "cart", {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            });
             let cart = cartResponse.data;
-            // console.log(cart);
             await setCartItems(cart)
             return cartItems
         },
-        // getCart: () => {
-        //     return this.state.cartItems
-        // },
         addToCart: async (figureId, qty) => {
-            // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-            // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+            let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+            console.log(accessToken)
             const addToast = toast.loading("Adding to cart");
-            // await cartContext.addToCart(figureId, 1);
             try {
                 let cartResponse = await axios.get(url + "cart/" + figureId + "/add", {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    },
                     params: {
                         quantity: qty
                     }
@@ -87,9 +76,7 @@ export default function CartProvider(props) {
                 let errorMessage = ""
                 if (e.request.status == 400) {
                     errorMessage = "There is not enough stock quantity"
-                } else if (e.request.status == 403) {
-                    errorMessage = "Please try again"
-                } else if (e.response.data == "Please ensure that you are logged in.") {
+                } else {
                     errorMessage = "Please login to add to cart"
                 }
                 toast.update(addToast, {
@@ -104,13 +91,14 @@ export default function CartProvider(props) {
                     }, 2000)
                 }
             }
-            // return true
-            // return this.state.cartItems
         },
         removeItem: async (figureId) => {
-            // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-            // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-            let cartResponse = await axios.get(url + "cart/" + figureId + "/remove");
+            let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+            let cartResponse = await axios.get(url + "cart/" + figureId + "/remove", {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            });
             let newCart = cartResponse.data.cart;
             await setCartItems(newCart)
             return newCart
@@ -124,9 +112,13 @@ export default function CartProvider(props) {
             return ((total / 100).toFixed(2))
         },
         getAddress: async () => {
-            // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+            let accessToken = JSON.parse(localStorage.getItem('accessToken'));
             // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-            let customerResponse = await axios.get(url + "users/profile");
+            let customerResponse = await axios.get(url + "users/profile", {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            });
             let email = customerResponse.data.customer.email;
             let block_street = customerResponse.data.customer.block_street;
             let unit = customerResponse.data.customer.unit;
@@ -135,9 +127,12 @@ export default function CartProvider(props) {
             return [email, block_street, unit, postal];
         },
         changeQuantity: async (figureId, newQuantity) => {
-            // let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+            let accessToken = JSON.parse(localStorage.getItem('accessToken'));
             // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             let updateResponse = await axios.post(url + "cart/" + figureId + "/quantity/update", {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                },
                 newQuantity: newQuantity
             });
             console.log(updateResponse.data);

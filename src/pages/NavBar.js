@@ -24,6 +24,7 @@ export default function NavigationBar() {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     const cartContext = React.useContext(CartContext);
     const userContext = React.useContext(UserContext);
+    const user = userContext.getName();
     // const navigate = useNavigate();
 
     const Logout = async () => {
@@ -46,7 +47,7 @@ export default function NavigationBar() {
         <Navbar collapseOnSelect expand="lg" className="navbar-color">
             <div className="container-fluid">
                 <Navbar.Brand className="mx-auto m-lg-0" as={NavLink} to="/">
-                    <img src={require("../images/logo.png")} style={{ "height": "40px" }} />
+                    <img src={require("../images/logo.png")} style={{ "height": "40px" }} className="mx-2" />
                     FIGU屋
                 </Navbar.Brand>
                 <div className="d-none d-lg-block">
@@ -55,18 +56,18 @@ export default function NavigationBar() {
                         <Nav className="ms-auto me-5">
                             {/* <CartContext.Consumer> */}
                             <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
-                            <Nav.Link as={NavLink} to="/cart" className="position-relative mx-2">Cart
-                                {
-                                    userContext.getUserState() ? (
-                                        cartContext.getState().length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                            {cartContext.getState().length}
-                                        </span>) : null) : null
-                                }
-                            </Nav.Link>
                             {userContext.getUserState() ?
                                 <React.Fragment>
+                                    <Nav.Link as={NavLink} to="/cart" className="position-relative mx-2">Cart
+                                        {
+                                            userContext.getUserState() ? (
+                                                cartContext.getState().length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                    {cartContext.getState().length}
+                                                </span>) : null) : null
+                                        }
+                                    </Nav.Link>
                                     <img className="ms-2" src={require("../images/user.png")} style={{ "height": "30px" }} />
-                                    <NavDropdown title={userContext.getName()} id="collasible-nav-dropdown">
+                                    <NavDropdown title={user} id="collasible-nav-dropdown">
                                         <NavDropdown.Item as={NavLink} to="/profile" onClick={() => userContext.getProfile()}>Profile</NavDropdown.Item>
                                         <NavDropdown.Item as={NavLink} to="/orders">
                                             Orders

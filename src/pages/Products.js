@@ -33,8 +33,6 @@ export default function Products() {
             let products = await productContext.getProducts();
             let filtered = await productContext.getState();
             let filterChose = await productContext.getFiltered();
-            // console.log(products);
-            // console.log(filtered);
             if (filtered.length == 0) {
                 await setProducts(products);
             }
@@ -74,8 +72,6 @@ export default function Products() {
     const [figureTypes, setFigureTypes] = React.useState([]);
 
     const showProduct = async (productId) => {
-        // let product = await productContext.showProduct(productId);
-        // console.log(product)
         navigate(`/products/${productId}`)
     }
 
@@ -136,6 +132,41 @@ export default function Products() {
     };
 
     const filterProducts = async () => {
+        let filteredProducts = await productContext.filterProducts(searchBox);
+        await setProducts(filteredProducts)
+    }
+
+
+    const resetSearchMob = async () => {
+        setSearchBox({
+            search: "",
+            min_cost: "",
+            max_cost: "",
+            figureType: [],
+            collection: 0,
+            min_height: "",
+            max_height: "",
+            blind_box: "a",
+            launch_status: "a",
+            series: ""
+        });
+        const emptySearch = {
+            search: "",
+            min_cost: "",
+            max_cost: "",
+            figureType: [],
+            collection: 0,
+            min_height: "",
+            max_height: "",
+            blind_box: "a",
+            launch_status: "a",
+            series: ""
+        };
+        let baseProducts = await productContext.filterProducts(emptySearch);
+        await setProducts(baseProducts)
+    };
+
+    const filterProductsMob = async () => {
         let filteredProducts = await productContext.filterProducts(searchBox);
         await setProducts(filteredProducts)
     }
@@ -435,8 +466,8 @@ export default function Products() {
                                         </div>
                                     </div>
                                     <div className="d-flex justify-content-end">
-                                        <button className="btn main-btn btn-sm my-2 mx-1" onClick={resetSearch}>Reset</button>
-                                        <button className="btn main-btn btn-sm my-2 mx-1" onClick={() => productContext.filterProducts(searchBox)}>Search</button>
+                                        <button className="btn main-btn btn-sm my-2 mx-1" onClick={resetSearchMob}>Reset</button>
+                                        <button className="btn main-btn btn-sm my-2 mx-1" onClick={filterProductsMob}>Search</button>
                                     </div>
                                 </React.Fragment> :
                                 <React.Fragment>
@@ -445,13 +476,13 @@ export default function Products() {
                                         <div className="d-flex flex-wrap">
                                             <div className="mx-auto">
                                                 <button className="btn main-btn btn-sm"
-                                                    onClick={() => productContext.filterProducts(searchBox)}>
+                                                    onClick={filterProductsMob}>
                                                     <i class="bi bi-search"></i>
                                                 </button>
                                             </div>
                                             <div className="mx-auto">
                                                 <button className="btn main-btn btn-sm"
-                                                    onClick={resetSearch}>
+                                                    onClick={resetSearchMob}>
                                                     <i class="bi bi-arrow-counterclockwise"></i>
                                                 </button>
                                             </div>

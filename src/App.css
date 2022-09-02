@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Kosugi+Maru&family=Mochiy+Pop+One&family=Yomogi&family=Yrsa:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
-body{}
+body {}
 
 .dropdown-menu {
   min-width: inherit;
@@ -98,7 +98,7 @@ body{}
   border-color: transparent;
 }
 
-.loader-size{
+.loader-size {
   height: 200px;
 }
 
@@ -401,6 +401,27 @@ fieldset:disabled {
   height: 100vh;
 } */
 
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  background-color: #FFC277;
+  color: #66402B;
+  border-color: #66402B;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs {
+  border-color: #66402B;
+}
+
+.nav-tabs .nav-link {
+  border-color: #66402B;
+  color: #66402B;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: #66402B;
+  color: #66402B;
+}
 
 @media screen and (min-width: 992px) {
   .cart-img {

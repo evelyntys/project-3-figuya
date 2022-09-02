@@ -204,7 +204,7 @@ export default function SingleProduct() {
             </React.Fragment>
                 :
                 <div className="d-flex justify-content-center">
-                    <img src={require("../images/loader.gif")} />
+                    <img src={require("../images/loader.gif")} className="loader-size"/>
                 </div>
             }
         </React.Fragment >

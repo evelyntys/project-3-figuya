@@ -26,9 +26,14 @@ import Landing from './pages/Landing';
 import CancelCheckout from './pages/CancelCheckout';
 import SuccessCheckout from './pages/SuccessCheckout';
 import MobileNav from './pages/MobileNav';
+import { CheckRefreshExpiry } from './helpers/helper';
 
 
 export default class App extends React.Component {
+  async componentDidMount() {
+    await CheckRefreshExpiry();
+  }
+
   render() {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     return (

@@ -144,7 +144,7 @@ export default function Products() {
         <React.Fragment>
             <ToastContainer position="bottom-right" />
             <div className="d-none d-lg-block">
-                <div className="row my-2 mx-5">
+                <div className="row m-2">
                     <div className="col-12 col-lg-3">
                         <div className="container">
                             <h1>Search</h1>
@@ -156,10 +156,9 @@ export default function Products() {
                         </div>
                     </div>
                 </div>
-                <div className="row my-2 mx-5">
+                <div className="row ms-2 my-2 search-container">
                     <div className="col-12 col-lg-3">
                         <div className="row search-box">
-
                             <div className="col-12">
                                 <label>Search:</label>
                                 <input type="text" className="form-control" value={searchBox.search}
@@ -188,12 +187,6 @@ export default function Products() {
 
                             <div className="col-12">
                                 <div><label>Figure Type: </label></div>
-                                {/* <select className="form-select" value={searchBox.figureType} onChange={updateSearchField} name="figureType">
-                                    <option value={0} selected={searchBox.figureType == 0}>Choose a figure type</option>
-                                    {productContext.getFigureType().map(each => {
-                                        return <option value={each[0]} selected={searchBox.figureType == each[0]}>{each[1]}</option>
-                                    })}
-                                </select> */}
                                 {productContext.getFigureType().map(each => {
                                     return (
                                         <div className="form-check">
@@ -279,17 +272,18 @@ export default function Products() {
                         </div>
                     </div>
                     <div className="col-12 col-lg-9">
-                        <div className="container d-flex justify-content-evenly flex-wrap">
+                        <div className="grid d-flex flex-wrap">
                             {products.length ?
                                 <React.Fragment>
                                     {products.map(each => {
                                         return (
-                                            <div className="card my-2 card-border" style={{ "width": "16rem" }}>
+                                            <div className="card m-2 card-border" style={{ "width": "16rem" }}>
                                                 <div className="tags-overlay">
                                                     <img src={each.image_url} className={"class-img-top card-img" + (each.quantity ? "" : " sold-out-img")} />
                                                     {!each.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                     {!each.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
                                                 </div>
+                                                {each.blind_box ? <span className="blind-box">BLIND-BOX</span> : ""}
                                                 <div className="card-body pb-0">
                                                     <h5 className="card-title view-more text-truncate mb-0" onClick={() => showProduct(each.id)}>{each.name}</h5>
                                                     <span className="figure-type">{each.figure_type.figure_type} figure</span>
@@ -303,12 +297,16 @@ export default function Products() {
                                                         <span className="badge card-badges m-1">{each.manufacturer.manufacturer_name}</span> <br />
                                                     </div>
                                                 </div>
-                                                <div className="d-flex justify-content-end align-items-end my-1">
+                                                {/* <div className="d-flex justify-content-end align-items-end my-1">
                                                     <button className="btn card-btn mx-1" disabled={each.quantity < 1}
                                                         onClick={() => cartContext.addToCart(each.id, 1)}>
-                                                        <i class="bi bi-cart-plus-fill"></i>
+                                                        ADD TO CART
                                                     </button>
-                                                </div>
+                                                </div> */}
+                                                <button className="btn card-btn btn-sm m-1" disabled={each.quantity < 1}
+                                                    onClick={() => cartContext.addToCart(each.id, 1)}>
+                                                    ADD TO CART
+                                                </button>
                                             </div>
                                         )
                                     })}
@@ -359,12 +357,6 @@ export default function Products() {
 
                                     <div className="col-12">
                                         <div><label>Figure Type: </label></div>
-                                        {/* <select className="form-select" value={searchBox.figureType} onChange={updateSearchField} name="figureType">
-        <option value={0} selected={searchBox.figureType == 0}>Choose a figure type</option>
-        {productContext.getFigureType().map(each => {
-            return <option value={each[0]} selected={searchBox.figureType == each[0]}>{each[1]}</option>
-        })}
-    </select> */}
                                         {productContext.getFigureType().map(each => {
                                             return (
                                                 <div className="form-check">
@@ -450,17 +442,26 @@ export default function Products() {
                                 <React.Fragment>
                                     <div className="col">
                                         <div style={{ "height": "30px" }}></div>
-                                        <button className="btn main-btn btn-sm"
-                                            onClick={() => productContext.filterProducts(searchBox)}>
-                                            <i class="bi bi-search"></i>
-                                        </button>
-                                    </div>
-                                    <div className="col">
-                                        <div style={{ "height": "30px" }}></div>
-                                        <button className="btn main-btn btn-sm"
-                                            onClick={() => setShowSearch(!showSearch)}>
-                                            <i class="bi bi-caret-down-fill"></i>
-                                        </button>
+                                        <div className="d-flex flex-wrap">
+                                            <div className="mx-auto">
+                                                <button className="btn main-btn btn-sm"
+                                                    onClick={() => productContext.filterProducts(searchBox)}>
+                                                    <i class="bi bi-search"></i>
+                                                </button>
+                                            </div>
+                                            <div className="mx-auto">
+                                                <button className="btn main-btn btn-sm"
+                                                    onClick={resetSearch}>
+                                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                                </button>
+                                            </div>
+                                            <div className="mx-auto">
+                                                <button className="btn main-btn btn-sm"
+                                                    onClick={() => setShowSearch(!showSearch)}>
+                                                    <i class="bi bi-caret-down-fill"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </React.Fragment>
                             }
@@ -495,12 +496,16 @@ export default function Products() {
                                                         <span className="badge card-badges m-1">{each.manufacturer.manufacturer_name}</span> <br />
                                                     </div>
                                                 </div>
-                                                <div className="d-flex justify-content-end align-items-end my-1">
+                                                {/* <div className="d-flex justify-content-end align-items-end my-1">
                                                     <button className="btn card-btn mx-1" disabled={each.quantity < 1}
                                                         onClick={() => cartContext.addToCart(each.id, 1)}>
                                                         <i class="bi bi-cart-plus-fill"></i>
                                                     </button>
-                                                </div>
+                                                </div> */}
+                                                <button className="btn card-btn btn-sm m-1" disabled={each.quantity < 1}
+                                                    onClick={() => cartContext.addToCart(each.id, 1)}>
+                                                    ADD TO CART
+                                                </button>
                                             </div>
                                         )
                                     })

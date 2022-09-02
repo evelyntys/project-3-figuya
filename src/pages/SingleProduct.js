@@ -53,7 +53,7 @@ export default function SingleProduct() {
                             </Accordion> */}
                         </div>
                         <div className="col-6">
-                            <h3 className="m-0 pdt-padding">{product.name}</h3>
+                            <h3 className="m-0 pdt-padding product-name">{product.name}</h3>
                             {!product.launch_status ?
                                 <div className="pdt-padding">
                                     <span className="badge bg-danger">
@@ -102,15 +102,8 @@ export default function SingleProduct() {
                                     </tr>
                                 </table>
                             </div>
-                            <Accordion flush>
-                                <Accordion.Item eventKey="0">
-                                    <Accordion.Header>Description</Accordion.Header>
-                                    <Accordion.Body>
-                                        {product.description}
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            </Accordion>
-                            <div className="container d-flex justify-content-center align-items-center">
+                            <div></div>
+                            <div className="container d-flex justify-content-center align-items-center mt-3">
                                 <button className="btn qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null} disabled={productQty > product.quantity}><i class="bi bi-dash-circle-fill"></i></button>
                                 <input type="text" className="form-control text-center" name="productQty" value={productQty}
                                     onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} disabled={productQty > product.quantity}/>
@@ -121,6 +114,14 @@ export default function SingleProduct() {
                             {product.quantity? <h6>{product.quantity} left in stock</h6> 
                             : <h6 style={{"color": "red"}}>SOLD OUT</h6>}
                             </div>
+                            <Accordion flush>
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>Description</Accordion.Header>
+                                    <Accordion.Body>
+                                        {product.description}
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
                         </div>
                     </div>
                 </div>
@@ -180,7 +181,7 @@ export default function SingleProduct() {
                                     </tr>
                                 </table>
                             </div>
-                            <div className="container d-flex justify-content-center align-items-center">
+                            <div className="container d-flex justify-content-center align-items-center mt-3">
                                 <button className="btn btn-sm qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null} disabled={productQty > product.quantity}><i class="bi bi-dash-circle-fill"></i></button>
                                 <input type="text" className="form-control text-center" name="productQty" value={productQty}
                                     onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} disabled={productQty > product.quantity} />

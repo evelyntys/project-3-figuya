@@ -3,16 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import CartContext from '../context/CartContext';
 import ProductContext from '../context/ProductContext';
 import { toast, ToastContainer } from 'react-toastify';
+import ProductListing from './ProductListings';
+import Pagination from './Pagination';
 
 export default function Products() {
     const productContext = React.useContext(ProductContext);
     const cartContext = React.useContext(CartContext);
     const navigate = useNavigate();
-
-    let figureType = [];
-    let blind_box = "a";
-
-    const [products, setProducts] = React.useState({})
+    const [products, setProducts] = React.useState([]);
     const [searchBox, setSearchBox] = React.useState({
         search: "",
         min_cost: "",
@@ -26,6 +24,18 @@ export default function Products() {
         series: ""
     });
     const [loader, setLoader] = React.useState();
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [recordsPerPage] = React.useState(9);
+    const lastProduct = currentPage * recordsPerPage;
+    const firstProduct = lastProduct - recordsPerPage;
+    const currentProducts = products.slice(firstProduct, lastProduct);
+    const nPages = Math.ceil(products.length / recordsPerPage);
+    const [currentPageMob, setCurrentPageMob] = React.useState(1);
+    const [recordsPerPageMob] = React.useState(6);
+    const lastProductMob = currentPageMob * recordsPerPageMob;
+    const firstProductMob = lastProductMob - recordsPerPageMob;
+    const currentProductsMob = products.slice(firstProductMob, lastProductMob);
+    const nPagesMob = Math.ceil(products.length / recordsPerPageMob);
 
     useEffect(() => {
         async function defaultState() {
@@ -145,7 +155,8 @@ export default function Products() {
 
 
     const resetSearchMob = async () => {
-        setLoader(true)
+        setLoader(true);
+        setShowSearch(false);
         setSearchBox({
             search: "",
             min_cost: "",
@@ -177,6 +188,7 @@ export default function Products() {
 
     const filterProductsMob = async () => {
         setLoader(true)
+        setShowSearch(false)
         let filteredProducts = await productContext.filterProducts(searchBox);
         await setProducts(filteredProducts)
         setLoader(false)
@@ -325,46 +337,12 @@ export default function Products() {
                                 <div className="row">
                                     {products.length ?
                                         <React.Fragment>
-                                            {products.map(each => {
-                                                return (
-                                                    <div className="col-4">
-                                                        <div className="mx-auto card m-2 card-border" style={{ "width": "16rem" }}>
-                                                            <div className="tags-overlay">
-                                                                <img src={each.image_url} className={"class-img-top card-img" + (each.quantity ? "" : " sold-out-img")} />
-                                                                {!each.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
-                                                                {!each.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
-                                                                {each.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
-                                                            </div>
-                                                            <div className="card-body pb-0">
-                                                                <h5 className="card-title view-more text-truncate mb-0" onClick={() => showProduct(each.id)}>{each.name}</h5>
-                                                                <span className="figure-type">{each.figure_type.figure_type} figure</span>
-                                                                <h4>${(each.cost / 100).toFixed(2)}</h4>
-                                                                <div>
-                                                                    {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
-                                                                    <span className="badge card-badges m-1">{each.series.series_name}</span> <br />
-                                                                    {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
-                                                                    <span className="badge card-badges m-1">{each.collection.collection_name}</span> <br />
-                                                                    {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
-                                                                    <span className="badge card-badges m-1">{each.manufacturer.manufacturer_name}</span> <br />
-                                                                </div>
-                                                            </div>
-                                                            {/* <div className="d-flex justify-content-end align-items-end my-1">
-                                                    <button className="btn card-btn mx-1" disabled={each.quantity < 1}
-                                                        onClick={() => cartContext.addToCart(each.id, 1)}>
-                                                        ADD TO CART
-                                                    </button>
-                                                </div> */}
-                                                            <button className="btn card-btn btn-sm m-1" disabled={each.quantity < 1}
-                                                                onClick={() => cartContext.addToCart(each.id, 1)}>
-                                                                ADD TO CART
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            })}
+                                            <ProductListing products={currentProducts} showProduct={showProduct}
+                                            cartContext={cartContext}/>
                                         </React.Fragment>
                                         : null}
                                 </div>
+                                <Pagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
                             </React.Fragment>
                             :
                             <div className="d-flex justify-content-center">
@@ -534,45 +512,12 @@ export default function Products() {
                                 <div className="container d-flex justify-content-evenly flex-wrap">
                                     {products.length ?
                                         <React.Fragment>
-                                            {products.map(each => {
-                                                return (
-                                                    <div className="card my-2 card-border" style={{ "width": "16rem" }}>
-                                                        <div className="tags-overlay">
-                                                            <img src={each.image_url} className={"class-img-top card-img" + (each.quantity ? "" : " sold-out-img")} />
-                                                            {!each.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
-                                                            {!each.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
-                                                            {each.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
-                                                        </div>
-                                                        <div className="card-body pb-0">
-                                                            <h5 className="card-title view-more text-truncate mb-0" onClick={() => showProduct(each.id)}>{each.name}</h5>
-                                                            <span className="figure-type">{each.figure_type.figure_type} figure</span>
-                                                            <h4>${(each.cost / 100).toFixed(2)}</h4>
-                                                            <div>
-                                                                <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span>
-                                                                <span className="badge card-badges m-1">{each.series.series_name}</span> <br />
-                                                                <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span>
-                                                                <span className="badge card-badges m-1">{each.collection.collection_name}</span> <br />
-                                                                <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span>
-                                                                <span className="badge card-badges m-1">{each.manufacturer.manufacturer_name}</span> <br />
-                                                            </div>
-                                                        </div>
-                                                        {/* <div className="d-flex justify-content-end align-items-end my-1">
-                                                    <button className="btn card-btn mx-1" disabled={each.quantity < 1}
-                                                        onClick={() => cartContext.addToCart(each.id, 1)}>
-                                                        <i class="bi bi-cart-plus-fill"></i>
-                                                    </button>
-                                                </div> */}
-                                                        <button className="btn card-btn btn-sm m-1" disabled={each.quantity < 1}
-                                                            onClick={() => cartContext.addToCart(each.id, 1)}>
-                                                            ADD TO CART
-                                                        </button>
-                                                    </div>
-                                                )
-                                            })
-                                            }
+                                                <ProductListing products={currentProductsMob} cartContext={cartContext}
+                                                showProduct={showProduct} />
                                         </React.Fragment> : null
                                     }
                                 </div>
+                                <Pagination nPages={nPagesMob} currentPage={currentPageMob} setCurrentPage={setCurrentPageMob}/>
                             </React.Fragment>
                             : <div className="d-flex justify-content-center">
                                 <img src={require("../images/loader.gif")} className="loader-size" />

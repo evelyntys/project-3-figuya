@@ -359,6 +359,23 @@ body {}
   background-color: rgba(255, 155, 5, 0.798);
 }
 
+.active>.page-link, .page-link.active{
+  background-color: rgba(255, 155, 5, 0.798);
+  border-color: rgba(255, 155, 5, 0.798);
+  color: white;
+}
+
+.page-link{
+  color: black;
+  border-color: transparent;
+}
+
+.page-link:focus{
+  color: black;
+  border-color: transparent;
+  box-shadow: none;
+}
+
 .first-list {
   border-top: 1px solid #ced4da !important;
   border-radius: 0.25rem;

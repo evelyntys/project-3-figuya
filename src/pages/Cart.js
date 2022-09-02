@@ -16,13 +16,14 @@ export default function Cart(props) {
     const [cartTotal, setCartTotal] = React.useState([]);
     const productContext = React.useContext(ProductContext);
     const navigate = useNavigate();
+    let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+    let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
 
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     useEffect(() => {
         async function setData() {
-            checkAccessExpiry();
+            accessToken = await checkAccessExpiry();
             const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/";
-            let accessToken = JSON.parse(localStorage.getItem('accessToken'));
             let cartResponse = await axios.get(url + "cart", {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
@@ -126,7 +127,7 @@ export default function Cart(props) {
     }
 
     const Checkout = async () => {
-        let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+        let accessToken = await checkAccessExpiry();
         // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         // console.log(accessToken);
         let checkoutResponse = await axios.post(url + "checkout", {
@@ -170,6 +171,7 @@ export default function Cart(props) {
                                                         <img src={each.figure.image_url} className="cart-img" />
                                                         {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                         {!each.figure.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
+                                                        {each.figure.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
                                                     </div>
                                                 </div>
                                                 <div className="col-12 col-lg-8">
@@ -200,6 +202,7 @@ export default function Cart(props) {
                                                         <img src={each.figure.image_url} className="cart-img" />
                                                         {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                         {!each.figure.launch_status ? <div className="cart-po-sm"><span>PRE-ORDER</span></div> : null}
+                                                        {each.figure.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
                                                     </div>
                                                 </div>
                                                 <div className="col-8">

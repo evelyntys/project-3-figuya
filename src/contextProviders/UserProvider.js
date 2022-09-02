@@ -29,6 +29,8 @@ export default class UserProvider extends React.Component {
 
     render() {
         const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
+        let accessToken = checkAccessExpiry();
+        let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
         const userContext = {
             login: async (user, password) => {
                 try {
@@ -73,11 +75,13 @@ export default class UserProvider extends React.Component {
                 return this.state.first_name + " " + this.state.last_name
             },
             getProfile: async () => {
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                let accessToken = await checkAccessExpiry();
+                console.log(accessToken)
                 let userProfileResponse = await axios.get(url + "users/profile", {
                     headers: {
-                      Authorization: 'Bearer ' + accessToken
-                    }});
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                });
                 await this.setState({
                     user: userProfileResponse.data
                 });

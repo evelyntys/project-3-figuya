@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Kosugi+Maru&family=Mochiy+Pop+One&family=Yomogi&family=Yrsa:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+body{}
+
 .dropdown-menu {
   min-width: inherit;
 }
@@ -17,14 +21,16 @@
 }
 
 .card-border {
-  border: 1px solid #FB8A00;
+  /* border: 1px solid #FB8A00; */
+  border-radius: 0;
+  border: 0px;
 }
 
 .card-img {
   height: 10rem;
   width: 100%;
   object-fit: contain;
-  border-bottom: 1px solid #FB8A00;
+  /* border: 1px solid #FB8A00; */
   border-radius: 0px;
 
 }
@@ -36,6 +42,7 @@
 
   background-color: #FB8A00;
   color: white;
+  border-radius: 0px;
   /* border-color: #4499FF; */
 }
 
@@ -59,15 +66,16 @@
 
 .main-btn:hover {
   color: #FB8A00;
-  border-color: #Fb8A00;
+  border-color: #FB8A00;
 }
 
 .search-box {
-  border: 1px solid #FB8A00;
-  border-radius: 0.25rem;
+  /* border: 1px solid #FB8A00;
+  border-radius: 0.25rem; */
+  background-color: #face9895;
 }
 
-.search-container{
+.search-container {
   margin-left: 5px;
 }
 
@@ -88,6 +96,10 @@
 .qty-btn:hover {
   color: #FB8A00;
   border-color: transparent;
+}
+
+.loader-size{
+  height: 200px;
 }
 
 .pdt-padding {
@@ -121,7 +133,7 @@
   height: 200px;
 }
 
-.caro-btn{
+.caro-btn {
   background-color: white;
 }
 
@@ -153,9 +165,8 @@
 }
 
 .cart-img {
-  height: 150px;
   object-fit: cover;
-  width: 90px;
+  width: 100%
 }
 
 .list-group-item {
@@ -230,7 +241,7 @@
   background-color: rgba(0, 0, 0, 0.29)
 }
 
-.overlay{
+.overlay {
   color: white;
   position: relative;
   height: 50vw;
@@ -257,7 +268,7 @@
 }
 
 .product-name {
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .desktop-single-product {
@@ -280,6 +291,17 @@
   padding-right: 20px;
 }
 
+.blind-box-tag {
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  font-size: 14px;
+}
+
+.blind-box-icon {
+  font-size: 16px;
+}
+
 .tags-overlay {
   position: relative;
 }
@@ -297,6 +319,12 @@
   font-weight: 500; */
 }
 
+.navbar-brand {
+  font-family: 'Yomogi';
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
 .po-banner {
   position: absolute;
   width: 100%;
@@ -305,7 +333,7 @@
   justify-content: center;
   color: white;
   font-weight: 800;
-  background-color: rgba(255, 155, 5, 0.798);
+  background-color: rgba(255, 5, 5, 0.448);
 }
 
 .blind-box {
@@ -354,16 +382,16 @@ fieldset:disabled {
 }
 
 .carousel-caption {
-  display:block;
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  background:rgba(40, 38, 38, 0.391);
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(40, 38, 38, 0.391);
 }
 
-.login-img-logo{
+.login-img-logo {
   height: 100px;
 }
 
@@ -392,24 +420,24 @@ fieldset:disabled {
     top: 0vh;
   }
 
-  .mob-content{
+  .mob-content {
     margin-bottom: 0;
   }
 
-  .parent-contain{
+  .parent-contain {
     height: 93vh;
   }
 
-  .login-container{
+  .login-container {
     margin: 0 !important;
   }
 
-  .login-img{
+  .login-img {
     background-color: #ffc2773e;
     height: 100%;
   }
-  
-  .login-img-logo{
+
+  .login-img-logo {
     height: 200px;
   }
 

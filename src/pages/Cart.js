@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import { loadStripe } from '@stripe/stripe-js';
 import { checkAccessExpiry } from '../helpers/helper';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function Cart(props) {
     const cartContext = React.useContext(CartContext);
@@ -16,12 +17,14 @@ export default function Cart(props) {
     const [cartTotal, setCartTotal] = React.useState([]);
     const productContext = React.useContext(ProductContext);
     const navigate = useNavigate();
+    const [loader, setLoader] = React.useState();
     let accessToken = JSON.parse(localStorage.getItem('accessToken'));
     let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
 
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     useEffect(() => {
         async function setData() {
+            setLoader(true);
             accessToken = await checkAccessExpiry();
             const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/";
             let cartResponse = await axios.get(url + "cart", {
@@ -36,9 +39,9 @@ export default function Cart(props) {
             // }
             await setCartTotal(cartContext.getTotal(cart));
             for (let each of cart) {
-                console.log(each.figure.id, each.quantity)
                 quantity[each.figure.id] = each.quantity
             }
+            setLoader(false)
             // setQuantity(quantity)
         };
         setData();
@@ -48,37 +51,74 @@ export default function Cart(props) {
         setQuantity({
             ...quantity,
             [e.target.name]: e.target.value
-        });
+        })
         if (e.target.value) {
-            let updatedCart = await cartContext.changeQuantity([e.target.name], e.target.value);
-            await setCartTotal(cartContext.getTotal(updatedCart));
+            try {
+                let updatedCart = await cartContext.changeQuantity([e.target.name], e.target.value);
+                await setCartTotal(cartContext.getTotal(updatedCart));
+            } catch (e) {
+                console.log(e);
+            }
         }
-
-    };
+    }
 
     const increaseQuantity = async (e) => {
         setQuantity({
             ...quantity,
-            [e.target.name]: quantity[e.target.name] + 1
+            [e.target.getAttribute('name')]: parseInt(quantity[e.target.getAttribute('name')]) + 1
         });
-        if (quantity[e.target.name]) {
-            let updatedCart = await cartContext.changeQuantity([e.target.name], quantity[e.target.name] + 1);
+        if (quantity[e.target.getAttribute('name')]) {
+            let updatedCart = await cartContext.changeQuantity(e.target.getAttribute('name'), quantity[e.target.getAttribute('name')] + 1);
+            console.log("increase, updated=>", updatedCart)
             await setCartTotal(cartContext.getTotal(updatedCart));
         }
     }
 
     const decreaseQuantity = async (e) => {
-        if (quantity[e.target.name] > 1) {
+        if (quantity[e.target.getAttribute('name')] > 1) {
             setQuantity({
                 ...quantity,
-                [e.target.name]: quantity[e.target.name] - 1
+                [e.target.getAttribute('name')]: parseInt(quantity[e.target.getAttribute('name')]) - 1
             })
         }
-        if (quantity[e.target.name]) {
-            let updatedCart = await cartContext.changeQuantity([e.target.name], quantity[e.target.name] - 1);
+        if (quantity[e.target.getAttribute('name')]) {
+            try {
+                let updatedCart = await cartContext.changeQuantity(e.target.getAttribute('name'), quantity[e.target.getAttribute('name')] - 1);
+                console.log("decrease  qty => ", updatedCart);
+                await setCartTotal(cartContext.getTotal(updatedCart));
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+    }
+
+    const increaseQuantityMob = async (e) => {
+        setQuantity({
+            ...quantity,
+            [e.target.getAttribute('name')]: parseInt(quantity[e.target.getAttribute('name')]) + 1
+        });
+        if (quantity[e.target.getAttribute('name')]) {
+            let updatedCart = await cartContext.changeQuantity(e.target.getAttribute('name'), quantity[e.target.getAttribute('name')] + 1);
+            console.log("increase, updated=>", updatedCart)
             await setCartTotal(cartContext.getTotal(updatedCart));
         }
     }
+
+    const decreaseQuantityMob = async (e) => {
+        if (quantity[e.target.getAttribute('name')] > 1) {
+            setQuantity({
+                ...quantity,
+                [e.target.getAttribute('name')]: parseInt(quantity[e.target.getAttribute('name')]) - 1
+            })
+        }
+        if (quantity[e.target.getAttribute('name')]) {
+            let updatedCart = await cartContext.changeQuantity([e.target.getAttribute('name')], quantity[e.target.getAttribute('name')] - 1);
+            console.log("decrease  qty => ", updatedCart);
+            await setCartTotal(cartContext.getTotal(updatedCart));
+        }
+    }
+
 
     const [checkoutDetails, setCheckOutDetails] = React.useState({
         customer_email: "",
@@ -127,23 +167,30 @@ export default function Cart(props) {
     }
 
     const Checkout = async () => {
-        let accessToken = await checkAccessExpiry();
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-        // console.log(accessToken);
-        let checkoutResponse = await axios.post(url + "checkout", {
-            headers: {
-                Authorization: 'Bearer ' + accessToken
-            },
-            customer_email: checkoutDetails.customer_email,
-            block_street: checkoutDetails.block_street,
-            unit: checkoutDetails.unit,
-            postal: checkoutDetails.postal
-        });
-        console.log(checkoutResponse.data);
-        // let stripePromise = loadStripe(checkoutResponse.data.publishableKey);
-        // const stripe = await stripePromise;
-        // stripe.redirectToCheckout({sessionId: checkoutResponse.data.sessionId})
-        window.location.href = checkoutResponse.data.url
+        try {
+            let accessToken = await checkAccessExpiry();
+            console.log(accessToken);
+            // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+            // console.log(accessToken);
+            let checkoutResponse = await axios.post(url + "checkout", {
+                customer_email: checkoutDetails.customer_email,
+                block_street: checkoutDetails.block_street,
+                unit: checkoutDetails.unit,
+                postal: checkoutDetails.postal
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            },);
+            console.log(checkoutResponse.data);
+            // let stripePromise = loadStripe(checkoutResponse.data.publishableKey);
+            // const stripe = await stripePromise;
+            // stripe.redirectToCheckout({sessionId: checkoutResponse.data.sessionId})
+            window.location.href = checkoutResponse.data.url
+        }
+        catch (e) {
+            console.log(e)
+        }
     };
 
     const showProduct = async (id) => {
@@ -153,94 +200,118 @@ export default function Cart(props) {
 
     return (
         <React.Fragment>
+            <ToastContainer />
             <div className="container my-2">
                 <h1>Your cart:</h1>
-                {cart.length ?
+                {!loader ?
                     <React.Fragment>
-                        <div className="list-group my-2">
-                            {cart.map((each, index) => {
-                                return (
-                                    <React.Fragment>
-                                        <div className="list-group-item d-none d-lg-block">
-                                            <div className="col-1 text-end d-block d-lg-none">
-                                                <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-11 col-lg-3">
-                                                    <div className="tags-overlay d-flex justify-content-center">
-                                                        <img src={each.figure.image_url} className="cart-img" />
-                                                        {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
-                                                        {!each.figure.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
-                                                        {each.figure.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                        {cart.length ?
+                            <React.Fragment>
+                                <div className="list-group my-2">
+                                    {cart.map((each, index) => {
+                                        return (
+                                            <React.Fragment>
+                                                <div className="list-group-item d-none d-lg-block">
+                                                    <div className="col-1 text-end d-block d-lg-none">
+                                                        <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-11 col-lg-3">
+                                                            <div className="tags-overlay d-flex justify-content-center">
+                                                                <img src={each.figure.image_url} className="cart-img" />
+                                                                {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
+                                                                {!each.figure.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
+                                                                {each.figure.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-12 col-lg-8">
+                                                            <h4 className="view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</h4>
+                                                            <h6>${(each.figure.cost / 100).toFixed(2)}</h6>
+                                                            <div className="container">
+                                                                <button className="btn btn-sm qty-btn" name={each.figure.id}
+                                                                    onClick={decreaseQuantity}>
+                                                                    <i name={each.figure.id} class="bi bi-dash-circle-fill"></i>
+                                                                </button>
+                                                                <input type="text" className="form-control text-center" name={each.figure.id}
+                                                                    value={quantity[each.figure.id]} onChange={updateQuantity}
+                                                                    style={{ "width": "50px", "display": "inline-block" }} />
+                                                                <button className="btn btn-sm qty-btn" name={each.figure.id}
+                                                                    onClick={increaseQuantity}>
+                                                                    <i name={each.figure.id} class="bi bi-plus-circle-fill"></i>
+                                                                </button>
+                                                            </div>
+                                                            <h6>{each.figure.quantity} remaining in stock</h6>
+                                                            {/* <h6 style={{"color": "red"}}>Quantity is more than stock available</h6> */}
+                                                        </div>
+                                                        <div className="col-1 text-end d-none d-lg-block">
+                                                            <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
+                                                        </div>
+                                                        <div className="d-flex justify-content-end align-items-end">
+                                                            Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-12 col-lg-8">
-                                                    <h4 className="view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</h4>
-                                                    <h6>${(each.figure.cost / 100).toFixed(2)}</h6>
-                                                    <div className="container">
-                                                        <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={decreaseQuantity}><i class="bi bi-dash-circle-fill"></i></button>
-                                                        <input type="text" className="form-control text-center" name={each.figure.id} value={quantity[each.figure.id]}
-                                                            onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
-                                                        <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={increaseQuantity}><i class="bi bi-plus-circle-fill"></i></button>
-                                                    </div>
-                                                    <h6>{each.figure.quantity} remaining in stock</h6>
-                                                </div>
-                                                <div className="col-1 text-end d-none d-lg-block">
-                                                    <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
-                                                </div>
-                                                <div className="d-flex justify-content-end align-items-end">
-                                                    Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}
-                                                </div>
-                                            </div>
-                                        </div>
 
 
-                                        <div className={"list-group-item d-lg-none " + (index == 0 ? "first-list" : "")}>
-                                            <div className="row">
-                                                <div className="col-3 pe-0">
-                                                    <div className="tags-overlay">
-                                                        <img src={each.figure.image_url} className="cart-img" />
-                                                        {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
-                                                        {!each.figure.launch_status ? <div className="cart-po-sm"><span>PRE-ORDER</span></div> : null}
-                                                        {each.figure.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                                                <div className={"list-group-item d-lg-none " + (index == 0 ? "first-list" : "")}>
+                                                    <div className="row">
+                                                        <div className="col-3 pe-0">
+                                                            <div className="tags-overlay">
+                                                                <img src={each.figure.image_url} className="cart-img" />
+                                                                {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
+                                                                {!each.figure.launch_status ? <div className="cart-po-sm"><span>PRE-ORDER</span></div> : null}
+                                                                {each.figure.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-8">
+                                                            <p className="cart-name-mob text-center m-0 view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</p>
+                                                            <p className="cart-cost-mob text-center m-0">${(each.figure.cost / 100).toFixed(2)}</p>
+                                                            <div className="container text-center">
+                                                                <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={decreaseQuantityMob}>
+                                                                    <i name={each.figure.id} class="bi bi-dash-circle-fill"></i>
+                                                                    </button>
+                                                                <input type="text" className="form-control text-center" 
+                                                                name={each.figure.id} value={quantity[each.figure.id]}
+                                                                    onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
+                                                                <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={increaseQuantityMob}>
+                                                                    <i name={each.figure.id} class="bi bi-plus-circle-fill"></i>
+                                                                    </button>
+                                                            </div>
+                                                            <h6 className="text-center">{each.figure.quantity} remaining in stock</h6>
+                                                        </div>
+                                                        <div className="col-1 p-0 text-end d-block d-lg-none">
+                                                            <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}>
+                                                                <i class="bi bi-trash-fill"></i>
+                                                                </button>
+                                                        </div>
+                                                        <div className="d-flex justify-content-end align-items-end">
+                                                            Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-8">
-                                                    <p className="cart-name-mob text-center m-0 view-more" onClick={() => showProduct(each.figure.id)}>{each.figure.name}</p>
-                                                    <p className="cart-cost-mob text-center m-0">${(each.figure.cost / 100).toFixed(2)}</p>
-                                                    <div className="container text-center">
-                                                        <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={decreaseQuantity}><i class="bi bi-dash-circle-fill"></i></button>
-                                                        <input type="text" className="form-control text-center" name={each.figure.id} value={quantity[each.figure.id]}
-                                                            onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
-                                                        <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={increaseQuantity}><i class="bi bi-plus-circle-fill"></i></button>
-                                                    </div>
-                                                    <h6 className="text-center">{each.figure.quantity} remaining in stock</h6>
-                                                </div>
-                                                <div className="col-1 p-0 text-end d-block d-lg-none">
-                                                    <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
-                                                </div>
-                                                <div className="d-flex justify-content-end align-items-end">
-                                                    Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </React.Fragment>
-                                )
-                            })}
-                        </div>
-                        <div className="mob-content">
-                            <div className="d-flex justify-content-end">
-                                <h6>Total: {cartTotal}</h6>
-                            </div>
-                            <div className="d-flex justify-content-end">
-                                <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}
-                                    unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
-                                    Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
-                                {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
-                            </div>
-                        </div>
+                                            </React.Fragment>
+                                        )
+                                    })}
+                                </div>
+                                <div className="mob-content">
+                                    <div className="d-flex justify-content-end">
+                                        <h6>Total: {cartTotal}</h6>
+                                    </div>
+                                    <div className="d-flex justify-content-end">
+                                        <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}
+                                            unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
+                                            Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
+                                        {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
+                                    </div>
+                                </div>
+                            </React.Fragment>
+                            : <div>No items in your cart currently...</div>}
                     </React.Fragment>
-                    : <div>no items in your cart currently...</div>}
+                    :
+                    <div className="container d-flex justify-content-center align-items-center">
+                        <img className="loader-size" src={require("../images/loader.gif")} />
+                    </div>
+                }
             </div>
         </React.Fragment>
     )

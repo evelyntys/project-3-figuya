@@ -25,9 +25,7 @@ export default function CartProvider(props) {
                 }
             });
             let cart = cartResponse.data;
-            console.log(cart)
             await setCartItems(cart);
-            console.log(cartItems)
         }
         checkLogin();
     }, [])
@@ -35,7 +33,6 @@ export default function CartProvider(props) {
     const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     const cartContext = {
         getState: () => {
-            console.log(cartItems)
             return cartItems
         },
         getCart: async () => {
@@ -128,8 +125,10 @@ export default function CartProvider(props) {
             return [email, block_street, unit, postal];
         },
         changeQuantity: async (figureId, newQuantity) => {
+            const updateToast = toast.loading("Updating quantity");
             let checkAccessToken = await checkAccessExpiry();
-            console.log(accessToken);
+            console.log("changeQty => ", accessToken);
+            console.log(newQuantity);
             try {
                 let updateResponse = await axios.post(url + "cart/" + figureId + "/quantity/update", {
                     newQuantity: newQuantity
@@ -138,11 +137,26 @@ export default function CartProvider(props) {
                         Authorization: 'Bearer ' + checkAccessToken
                     },
                 });
-                console.log(updateResponse.data);
+                console.log("cartProvider data=> ", updateResponse.data);
                 let updatedCart = updateResponse.data.cart;
+                console.log(updatedCart);
+                toast.update(updateToast, {
+                    render: 'Quantity updated',
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 1000
+                })
                 return (updatedCart)
             } catch (e) {
-                console.log(e)
+                console.log(e);
+                if (e.response.status == 400) {
+                    toast.update(updateToast, {
+                        render: "Not enough stock quantity for this product",
+                        type: "error",
+                        isLoading: false,
+                        autoClose: 1000
+                    })
+                }
             }
         }
     };

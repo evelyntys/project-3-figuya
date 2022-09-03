@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export async function checkAccessExpiry() {
     let accessToken = JSON.parse(localStorage.getItem('accessToken'));
@@ -23,7 +23,6 @@ export async function checkAccessExpiry() {
 }
 
 export async function CheckRefreshExpiry() {
-    let navigate = useNavigate();
     let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
     let decoded = jwt_decode(refreshToken);
     let currentDate = new Date();
@@ -33,7 +32,7 @@ export async function CheckRefreshExpiry() {
             refreshToken
         });
         console.log(logoutResponse.data);
-        navigate("/profile")
+        <Link to="/login" />
         await localStorage.removeItem('accessToken');
         await localStorage.removeItem('refreshToken');
         await localStorage.removeItem('first_name');

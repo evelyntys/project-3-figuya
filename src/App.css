@@ -133,6 +133,11 @@ body {}
   height: 200px;
 }
 
+.caro-overlay{
+  height: 300px;
+  object-fit: cover;
+}
+
 .caro-btn {
   background-color: white;
 }

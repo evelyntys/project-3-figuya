@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from '../AxiosInterceptor';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import { toast, ToastContainer } from 'react-toastify';
@@ -63,7 +63,7 @@ export default function Login(props) {
 
     const GetNewToken = async () => {
         let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-        let refreshResponse = await axios.post(url + "users/refresh", {
+        let refreshResponse = await axios.post("users/refresh", {
             refreshToken
         });
         console.log(refreshResponse.data);

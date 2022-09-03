@@ -1,6 +1,6 @@
 import TokenContext from "../context/UserContext";
 import React, { useEffect } from 'react';
-import axios from 'axios';
+import axios from '../AxiosInterceptor';
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { toast, ToastContainer } from "react-toastify";
@@ -42,12 +42,11 @@ export default function UserProvider(props) {
         setCart(cartFromContext)
     }, [cartFromContext])
 
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
     const userContext = {
         login: async (user, password) => {
             try {
-                let loginResponse = await axios.post(url + "users/login", {
+                let loginResponse = await axios.post("users/login", {
                     user,
                     password
                 });
@@ -72,7 +71,7 @@ export default function UserProvider(props) {
         },
         logout: async () => {
             let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-            let logoutResponse = await axios.post(url + "users/logout", {
+            let logoutResponse = await axios.post("users/logout", {
                 refreshToken
             });
             console.log(logoutResponse.data);
@@ -94,7 +93,7 @@ export default function UserProvider(props) {
         getProfile: async () => {
             let accessToken = await checkAccessExpiry();
             console.log(accessToken)
-            let userProfileResponse = await axios.get(url + "users/profile", {
+            let userProfileResponse = await axios.get("users/profile", {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }

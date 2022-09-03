@@ -1,6 +1,6 @@
 import ProductContext from "../context/ProductContext";
 import React from 'react';
-import axios from 'axios'
+import axios from '../AxiosInterceptor';
 
 export default class ProductProvider extends React.Component {
   state = {
@@ -12,9 +12,7 @@ export default class ProductProvider extends React.Component {
   };
 
   async componentDidMount() {
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
-    // let productResponse = await axios.get(url + "products");
-    let searchFieldsResponse = await axios.get(url + "products/fields");
+    let searchFieldsResponse = await axios.get("products/fields");
     await this.setState({
       // products: productResponse.data,
       figureTypes: searchFieldsResponse.data.allFigureTypes,
@@ -23,15 +21,14 @@ export default class ProductProvider extends React.Component {
   };
 
   render() {
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     const productContext = {
       getProducts: async () => {
-        let productResponse = await axios.get(url + "products");
+        let productResponse = await axios.get("products");
         return productResponse.data;
         // return this.state.products
       },
       showProduct: async (id) => {
-        let productToShowResponse = await axios.get(url + "products/" + id + "/view");
+        let productToShowResponse = await axios.get("products/" + id + "/view");
         let productToShow = productToShowResponse.data.product
         console.log("here=>", productToShow)
         await this.setState({
@@ -43,7 +40,7 @@ export default class ProductProvider extends React.Component {
         return this.state.productToShow
       },
       filterProducts: async (searchBox) => {
-        let productResponse = await axios.get(url + "products/search", {
+        let productResponse = await axios.get("products/search", {
           params: {
             name: searchBox.search,
             min_cost: searchBox.min_cost,
@@ -75,7 +72,7 @@ export default class ProductProvider extends React.Component {
         return this.state.collections
       },
       getActionFigures: async () => {
-        let productResponse = await axios.get(url + "products/search", {
+        let productResponse = await axios.get("products/search", {
           params: {
             figure_type_id: [1]
           }
@@ -91,7 +88,7 @@ export default class ProductProvider extends React.Component {
         return this.state.products
       },
       getCompleteFigures: async () => {
-        let productResponse = await axios.get(url + "products/search", {
+        let productResponse = await axios.get("products/search", {
           params: {
             figure_type_id: [2]
           }
@@ -103,7 +100,7 @@ export default class ProductProvider extends React.Component {
         })
       },
       getScaleFigures: async () => {
-        let productResponse = await axios.get(url + "products/search", {
+        let productResponse = await axios.get("products/search", {
           params: {
             figure_type_id: [3]
           }
@@ -115,7 +112,7 @@ export default class ProductProvider extends React.Component {
         })
       },
       getBlindBox: async () => {
-        let productResponse = await axios.get(url + "products/search", {
+        let productResponse = await axios.get("products/search", {
           params: {
             blind_box: 1
           }
@@ -131,12 +128,12 @@ export default class ProductProvider extends React.Component {
       },
       getRelatedProducts: async (figure) => {
         let seriesId = figure.series_id;
-        let productsResponse = await axios.get(url + "products/series/" + seriesId);
+        let productsResponse = await axios.get("products/series/" + seriesId);
         let relatedProducts = productsResponse.data.relatedProducts
         return relatedProducts
       },
-      getNewlyListed: async() => {
-        let productsResponse = await axios.get(url + "products/newlylisted");
+      getNewlyListed: async () => {
+        let productsResponse = await axios.get("products/newlylisted");
         let newProducts = productsResponse.data.products;
         return newProducts
       }

@@ -1,5 +1,5 @@
 import jwt_decode from "jwt-decode";
-import axios from 'axios';
+import axios from '../AxiosInterceptor';
 import { Link } from "react-router-dom";
 
 export async function checkAccessExpiry() {
@@ -10,7 +10,7 @@ export async function checkAccessExpiry() {
     if (decoded.exp * 1000 < currentDate.getTime()) {
         console.log("token has expired")
         const refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-        const newAccessTokenResponse = await axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/users/refresh", {
+        const newAccessTokenResponse = await axios.post("users/refresh", {
             refreshToken
         });
         const newAccessToken = newAccessTokenResponse.data.accessToken;
@@ -28,7 +28,7 @@ export async function CheckRefreshExpiry() {
     let currentDate = new Date();
     console.log(decoded);
     if (decoded.exp * 1000 < currentDate.getTime()) {
-        let logoutResponse = await axios.post("https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/users/logout", {
+        let logoutResponse = await axios.post("users/logout", {
             refreshToken
         });
         console.log(logoutResponse.data);

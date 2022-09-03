@@ -1,8 +1,7 @@
 import CartContext from "../context/CartContext";
 import React from 'react';
-import axios from "axios";
+import axios from '../AxiosInterceptor';
 import { toast } from 'react-toastify';
-import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { checkAccessExpiry } from "../helpers/helper";
 
@@ -16,8 +15,7 @@ export default function CartProvider(props) {
         async function checkLogin() {
             if (accessToken && refreshToken) {
                 accessToken = await checkAccessExpiry();
-                const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
-                let cartResponse = await axios.get(url + "cart", {
+                let cartResponse = await axios.get("cart", {
                     headers: {
                         Authorization: 'Bearer ' + accessToken
                     }
@@ -28,9 +26,8 @@ export default function CartProvider(props) {
             }
         }
         checkLogin();
-    }, [])
+    }, []);
 
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     const cartContext = {
         getState: () => {
             return cartItems
@@ -38,7 +35,7 @@ export default function CartProvider(props) {
         getCart: async () => {
             let accessToken = await checkAccessExpiry();
             console.log(accessToken);
-            let cartResponse = await axios.get(url + "cart", {
+            let cartResponse = await axios.get("cart", {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
@@ -53,7 +50,7 @@ export default function CartProvider(props) {
                 let accessToken = await checkAccessExpiry();
                 if (accessToken) {
                     try {
-                        let cartResponse = await axios.get(url + "cart/" + figureId + "/add", {
+                        let cartResponse = await axios.get("cart/" + figureId + "/add", {
                             headers: {
                                 Authorization: 'Bearer ' + accessToken
                             },
@@ -105,7 +102,7 @@ export default function CartProvider(props) {
         },
         removeItem: async (figureId) => {
             let accessToken = await checkAccessExpiry();
-            let cartResponse = await axios.get(url + "cart/" + figureId + "/remove", {
+            let cartResponse = await axios.get("cart/" + figureId + "/remove", {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
@@ -126,7 +123,7 @@ export default function CartProvider(props) {
         getAddress: async () => {
             let accessToken = await checkAccessExpiry();
             // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-            let customerResponse = await axios.get(url + "users/profile", {
+            let customerResponse = await axios.get("users/profile", {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
@@ -144,7 +141,7 @@ export default function CartProvider(props) {
             console.log("changeQty => ", accessToken);
             console.log(newQuantity);
             try {
-                let updateResponse = await axios.post(url + "cart/" + figureId + "/quantity/update", {
+                let updateResponse = await axios.post("cart/" + figureId + "/quantity/update", {
                     newQuantity: newQuantity
                 }, {
                     headers: {

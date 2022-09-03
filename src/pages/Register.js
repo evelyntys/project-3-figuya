@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from '../AxiosInterceptor';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -46,7 +46,7 @@ export default function Register(props) {
         const registerToast = toast.loading("Validating your particulars");
         // alert ('hi');
         try {
-            let registerResponse = await axios.post(url + "users/register", {
+            let registerResponse = await axios.post("users/register", {
                 username: userDetails.username,
                 email: userDetails.email,
                 password: userDetails.password,
@@ -98,7 +98,7 @@ export default function Register(props) {
         const registerToast = toast.loading("Validating your particulars");
         // alert ('hi');
         try {
-            let registerResponse = await axios.post(url + "users/register", {
+            let registerResponse = await axios.post("users/register", {
                 username: userDetails.username,
                 email: userDetails.email,
                 password: userDetails.password,

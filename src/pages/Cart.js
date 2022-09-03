@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import CartContext from '../context/CartContext';
-import axios from "axios";
+import axios from "../AxiosInterceptor";
 import { Button, Modal } from 'react-bootstrap';
 import AddressModal from './AddressModal';
 import ProductContext from '../context/ProductContext';
@@ -21,13 +21,11 @@ export default function Cart(props) {
     let accessToken = JSON.parse(localStorage.getItem('accessToken'));
     let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
 
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     useEffect(() => {
         async function setData() {
             setLoader(true);
             accessToken = await checkAccessExpiry();
-            const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/";
-            let cartResponse = await axios.get(url + "cart", {
+            let cartResponse = await axios.get("cart", {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
@@ -160,10 +158,17 @@ export default function Cart(props) {
     };
 
     const removeFromCart = async (id) => {
+        const removeToast = toast.loading("Removing from cart");
         let newCart = await cartContext.removeItem(id);
         console.log(newCart);
         await setCart(newCart);
         await setCartTotal(cartContext.getTotal(newCart));
+        toast.update(removeToast, {
+            render: 'Removed from cart',
+            type: 'success',
+            isLoading: false,
+            autoClose: 1000
+        })
     }
 
     const Checkout = async () => {
@@ -172,7 +177,7 @@ export default function Cart(props) {
             console.log(accessToken);
             // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             // console.log(accessToken);
-            let checkoutResponse = await axios.post(url + "checkout", {
+            let checkoutResponse = await axios.post("checkout", {
                 customer_email: checkoutDetails.customer_email,
                 block_street: checkoutDetails.block_street,
                 unit: checkoutDetails.unit,
@@ -269,20 +274,20 @@ export default function Cart(props) {
                                                             <div className="container text-center">
                                                                 <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={decreaseQuantityMob}>
                                                                     <i name={each.figure.id} class="bi bi-dash-circle-fill"></i>
-                                                                    </button>
-                                                                <input type="text" className="form-control text-center" 
-                                                                name={each.figure.id} value={quantity[each.figure.id]}
+                                                                </button>
+                                                                <input type="text" className="form-control text-center"
+                                                                    name={each.figure.id} value={quantity[each.figure.id]}
                                                                     onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
                                                                 <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={increaseQuantityMob}>
                                                                     <i name={each.figure.id} class="bi bi-plus-circle-fill"></i>
-                                                                    </button>
+                                                                </button>
                                                             </div>
                                                             <h6 className="text-center">{each.figure.quantity} remaining in stock</h6>
                                                         </div>
                                                         <div className="col-1 p-0 text-end d-block d-lg-none">
                                                             <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}>
                                                                 <i class="bi bi-trash-fill"></i>
-                                                                </button>
+                                                            </button>
                                                         </div>
                                                         <div className="d-flex justify-content-end align-items-end">
                                                             Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}

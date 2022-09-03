@@ -5,6 +5,8 @@ import ProductContext from '../context/ProductContext';
 import { toast, ToastContainer } from 'react-toastify';
 import ProductListing from './ProductListings';
 import Pagination from './Pagination';
+import { OverlayTrigger } from 'react-bootstrap';
+import Tooltip from 'react-bootstrap';
 
 export default function Products() {
     const productContext = React.useContext(ProductContext);

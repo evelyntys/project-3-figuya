@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 import { loadStripe } from '@stripe/stripe-js';
 import { checkAccessExpiry } from '../helpers/helper';
 import { toast, ToastContainer } from 'react-toastify';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 export default function Cart(props) {
     const cartContext = React.useContext(CartContext);
@@ -226,7 +227,11 @@ export default function Cart(props) {
                                                                 <img src={each.figure.image_url} className="cart-img" />
                                                                 {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                                 {!each.figure.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
-                                                                {each.figure.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                                                                {each.figure.blind_box ?
+                                                                    <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind-box</Tooltip>}>
+                                                                        <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span>
+                                                                    </OverlayTrigger>
+                                                                    : null}
                                                             </div>
                                                         </div>
                                                         <div className="col-12 col-lg-8">
@@ -265,7 +270,11 @@ export default function Cart(props) {
                                                                 <img src={each.figure.image_url} className="cart-img" />
                                                                 {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                                 {!each.figure.launch_status ? <div className="cart-po-sm"><span>PRE-ORDER</span></div> : null}
-                                                                {each.figure.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                                                                {each.figure.blind_box ?
+                                                                    <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind-box</Tooltip>}>
+                                                                        <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span>
+                                                                    </OverlayTrigger>
+                                                                    : null}
                                                             </div>
                                                         </div>
                                                         <div className="col-8">

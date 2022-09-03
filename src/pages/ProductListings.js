@@ -1,4 +1,6 @@
 import React from 'react';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 export default function ProductListing(props) {
     const products = props.products;
@@ -12,7 +14,11 @@ export default function ProductListing(props) {
                                 <img src={each.image_url} className={"class-img-top card-img" + (each.quantity ? "" : " sold-out-img")} />
                                 {!each.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                 {!each.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
-                                {each.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                                {each.blind_box ?
+                                    <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind-box</Tooltip>}>
+                                        <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span>
+                                    </OverlayTrigger>
+                                    : null}
                             </div>
                             <div className="card-body pb-0">
                                 <h5 className="card-title view-more text-truncate mb-0" onClick={() => props.showProduct(each.id)}>{each.name}</h5>

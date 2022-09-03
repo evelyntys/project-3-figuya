@@ -5,6 +5,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import ProductListing from './ProductListings';
 import CartContext from '../context/CartContext';
 import { ToastContainer } from 'react-toastify';
+import { OverlayTrigger } from 'react-bootstrap';
+import { Tooltip } from 'react-bootstrap';
 
 export default function Landing() {
     const navigate = useNavigate();
@@ -190,7 +192,11 @@ export default function Landing() {
                                                 <img src={newProducts[mobCurrent].image_url} className={"class-img-top card-img" + (newProducts[mobCurrent] ? "" : " sold-out-img")} />
                                                 {!newProducts[mobCurrent].quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                 {!newProducts[mobCurrent].launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
-                                                {newProducts[mobCurrent].blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                                                {newProducts[mobCurrent].blind_box ?
+                                                    <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind-box</Tooltip>}>
+                                                        <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span>
+                                                    </OverlayTrigger>
+                                                    : null}
                                             </div>
                                             <div className="card-body pb-0">
                                                 <h5 className="card-title view-more text-truncate mb-0" onClick={() => showProduct(newProducts[mobCurrent].id)}>{newProducts[mobCurrent].name}</h5>

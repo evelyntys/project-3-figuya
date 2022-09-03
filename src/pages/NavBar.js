@@ -7,7 +7,6 @@ import Profile from './Profile';
 import Register from './Register';
 import axios from 'axios';
 import '../App.css'
-
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import Orders from './Orders';
 import Login from './Login';
@@ -26,14 +25,19 @@ export default function NavigationBar() {
     const userContext = React.useContext(UserContext);
     const user = userContext.getName();
     const [cart, setCart] = React.useState([]);
+    let userCart = userContext.getCart();
     // const navigate = useNavigate();
+
     useEffect(() => {
-        async function getInitialCart(){
-            let cart = await cartContext.getCart();
-            setCart(cart);
-        }
-        getInitialCart()
-    },[cart])
+        let cart = userContext.getCart();
+        console.log(cart)
+        setCart(cart);
+    }, [])
+
+    useEffect(() => {
+        let cart = userContext.getCart();
+        setCart(cart);
+    }, [userCart])
 
     return (
 

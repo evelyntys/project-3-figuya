@@ -25,6 +25,19 @@ export default function MobileNav() {
     const cartContext = React.useContext(CartContext);
     const userContext = React.useContext(UserContext);
     const navigate = useNavigate();
+    const [cartItems, setCartItems] = React.useState([]);
+    let userCart = userContext.getCart();
+
+    React.useEffect(() => {
+        let cart = userContext.getCart();
+        console.log(cart)
+        setCartItems(cart);
+    }, [])
+
+    React.useEffect(() => {
+        let cart = userContext.getCart();
+        setCartItems(cart);
+    }, [userCart])
 
     const Logout = async () => {
         await userContext.logout();
@@ -64,8 +77,8 @@ export default function MobileNav() {
                     <button className="btn mob-nav position-relative" onClick={cart}><i class="bi bi-cart4"></i>
                         {
                             userContext.getUserState() ? (
-                                cartContext.getState().length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {cartContext.getState().length}
+                                cartItems.length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {cartItems.length}
                                     <span className="visually-hidden">unread messages</span>
                                 </span>) : null) : null
                         }</button>

@@ -2,9 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
-// import CartProvider from './contextProviders/CartProvider';
-// import NavigationBar from './pages/NavBar';
 import { BrowserRouter as Router, Routes, Route, Link, NavLink, useNavigate } from 'react-router-dom';
 import Orders from './pages/Orders';
 import Login from './pages/Login';
@@ -39,9 +36,9 @@ export default class App extends React.Component {
     return (
       <React.Fragment>
         <Router>
-          <UserProvider>
-            <ProductProvider>
-              <CartProvider>
+          <ProductProvider>
+            <CartProvider>
+              <UserProvider>
                 <OrderProvider>
                   <NavigationBar />
                   <Routes>
@@ -58,9 +55,9 @@ export default class App extends React.Component {
                   </Routes>
                   <MobileNav />
                 </OrderProvider>
-              </CartProvider>
-            </ProductProvider>
-          </UserProvider>
+              </UserProvider>
+            </CartProvider>
+          </ProductProvider>
         </Router>
       </React.Fragment >
     )

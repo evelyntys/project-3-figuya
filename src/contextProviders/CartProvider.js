@@ -1,5 +1,4 @@
 import CartContext from "../context/CartContext";
-// import axios from 'axios';
 import React from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
@@ -25,7 +24,7 @@ export default function CartProvider(props) {
                 });
                 let cart = cartResponse.data;
                 await setCartItems(cart);
-                console.log(cart)
+                console.log(cart);
             }
         }
         checkLogin();

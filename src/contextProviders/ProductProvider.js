@@ -128,6 +128,12 @@ export default class ProductProvider extends React.Component {
       },
       getFiltered: async () => {
         return this.state.filter
+      },
+      getRelatedProducts: async (figure) => {
+        let seriesId = figure.series_id;
+        let productsResponse = await axios.get(url + "products/series/" + seriesId);
+        let relatedProducts = productsResponse.data.relatedProducts
+        return relatedProducts
       }
     }
     return (

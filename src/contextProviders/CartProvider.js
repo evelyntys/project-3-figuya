@@ -17,15 +17,16 @@ export default function CartProvider(props) {
         async function checkLogin() {
             if (accessToken && refreshToken) {
                 accessToken = await checkAccessExpiry();
+                const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
+                let cartResponse = await axios.get(url + "cart", {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                });
+                let cart = cartResponse.data;
+                await setCartItems(cart);
+                console.log(cart)
             }
-            const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
-            let cartResponse = await axios.get(url + "cart", {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            });
-            let cart = cartResponse.data;
-            await setCartItems(cart);
         }
         checkLogin();
     }, [])
@@ -48,45 +49,59 @@ export default function CartProvider(props) {
             return cart;
         },
         addToCart: async (figureId, qty) => {
-            let accessToken = await checkAccessExpiry();
             const addToast = toast.loading("Adding to cart");
-            try {
-                let cartResponse = await axios.get(url + "cart/" + figureId + "/add", {
-                    headers: {
-                        Authorization: 'Bearer ' + accessToken
-                    },
-                    params: {
-                        quantity: qty
+            if (accessToken && refreshToken) {
+                let accessToken = await checkAccessExpiry();
+                if (accessToken) {
+                    try {
+                        let cartResponse = await axios.get(url + "cart/" + figureId + "/add", {
+                            headers: {
+                                Authorization: 'Bearer ' + accessToken
+                            },
+                            params: {
+                                quantity: qty
+                            }
+                        });
+                        let newCart = cartResponse.data.cart;
+                        await setCartItems(newCart)
+                        toast.update(addToast, {
+                            render: 'Added to cart',
+                            type: "success",
+                            isLoading: false,
+                            autoClose: 1000
+                        })
+                    } catch (e) {
+                        console.log(e);
+                        console.log(e.response.data)
+                        let errorMessage = ""
+                        if (e.request.status == 400) {
+                            errorMessage = "There is not enough stock quantity."
+                        } else {
+                            errorMessage = "Please login to add to cart."
+                        }
+                        toast.update(addToast, {
+                            render: errorMessage,
+                            type: "error",
+                            isLoading: false,
+                            autoClose: 1000
+                        })
+                        if (errorMessage = "Please login to add to cart.") {
+                            setTimeout(function () {
+                                navigate("/login");
+                            }, 2000)
+                        }
                     }
-                });
-                let newCart = cartResponse.data.cart;
-                await setCartItems(newCart)
-                toast.update(addToast, {
-                    render: 'Added to cart',
-                    type: "success",
-                    isLoading: false,
-                    autoClose: 1000
-                })
-            } catch (e) {
-                console.log(e);
-                console.log(e.response.data)
-                let errorMessage = ""
-                if (e.request.status == 400) {
-                    errorMessage = "There is not enough stock quantity"
-                } else {
-                    errorMessage = "Please login to add to cart"
                 }
+            } else {
                 toast.update(addToast, {
-                    render: errorMessage,
+                    render: "Please login to add to cart.",
                     type: "error",
                     isLoading: false,
                     autoClose: 1000
                 })
-                if (errorMessage = "Please login to add to cart") {
-                    setTimeout(function () {
-                        navigate("/login");
-                    }, 2000)
-                }
+                setTimeout(function () {
+                    navigate("/login");
+                }, 2000)
             }
         },
         removeItem: async (figureId) => {

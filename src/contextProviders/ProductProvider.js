@@ -134,6 +134,11 @@ export default class ProductProvider extends React.Component {
         let productsResponse = await axios.get(url + "products/series/" + seriesId);
         let relatedProducts = productsResponse.data.relatedProducts
         return relatedProducts
+      },
+      getNewlyListed: async() => {
+        let productsResponse = await axios.get(url + "products/newlylisted");
+        let newProducts = productsResponse.data.products;
+        return newProducts
       }
     }
     return (

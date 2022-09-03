@@ -41,13 +41,13 @@ export default function SingleProduct() {
     }
 
     const mobRight = () => {
-        if (relatedProducts.length === 3){
-            if (mobCurrent !== 2){
+        if (relatedProducts.length === 3) {
+            if (mobCurrent !== 2) {
                 setMobCurrent(mobCurrent + 1)
             }
         }
-        else if (relatedProducts.length === 2){
-            if (mobCurrent !== 1){
+        else if (relatedProducts.length === 2) {
+            if (mobCurrent !== 1) {
                 setMobCurrent(mobCurrent + 1)
             }
         }
@@ -58,7 +58,9 @@ export default function SingleProduct() {
     }
 
     const updateQty = (e) => {
-        setProductQty(e.target.value)
+        if (parseInt(e.target.value) !== NaN) {
+            setProductQty(parseInt(e.target.value))
+        }
     }
 
     const showProduct = async (productId) => {
@@ -77,14 +79,6 @@ export default function SingleProduct() {
                             </div>
                             <div className="col-6">
                                 <img src={product.image_url} className="desktop-single-product" />
-                                {/* <Accordion flush>
-                                <Accordion.Item eventKey="0">
-                                    <Accordion.Header>Description</Accordion.Header>
-                                    <Accordion.Body>
-                                        {product.description}
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            </Accordion> */}
                             </div>
                             <div className="col-6">
                                 <h3 className="m-0 pdt-padding product-name">{product.name}</h3>
@@ -138,10 +132,10 @@ export default function SingleProduct() {
                                 </div>
                                 <div></div>
                                 <div className="container d-flex justify-content-center align-items-center mt-3">
-                                    <button className="btn qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null} disabled={productQty > product.quantity}><i class="bi bi-dash-circle-fill"></i></button>
+                                    <button className="btn qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
                                     <input type="text" className="form-control text-center" name="productQty" value={productQty}
-                                        onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} disabled={productQty > product.quantity} />
-                                    <button className="btn qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null} disabled={productQty > product.quantity}><i class="bi bi-plus-circle-fill"></i></button>
+                                        onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} />
+                                    <button className="btn qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null} disabled={productQty >= product.quantity}><i class="bi bi-plus-circle-fill"></i></button>
                                     <button className="btn main-btn" onClick={() => cartContext.addToCart(product.id, productQty)} disabled={productQty > product.quantity}>Add to cart</button>
                                 </div>
                                 <div className="container d-flex justify-content-center my-2">
@@ -216,10 +210,10 @@ export default function SingleProduct() {
                                     </table>
                                 </div>
                                 <div className="container d-flex justify-content-center align-items-center mt-3">
-                                    <button className="btn btn-sm qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null} disabled={productQty > product.quantity}><i class="bi bi-dash-circle-fill"></i></button>
+                                    <button className="btn btn-sm qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
                                     <input type="text" className="form-control text-center" name="productQty" value={productQty}
-                                        onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} disabled={productQty > product.quantity} />
-                                    <button className="btn btn-sm qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null} disabled={productQty > product.quantity}><i class="bi bi-plus-circle-fill"></i></button>
+                                        onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} />
+                                    <button className="btn btn-sm qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null} disabled={productQty >= product.quantity}><i class="bi bi-plus-circle-fill"></i></button>
                                     <button className="btn btn-sm main-btn my-1" onClick={() => cartContext.addToCart(product.id, productQty)} disabled={productQty > product.quantity}>Add to cart</button>
                                 </div>
                                 {product.quantity ? <h6>{product.quantity} left in stock</h6>

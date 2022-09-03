@@ -67,6 +67,9 @@ export default class UserProvider extends React.Component {
                 await this.setState({
                     loggedIn: false
                 });
+                if (!this.state.loggedIn) {
+                    window.location.href = "/login"
+                }
             },
             getUserState: () => {
                 return this.state.loggedIn

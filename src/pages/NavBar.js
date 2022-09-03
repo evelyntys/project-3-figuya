@@ -25,29 +25,15 @@ export default function NavigationBar() {
     const cartContext = React.useContext(CartContext);
     const userContext = React.useContext(UserContext);
     const user = userContext.getName();
+    const [cart, setCart] = React.useState([]);
     // const navigate = useNavigate();
     useEffect(() => {
         async function getInitialCart(){
             let cart = await cartContext.getCart();
-            console.log(cart);
-            
+            setCart(cart);
         }
-    },[])
-
-    const Logout = async () => {
-        let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-        let logoutResponse = await axios.post(url + "users/logout", {
-            refreshToken
-        });
-        console.log(logoutResponse.data);
-        await localStorage.removeItem('accessToken');
-        await localStorage.removeItem('refreshToken');
-        // navigate("/")
-    };
-
-    //   const getProfile = () => {
-
-    //   }
+        getInitialCart()
+    },[cart])
 
     return (
 
@@ -68,8 +54,8 @@ export default function NavigationBar() {
                                     <Nav.Link as={NavLink} to="/cart" className="position-relative mx-2">Cart
                                         {
                                             userContext.getUserState() ? (
-                                                cartContext.getState().length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                                    {cartContext.getState().length}
+                                                cart.length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                    {cart.length}
                                                 </span>) : null) : null
                                         }
                                     </Nav.Link>

@@ -16,6 +16,7 @@ export default function SingleProduct() {
     const navigate = useNavigate();
     const [relatedProducts, setRelatedProducts] = React.useState([]);
     const [loader, setLoader] = React.useState();
+    const [mobCurrent, setMobCurrent] = React.useState(0);
 
     React.useEffect(() => {
         const fetchProduct = async () => {
@@ -33,6 +34,24 @@ export default function SingleProduct() {
         fetchProduct();
     }, [parseInt(productId)])
 
+    const mobLeft = () => {
+        if (mobCurrent !== 0) {
+            setMobCurrent(mobCurrent - 1)
+        }
+    }
+
+    const mobRight = () => {
+        if (relatedProducts.length === 3){
+            if (mobCurrent !== 2){
+                setMobCurrent(mobCurrent + 1)
+            }
+        }
+        else if (relatedProducts.length === 2){
+            if (mobCurrent !== 1){
+                setMobCurrent(mobCurrent + 1)
+            }
+        }
+    }
 
     const products = () => {
         navigate("/products")
@@ -217,42 +236,84 @@ export default function SingleProduct() {
                         </div>
                     </div>
                     {relatedProducts.length ?
-                        <div className="col-12 mt-3 justify-content-center mob-content">
-                            <h4 className="text-center">View other products from the same series</h4>
-                            <div className="d-flex flex-wrap justify-content-center">
-                                {relatedProducts.map(each => {
-                                    return (
-                                        <div className="col-12 col-md-4">
+                        <React.Fragment>
+                            <div className="col-12 mt-3 justify-content-center d-none d-md-block">
+                                <h4 className="text-center">View other products from the same series</h4>
+                                <div className="d-flex flex-wrap justify-content-center">
+                                    {relatedProducts.map(each => {
+                                        return (
+                                            <div className="col-12 col-md-4">
+                                                <div className="mx-auto card m-2 card-border" style={{ "width": "16rem" }}>
+                                                    <div className="tags-overlay">
+                                                        <img src={each.image_url} className={"class-img-top card-img" + (each.quantity ? "" : " sold-out-img")} />
+                                                        {!each.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
+                                                        {!each.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
+                                                        {each.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                                                    </div>
+                                                    <div className="card-body pb-0">
+                                                        <h5 className="card-title view-more text-truncate mb-0" onClick={() => showProduct(each.id)}>{each.name}</h5>
+                                                        <span className="figure-type">{each.figure_type.figure_type} figure</span>
+                                                        <h4>${(each.cost / 100).toFixed(2)}</h4>
+                                                        <div>
+                                                            {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
+                                                            <span className="badge card-badges m-1">{each.series.series_name}</span> <br />
+                                                            {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
+                                                            <span className="badge card-badges m-1">{each.collection.collection_name}</span> <br />
+                                                            {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
+                                                            <span className="badge card-badges m-1">{each.manufacturer.manufacturer_name}</span> <br />
+                                                        </div>
+                                                    </div>
+                                                    <button className="btn card-btn btn-sm m-1" disabled={each.quantity < 1}
+                                                        onClick={() => cartContext.addToCart(each.id, 1)}>
+                                                        ADD TO CART
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                            <div className="d-md-none mob-content">
+                                <div className="col-12 mt-3 justify-content-center">
+                                    <h4 className="text-center">View other products from the same series</h4>
+                                    <div className="d-flex flex-wrap justify-content-center align-items-center">
+                                        <div className="col-2 text-end">
+                                            <button className="btn" onClick={mobLeft}><i class="bi bi-caret-left-fill"></i></button>
+                                        </div>
+                                        <div className="col-8">
                                             <div className="mx-auto card m-2 card-border" style={{ "width": "16rem" }}>
                                                 <div className="tags-overlay">
-                                                    <img src={each.image_url} className={"class-img-top card-img" + (each.quantity ? "" : " sold-out-img")} />
-                                                    {!each.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
-                                                    {!each.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
-                                                    {each.blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
+                                                    <img src={relatedProducts[mobCurrent].image_url} className={"class-img-top card-img" + (relatedProducts[mobCurrent].quantity ? "" : " sold-out-img")} />
+                                                    {!relatedProducts[mobCurrent].quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
+                                                    {!relatedProducts[mobCurrent].launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
+                                                    {relatedProducts[mobCurrent].blind_box ? <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span> : null}
                                                 </div>
                                                 <div className="card-body pb-0">
-                                                    <h5 className="card-title view-more text-truncate mb-0" onClick={() => showProduct(each.id)}>{each.name}</h5>
-                                                    <span className="figure-type">{each.figure_type.figure_type} figure</span>
-                                                    <h4>${(each.cost / 100).toFixed(2)}</h4>
+                                                    <h5 className="card-title view-more text-truncate mb-0" onClick={() => showProduct(relatedProducts[mobCurrent].id)}>{relatedProducts[mobCurrent].name}</h5>
+                                                    <span className="figure-type">{relatedProducts[mobCurrent].figure_type.figure_type} figure</span>
+                                                    <h4>${(relatedProducts[mobCurrent].cost / 100).toFixed(2)}</h4>
                                                     <div>
                                                         {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
-                                                        <span className="badge card-badges m-1">{each.series.series_name}</span> <br />
+                                                        <span className="badge card-badges m-1">{relatedProducts[mobCurrent].series.series_name}</span> <br />
                                                         {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
-                                                        <span className="badge card-badges m-1">{each.collection.collection_name}</span> <br />
+                                                        <span className="badge card-badges m-1">{relatedProducts[mobCurrent].collection.collection_name}</span> <br />
                                                         {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
-                                                        <span className="badge card-badges m-1">{each.manufacturer.manufacturer_name}</span> <br />
+                                                        <span className="badge card-badges m-1">{relatedProducts[mobCurrent].manufacturer.manufacturer_name}</span> <br />
                                                     </div>
                                                 </div>
-                                                <button className="btn card-btn btn-sm m-1" disabled={each.quantity < 1}
-                                                    onClick={() => cartContext.addToCart(each.id, 1)}>
+                                                <button className="btn card-btn btn-sm m-1" disabled={relatedProducts[mobCurrent].quantity < 1}
+                                                    onClick={() => cartContext.addToCart(relatedProducts[mobCurrent].id, 1)}>
                                                     ADD TO CART
                                                 </button>
                                             </div>
                                         </div>
-                                    )
-                                })}
+                                        <div className="col-2 text-start">
+                                            <button className="btn" onClick={mobRight}><i class="bi bi-caret-right-fill"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </React.Fragment>
                         :
                         <div height="10vh">
                         </div>

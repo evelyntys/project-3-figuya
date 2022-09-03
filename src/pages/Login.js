@@ -53,7 +53,7 @@ export default function Login(props) {
             }, 2000)
         } else {
             toast.update(loginToast, {
-                render: "Invalid credentials",
+                render: "Invalid credentials, please try again.",
                 type: "error",
                 isLoading: false,
                 autoClose: 2000

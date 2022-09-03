@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link, NavLink, useNavigate } from 'react-router-dom';
 import Products from './Products';
@@ -26,6 +26,13 @@ export default function NavigationBar() {
     const userContext = React.useContext(UserContext);
     const user = userContext.getName();
     // const navigate = useNavigate();
+    useEffect(() => {
+        async function getInitialCart(){
+            let cart = await cartContext.getCart();
+            console.log(cart);
+            
+        }
+    },[])
 
     const Logout = async () => {
         let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));

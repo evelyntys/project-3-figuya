@@ -476,7 +476,7 @@ export default function Products() {
                                     </div>
                                 </React.Fragment> :
                                 <React.Fragment>
-                                    <div className="col">
+                                    <div className="col ps-0">
                                         <div style={{ "height": "30px" }}></div>
                                         <div className="d-flex flex-wrap">
                                             <div className="mx-auto">

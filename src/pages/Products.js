@@ -196,7 +196,7 @@ export default function Products() {
 
     return (
         <React.Fragment>
-            <ToastContainer position="bottom-right" />
+            <ToastContainer />
             <div className="container-fluid d-none d-lg-block">
                 <div className="row my-2 search-container">
                     <div className="col-12 col-lg-3">

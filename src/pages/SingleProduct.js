@@ -5,6 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import { Accordion } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import ProductListing from './ProductListings';
+const moment = require('moment-timezone');
+moment.tz.setDefault('Asia/Taipei');
 
 export default function SingleProduct() {
     const { productId } = useParams();
@@ -102,32 +104,38 @@ export default function SingleProduct() {
                                 {/* <p style={{"fontSize": "12px", "fontStyle": "italic"}}>{product.description}</p> */}
                                 <div className="d-flex pdt-padding">
                                     <table className="text-start" width="100%">
-                                        <tr>
-                                            <td width="50%">Height</td>
-                                            <td width="50%">{product.height / 10} cm</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%">Series</td>
-                                            <td width="50%" className="detail-text">{product.series.series_name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%">Series mediums</td>
-                                            <td width="50%" className="detail-text">
-                                                {product.series.mediums.map((eachMedium, index) => {
-                                                    return (
-                                                        <span>{eachMedium.media_medium}{index < product.series.mediums.length - 1 ? ", " : ""}</span>
-                                                    )
-                                                })}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%">Collection</td>
-                                            <td width="50%" className="detail-text">{product.collection.collection_name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%">Manufacturer</td>
-                                            <td width="50%" className="detail-text">{product.manufacturer.manufacturer_name}</td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <td width="50%">Height</td>
+                                                <td width="50%">{product.height / 10} cm</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Series</td>
+                                                <td width="50%" className="detail-text">{product.series.series_name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Series mediums</td>
+                                                <td width="50%" className="detail-text">
+                                                    {product.series.mediums.map((eachMedium, index) => {
+                                                        return (
+                                                            <span>{eachMedium.media_medium}{index < product.series.mediums.length - 1 ? ", " : ""}</span>
+                                                        )
+                                                    })}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Collection</td>
+                                                <td width="50%" className="detail-text">{product.collection.collection_name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Manufacturer</td>
+                                                <td width="50%" className="detail-text">{product.manufacturer.manufacturer_name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Release date</td>
+                                                <td width="50%" className="detail-text">{moment(product.release_date).format('DD/MM/YYYY')}</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div></div>
@@ -181,32 +189,38 @@ export default function SingleProduct() {
                                 <h4>${(product.cost / 100).toFixed(2)}</h4>
                                 <div className="d-flex justify-content-center mob-table">
                                     <table className="text-start" width="100%">
-                                        <tr>
-                                            <td width="50%">Height</td>
-                                            <td width="50%">{product.height / 10} cm</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%">Series</td>
-                                            <td width="50%" className="detail-text">{product.series.series_name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%">Series mediums</td>
-                                            <td width="50%" className="detail-text">
-                                                {product.series.mediums.map((eachMedium, index) => {
-                                                    return (
-                                                        <span>{eachMedium.media_medium}{index < product.series.mediums.length - 1 ? ", " : ""}</span>
-                                                    )
-                                                })}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%">Collection</td>
-                                            <td width="50%" className="detail-text">{product.collection.collection_name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="50%">Manufacturer</td>
-                                            <td width="50%" className="detail-text">{product.manufacturer.manufacturer_name}</td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <td width="50%">Height</td>
+                                                <td width="50%">{product.height / 10} cm</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Series</td>
+                                                <td width="50%" className="detail-text">{product.series.series_name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Series mediums</td>
+                                                <td width="50%" className="detail-text">
+                                                    {product.series.mediums.map((eachMedium, index) => {
+                                                        return (
+                                                            <span>{eachMedium.media_medium}{index < product.series.mediums.length - 1 ? ", " : ""}</span>
+                                                        )
+                                                    })}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Collection</td>
+                                                <td width="50%" className="detail-text">{product.collection.collection_name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Manufacturer</td>
+                                                <td width="50%" className="detail-text">{product.manufacturer.manufacturer_name}</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Release date</td>
+                                                <td width="50%" className="detail-text">{moment(product.release_date).format('DD/MM/YYYY')}</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div className="container d-flex justify-content-center align-items-center mt-3">

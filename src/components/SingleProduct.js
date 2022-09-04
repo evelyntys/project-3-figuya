@@ -70,7 +70,7 @@ export default function SingleProduct() {
             <ToastContainer />
             {!loader ? <React.Fragment>
                 {product.id ? <React.Fragment>
-                    <div className="container d-none d-lg-block">
+                    <div className="container d-none d-md-block">
                         <div className="row">
                             <div className="col-12">
                                 <button className="btn" onClick={products}>
@@ -169,7 +169,7 @@ export default function SingleProduct() {
                     </div>
 
 
-                    <div className="container d-lg-none">
+                    <div className="container d-md-none">
                         <div className="row">
                             <div className="col-12">
                                 <button className="btn" onClick={products}>

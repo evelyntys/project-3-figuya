@@ -1,6 +1,6 @@
 import ProductContext from "../context/ProductContext";
 import React from 'react';
-import axios from '../AxiosInterceptor';
+import axios from '../helpers/AxiosInterceptor';
 
 export default class ProductProvider extends React.Component {
   state = {

@@ -4,7 +4,6 @@ import ProductContext from '../context/ProductContext';
 import { ToastContainer } from 'react-toastify';
 import { Accordion } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
-import ProductListing from './ProductListings';
 const moment = require('moment-timezone');
 moment.tz.setDefault('Asia/Taipei');
 
@@ -12,7 +11,6 @@ export default function SingleProduct() {
     const { productId } = useParams();
     const productContext = React.useContext(ProductContext);
     const cartContext = React.useContext(CartContext);
-    // const product = productContext.showProduct(productId);
     const [product, setProduct] = React.useState([]);
     const [productQty, setProductQty] = React.useState(1);
     const navigate = useNavigate();
@@ -24,12 +22,10 @@ export default function SingleProduct() {
         const fetchProduct = async () => {
             setLoader(true);
             let tempProduct = await productContext.showProduct(parseInt(productId));
-            console.log("this=>", tempProduct);
             await setProduct(tempProduct);
             let relatedProducts = await productContext.getRelatedProducts(tempProduct);
             relatedProducts = relatedProducts.filter(each => { return (each.id !== tempProduct.id) });
             relatedProducts = relatedProducts.slice(0, 3);
-            console.log(relatedProducts);
             await setRelatedProducts(relatedProducts);
             setLoader(false)
         }
@@ -101,7 +97,6 @@ export default function SingleProduct() {
                                     : null
                                 }
                                 <h4 className="pdt-padding">${(product.cost / 100).toFixed(2)}</h4>
-                                {/* <p style={{"fontSize": "12px", "fontStyle": "italic"}}>{product.description}</p> */}
                                 <div className="d-flex pdt-padding">
                                     <table className="text-start" width="100%">
                                         <tbody>
@@ -140,7 +135,7 @@ export default function SingleProduct() {
                                 </div>
                                 <div></div>
                                 <div className="container d-flex justify-content-center align-items-center mt-3">
-                                    <button className="btn qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}><i class="bi bi-dash-circle-fill"></i></button>
+                                    <button className="btn qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null} disabled={product.quantity <= 1 || productQty <= 1}><i class="bi bi-dash-circle-fill"></i></button>
                                     <input type="text" className="form-control text-center" name="productQty" value={productQty}
                                         onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} />
                                     <button className="btn qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null} disabled={productQty >= product.quantity}><i class="bi bi-plus-circle-fill"></i></button>
@@ -301,11 +296,8 @@ export default function SingleProduct() {
                                                     <span className="figure-type">{relatedProducts[mobCurrent].figure_type.figure_type} figure</span>
                                                     <h4>${(relatedProducts[mobCurrent].cost / 100).toFixed(2)}</h4>
                                                     <div>
-                                                        {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
                                                         <span className="badge card-badges m-1">{relatedProducts[mobCurrent].series.series_name}</span> <br />
-                                                        {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
                                                         <span className="badge card-badges m-1">{relatedProducts[mobCurrent].collection.collection_name}</span> <br />
-                                                        {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
                                                         <span className="badge card-badges m-1">{relatedProducts[mobCurrent].manufacturer.manufacturer_name}</span> <br />
                                                     </div>
                                                 </div>

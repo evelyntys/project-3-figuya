@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import CartContext from '../context/CartContext';
-import axios from "../AxiosInterceptor";
-import { Button, Modal } from 'react-bootstrap';
+import axios from "../helpers/AxiosInterceptor";
 import AddressModal from './AddressModal';
 import ProductContext from '../context/ProductContext';
 import { useNavigate } from 'react-router-dom';
-import jwt_decode from "jwt-decode";
 import { loadStripe } from '@stripe/stripe-js';
 import { checkAccessExpiry } from '../helpers/helper';
 import { toast, ToastContainer } from 'react-toastify';
@@ -33,15 +31,11 @@ export default function Cart(props) {
             });
             let cart = cartResponse.data;
             await setCart(cart);
-            // for (let i=0; i<cartItems.length; i++){
-            //     quantity[i] = cartItems[i].quantity;
-            // }
             await setCartTotal(cartContext.getTotal(cart));
             for (let each of cart) {
                 quantity[each.figure.id] = each.quantity
             }
             setLoader(false)
-            // setQuantity(quantity)
         };
         setData();
     }, []);
@@ -251,7 +245,6 @@ export default function Cart(props) {
                                                                 </button>
                                                             </div>
                                                             <h6>{each.figure.quantity} remaining in stock</h6>
-                                                            {/* <h6 style={{"color": "red"}}>Quantity is more than stock available</h6> */}
                                                         </div>
                                                         <div className="col-1 text-end d-none d-lg-block">
                                                             <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
@@ -315,7 +308,6 @@ export default function Cart(props) {
                                         <AddressModal customer_email={checkoutDetails.customer_email} block_street={checkoutDetails.block_street}
                                             unit={checkoutDetails.unit} postal={checkoutDetails.postal} updateFormField={updateFormField}
                                             Checkout={Checkout} selectAddress={selectAddress} updateSelect={updateSelect} />
-                                        {/* <button className="btn btn-danger text-end" onClick={Checkout}>Checkout</button> */}
                                     </div>
                                 </div>
                             </React.Fragment>

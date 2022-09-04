@@ -1,31 +1,17 @@
 import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route, Link, NavLink, useNavigate } from 'react-router-dom';
-import Products from './Products';
-import Cart from './Cart';
-import Profile from './Profile';
-import Register from './Register';
-import axios from '../AxiosInterceptor';
 import '../App.css'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import Orders from './Orders';
-import Login from './Login';
-import ProductContext from '../context/ProductContext';
-import ProductProvider from '../contextProviders/ProductProvider';
-import CartProvider from '../contextProviders/CartProvider';
-import OrderProvider from '../contextProviders/OrderProvider';
 import CartContext from '../context/CartContext';
-import NavBar from '../pages/NavBar';
 import UserContext from '../context/UserContext';
 
 
 export default function NavigationBar() {
-    const cartContext = React.useContext(CartContext);
     const userContext = React.useContext(UserContext);
     const user = userContext.getName();
     let userCart = userContext.getCart();
     const [cart, setCart] = React.useState(userCart);
-    // const navigate = useNavigate();
 
     useEffect(() => {
         let cart = userContext.getCart();
@@ -50,7 +36,6 @@ export default function NavigationBar() {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" className="d-none" />
                     <Navbar.Collapse className="d-none d-lg-block" id="responsive-navbar-nav">
                         <Nav className="ms-auto me-5">
-                            {/* <CartContext.Consumer> */}
                             <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
                             {userContext.getUserState() ?
                                 <React.Fragment>
@@ -81,8 +66,5 @@ export default function NavigationBar() {
                 </div>
             </div>
         </Navbar>
-
-
-
     )
 }

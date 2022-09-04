@@ -23,7 +23,7 @@ export default function Pagination(props) {
             <ul className="pagination justify-content-end">
                 <li className="page-item">
                     <button className="page-link" onClick={prevPage}>
-                    <i class="bi bi-caret-left-fill"></i>
+                        <i class="bi bi-caret-left-fill"></i>
                     </button>
                 </li>
                 {pageNumbers.map(pgNumber => {
@@ -37,7 +37,7 @@ export default function Pagination(props) {
                 })}
                 <li className="page-item">
                     <button className="page-link" onClick={nextPage}>
-                    <i class="bi bi-caret-right-fill"></i>
+                        <i class="bi bi-caret-right-fill"></i>
                     </button>
                 </li>
             </ul>

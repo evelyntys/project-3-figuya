@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from "../AxiosInterceptor";
+import axios from "../helpers/AxiosInterceptor";
 import OrderContext from '../context/OrderContext';
 import { checkAccessExpiry } from '../helpers/helper';
 

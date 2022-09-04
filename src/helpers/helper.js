@@ -1,5 +1,5 @@
 import jwt_decode from "jwt-decode";
-import axios from '../AxiosInterceptor';
+import axios from './AxiosInterceptor';
 import { Link } from "react-router-dom";
 
 export async function checkAccessExpiry() {

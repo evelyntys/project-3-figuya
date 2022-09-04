@@ -11,17 +11,17 @@ export default function SuccessCheckout() {
     }
     return (
         <React.Fragment>
-            <div className="container d-flex align-items-center justify-content-center" style={{"height": "80vh"}}>
+            <div className="container d-flex align-items-center justify-content-center" style={{ "height": "80vh" }}>
                 <div className="row">
                     <div className="col d-flex justify-content-center">
-                        <img src={require("../images/checkout.png")} style={{"height": "200px"}} />
+                        <img src={require("../images/checkout.png")} style={{ "height": "200px" }} />
                     </div>
-                    <div className="col align-self-center" style={{"fontSize": "40px"}}>
+                    <div className="col align-self-center" style={{ "fontSize": "40px" }}>
                         Congratulations, you've managed to checkout successfully!
-                        <div style={{"fontSize": "20px"}}>
-                    Head to view your <span className="view-more" onClick={orders}>Orders</span> now,
-                    or go to <span className="view-more" onClick={products}>shop more</span>.
-                    </div>
+                        <div style={{ "fontSize": "20px" }}>
+                            Head to view your <span className="view-more" onClick={orders}>Orders</span> now,
+                            or go to <span className="view-more" onClick={products}>shop more</span>.
+                        </div>
                     </div>
                 </div>
             </div>

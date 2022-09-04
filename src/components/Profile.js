@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import UserContext from '../context/UserContext';
-import { Tab, Row, Col, Nav } from 'react-bootstrap';
-import Orders from './Orders';
 import { ToastContainer } from 'react-toastify';
 const moment = require('moment-timezone');
 moment.tz.setDefault('Asia/Taipei');
@@ -60,13 +58,6 @@ export default function Profile() {
                             <p className="text-center">Joined on {moment(user.customer.created_date).format("DD-MM-YYYY")}</p>
                             <div className="row">
                                 <div className="col text-center profile-text">
-                                    {/* <p>First name: </p>
-                                    <p>Last name: </p>
-                                    <p>Email: </p>
-                                    <p>Contact number: </p>
-                                    <p>Block/Street: </p>
-                                    <p>Unit number: </p>
-                                    <p>Postal code: </p> */}
                                     <p><b>First name:</b> {user.customer.first_name}</p>
                                     <p><b>Last name:</b> {user.customer.last_name}</p>
                                     <p><b>Email:</b> {user.customer.email}</p>
@@ -75,15 +66,6 @@ export default function Profile() {
                                     <p><b>Unit number:</b> {user.customer.unit}</p>
                                     <p><b>Postal code:</b> {user.customer.postal}</p>
                                 </div>
-                                {/* <div className="col-6">
-                                    <p>{user.customer.first_name}</p>
-                                    <p>{user.customer.last_name}</p>
-                                    <p>{user.customer.email}</p>
-                                    <p>{user.customer.contact_number}</p>
-                                    <p>{user.customer.block_street}</p>
-                                    <p>{user.customer.unit}</p>
-                                    <p>{user.customer.postal}</p>
-                                </div> */}
                                 {showUpdate ?
                                     <div>
                                         <div>

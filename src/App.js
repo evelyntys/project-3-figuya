@@ -3,26 +3,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { BrowserRouter as Router, Routes, Route, Link, NavLink, useNavigate } from 'react-router-dom';
-import Orders from './pages/Orders';
-import Login from './pages/Login';
-import ProductContext from './context/ProductContext';
+import Orders from './components/Orders';
+import Login from './components/Login';
 import ProductProvider from './contextProviders/ProductProvider';
 import CartProvider from './contextProviders/CartProvider';
 import OrderProvider from './contextProviders/OrderProvider';
-import CartContext from './context/CartContext';
-import NavigationBar from './pages/NavBar';
-import Products from './pages/Products';
-import Cart from './pages/Cart';
-import Profile from './pages/Profile';
-import Register from './pages/Register';
-import axios from 'axios';
-import UserContext from './context/UserContext';
+import NavigationBar from './components/NavBar';
+import Products from './components/Products';
+import Cart from './components/Cart';
+import Profile from './components/Profile';
+import Register from './components/Register';
 import UserProvider from './contextProviders/UserProvider';
-import SingleProduct from './pages/SingleProduct';
-import Landing from './pages/Landing';
-import CancelCheckout from './pages/CancelCheckout';
-import SuccessCheckout from './pages/SuccessCheckout';
-import MobileNav from './pages/MobileNav';
+import SingleProduct from './components/SingleProduct';
+import Landing from './components/Landing';
+import CancelCheckout from './components/CancelCheckout';
+import SuccessCheckout from './components/SuccessCheckout';
+import MobileNav from './components/MobileNav';
 import { CheckRefreshExpiry } from './helpers/helper';
 
 
@@ -32,7 +28,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     return (
       <React.Fragment>
         <Router>
@@ -42,13 +37,13 @@ export default class App extends React.Component {
                 <OrderProvider>
                   <NavigationBar />
                   <Routes>
-                    <Route path="/" element={<Landing url={url} />} />
-                    <Route path="/login" element={<Login url={url} />} />
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path="/products" element={<Products />} />
-                    <Route path="/cart" element={<Cart url={url} />} />
+                    <Route path="/cart" element={<Cart />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/orders" element={<Orders />} />
-                    <Route path="/register" element={<Register url={url} />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="/products/:productId" element={<SingleProduct />} />
                     <Route path="/checkout/cancel" element={<CancelCheckout />} />
                     <Route path="/checkout/success" element={<SuccessCheckout />} />

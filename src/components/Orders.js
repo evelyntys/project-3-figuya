@@ -20,7 +20,6 @@ export default function Orders() {
             await setPendingOrders(pendingOrders);
             await setCompletedOrders(completedOrders);
             setLoader(false);
-            // await setOrders(orders);
         }
         setData();
     }, []);

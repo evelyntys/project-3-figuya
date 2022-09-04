@@ -1,6 +1,6 @@
 import CartContext from "../context/CartContext";
 import React from 'react';
-import axios from '../AxiosInterceptor';
+import axios from '../helpers/AxiosInterceptor';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { checkAccessExpiry } from "../helpers/helper";

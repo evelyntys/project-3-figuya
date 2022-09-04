@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from '../AxiosInterceptor';
+import axios from '../helpers/AxiosInterceptor';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -43,7 +43,6 @@ export default function Register() {
 
     const createNewUser = async () => {
         const registerToast = toast.loading("Validating your particulars");
-        // alert ('hi');
         try {
             let registerResponse = await axios.post("users/register", {
                 username: userDetails.username,
@@ -95,7 +94,6 @@ export default function Register() {
 
     const nextPage = async () => {
         const registerToast = toast.loading("Validating your particulars");
-        // alert ('hi');
         try {
             let registerResponse = await axios.post("users/register", {
                 username: userDetails.username,
@@ -180,7 +178,7 @@ export default function Register() {
                                     {userError.confirm_password ? <div className="error-msg">{userError.confirm_password}</div> : null}
                                 </div>
                                 <div className="d-flex justify-content-end">
-                                <button className="btn main-btn m-1" onClick={nextPage}>Next</button>
+                                    <button className="btn main-btn m-1" onClick={nextPage}>Next</button>
                                 </div>
                             </div>
                             :
@@ -222,8 +220,8 @@ export default function Register() {
                                     {userError.postal ? <div className="error-msg">{userError.postal}</div> : null}
                                 </div>
                                 <div className="d-flex justify-content-end">
-                                <button className="btn main-btn m-1" onClick={() => setToShow(1)}>Previous</button>
-                                <button className="btn main-btn m-1" onClick={createNewUser}>Register</button>
+                                    <button className="btn main-btn m-1" onClick={() => setToShow(1)}>Previous</button>
+                                    <button className="btn main-btn m-1" onClick={createNewUser}>Register</button>
                                 </div>
                             </div>
                         }

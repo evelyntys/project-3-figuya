@@ -21,7 +21,7 @@ export default function AddressModal(props) {
                     <div className="container">
                         <div>
                             <select className="form-select" name="selectAddress"
-                            value={props.selectAddress} onChange={props.updateSelect}>
+                                value={props.selectAddress} onChange={props.updateSelect}>
                                 <option>Select shipping address</option>
                                 <option value="1">Registered address</option>
                                 <option value="2">Add new address</option>

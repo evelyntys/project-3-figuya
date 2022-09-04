@@ -5,8 +5,6 @@ import ProductContext from '../context/ProductContext';
 import { toast, ToastContainer } from 'react-toastify';
 import ProductListing from './ProductListings';
 import Pagination from './Pagination';
-import { OverlayTrigger } from 'react-bootstrap';
-import Tooltip from 'react-bootstrap';
 
 export default function Products() {
     const productContext = React.useContext(ProductContext);
@@ -319,18 +317,6 @@ export default function Products() {
                         </div>
                     </div>
                     <div className="col-12 col-lg-9">
-                        {/* <div className="container-fluid">
-                            <div className="alert alert-warning">
-                                <div>
-                                    <span className="badge bg-warning text-dark blind-box-icon">
-                                        <i class="bi bi-patch-question-fill"></i></span>
-                                    <span> </span>Blind boxes are marked with this icon
-                                </div>
-                                <div>
-                                    Apply FREESHIPPING at checkout for FREE STANDARD DELIVERY.
-                                </div>
-                            </div>
-                        </div> */}
                         {!loader ?
                             <React.Fragment>
                                 <div className="container">
@@ -340,11 +326,11 @@ export default function Products() {
                                     {products.length ?
                                         <React.Fragment>
                                             <ProductListing products={currentProducts} showProduct={showProduct}
-                                            cartContext={cartContext}/>
+                                                cartContext={cartContext} />
                                         </React.Fragment>
                                         : null}
                                 </div>
-                                <Pagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+                                <Pagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
                             </React.Fragment>
                             :
                             <div className="d-flex justify-content-center">
@@ -514,12 +500,12 @@ export default function Products() {
                                 <div className="container d-flex justify-content-evenly flex-wrap">
                                     {products.length ?
                                         <React.Fragment>
-                                                <ProductListing products={currentProductsMob} cartContext={cartContext}
+                                            <ProductListing products={currentProductsMob} cartContext={cartContext}
                                                 showProduct={showProduct} />
                                         </React.Fragment> : null
                                     }
                                 </div>
-                                <Pagination nPages={nPagesMob} currentPage={currentPageMob} setCurrentPage={setCurrentPageMob}/>
+                                <Pagination nPages={nPagesMob} currentPage={currentPageMob} setCurrentPage={setCurrentPageMob} />
                             </React.Fragment>
                             : <div className="d-flex justify-content-center">
                                 <img src={require("../images/loader.gif")} className="loader-size" />

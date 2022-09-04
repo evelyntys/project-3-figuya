@@ -81,12 +81,6 @@ export default function Landing() {
         navigate("/products")
     }
 
-    // const [index, setIndex] = React.useState(0);
-
-    // const handleSelect = (selectedIndex, e) => {
-    //     setIndex(selectedIndex);
-    // }
-
     return (
         <React.Fragment>
             <ToastContainer />
@@ -161,7 +155,7 @@ export default function Landing() {
                         {newProducts.length ?
                             <React.Fragment>
                                 <div className="container col-12 mt-3 mx-auto d-flex d-none d-md-block justify-content-center mob-content">
-                                    <div className="row align-items-center justify-content-center" style={{"overflow": "hidden"}}>
+                                    <div className="row align-items-center justify-content-center" style={{ "overflow": "hidden" }}>
                                         <div className="col-1 col-lg-2 text-end">
                                             <button className="btn" onClick={leftArrow}>
                                                 <i class="bi bi-caret-left-fill"></i>
@@ -203,11 +197,8 @@ export default function Landing() {
                                                 <span className="figure-type">{newProducts[mobCurrent].figure_type.figure_type} figure</span>
                                                 <h4>${(newProducts[mobCurrent].cost / 100).toFixed(2)}</h4>
                                                 <div>
-                                                    {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
                                                     <span className="badge card-badges m-1">{newProducts[mobCurrent].series.series_name}</span> <br />
-                                                    {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
                                                     <span className="badge card-badges m-1">{newProducts[mobCurrent].collection.collection_name}</span> <br />
-                                                    {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
                                                     <span className="badge card-badges m-1">{newProducts[mobCurrent].manufacturer.manufacturer_name}</span> <br />
                                                 </div>
                                             </div>
@@ -221,21 +212,7 @@ export default function Landing() {
                                         <button className="btn" onClick={mobRight}><i class="bi bi-caret-right-fill"></i></button>
                                     </div>
                                 </div>
-
                             </React.Fragment>
-
-                            // <div className="col-12 mt-3 d-flex flex-column justify-content-center mob-content">
-                            //     <h4 className="text-center">Check out the latest products</h4>
-                            //     <div className="col-2">Previous</div>
-                            //     <div className="col-8 d-flex flex-wrap justify-content-center">
-                            //         <ProductListing products={newProducts} showProduct={showProduct}
-                            //             cartContext={cartContext} />
-                            //     </div>
-                            //     <div className="col-2">Next</div>
-                            // </div>
-                            // :
-                            // <div height="10vh">
-                            // </div>
                             : null}
                     </div>
                     :
@@ -244,70 +221,6 @@ export default function Landing() {
                     </div>
                 }
             </div>
-            {/* <div className="d-none d-lg-block">
-                <div className="header-wrapper">
-                    <video className="header-banner" loop muted autoPlay>
-                        <source src={require('../images/header.mp4')} type="video/mp4" />
-                    </video>
-                    <div className="overlay">
-                        Use FREESHIPPING for free standard shipping on purchases over $100 <br />
-                        <button className="btn header-btn" onClick={products}>Shop now</button>
-                    </div>
-                </div>
-                <div className="">
-                    <div className="row justify-content-center">
-                        <div className="col-10 m-1 landing-box">
-                            Action Figures <br />
-                            A poseable character model figure, which may have movable figure parts
-                        </div>
-                        <div className="col-10 m-1 landing-box">
-                            Complete Figures <br />
-                            Typically fixed in position and unmoveable figure parts
-                        </div>
-                        <div className="col-10 m-1 landing-box">
-                            Scale Figures <br />
-                            Fixed-pose figures that are sized based on the “actual” dimensions of the character, with a size reference
-                        </div>
-                        <div className="col-10 m-1 landing-box">
-                            Blind boxes<br />
-                            Blind Box refers to the type of packaging that keeps the collectible toy as a mystery until it is opened. Some figurines are rarer to find than others, these are referred to as "secret", "hidden" or "chase" figures.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="d-lg-none mob-content">
-                <div className="header-mobile">
-                    <video className="video-mobile" loop muted autoPlay>
-                        <source src={require('../images/header.mp4')} type="video/mp4" />
-                    </video>
-                    <div className="mobile-overlay">
-                        Use FREESHIPPING for free standard shipping on purchases over $100 <br />
-                        <button className="btn btn-sm header-btn my-1" onClick={products}>Shop now</button>
-                    </div>
-                </div>
-
-                <div className="mob-container container">
-                    <div className="row mx-1">
-                        <div className="col-12 my-1 figures-container" onClick={action}>
-                            Action Figures <br />
-                            A poseable character model figure, which may have movable figure parts
-                        </div>
-                        <div className="col-12 my-1 figures-container" onClick={complete}>
-                            Complete Figures <br />
-                            Typically fixed in position and unmoveable figure parts
-                        </div>
-                        <div className="col-12 my-1 figures-container" onClick={scale}>
-                            Scale Figures <br />
-                            Fixed-pose figures that are sized based on the “actual” dimensions of the character, with a size reference
-                        </div>
-                        <div className="col-12 my-1 figures-container" onClick={blind}>
-                            Blind boxes<br />
-                            Blind Box refers to the type of packaging that keeps the collectible toy as a mystery until it is opened. Some figurines are rarer to find than others, these are referred to as "secret", "hidden" or "chase" figures.
-                        </div>
-                    </div>
-                </div>
-            </div> */}
         </React.Fragment>
     )
 }

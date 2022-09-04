@@ -1,28 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
-import Products from './Products';
-import Cart from './Cart';
-import Profile from './Profile';
-import Register from './Register';
-import axios from 'axios';
 import '../App.css'
-
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import Orders from './Orders';
-import Login from './Login';
-import ProductContext from '../context/ProductContext';
-import ProductProvider from '../contextProviders/ProductProvider';
-import CartProvider from '../contextProviders/CartProvider';
-import OrderProvider from '../contextProviders/OrderProvider';
-import CartContext from '../context/CartContext';
-import NavBar from '../pages/NavBar';
 import UserContext from '../context/UserContext';
 
 
 export default function MobileNav() {
-    const url = "https://etys-figuya-express.herokuapp.com/api/"
-    const cartContext = React.useContext(CartContext);
     const userContext = React.useContext(UserContext);
     const navigate = useNavigate();
     const [cartItems, setCartItems] = React.useState([]);

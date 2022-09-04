@@ -1,6 +1,6 @@
 import TokenContext from "../context/UserContext";
 import React, { useEffect } from 'react';
-import axios from '../AxiosInterceptor';
+import axios from '../helpers/AxiosInterceptor';
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { toast, ToastContainer } from "react-toastify";

@@ -206,7 +206,7 @@ export default function Products() {
                     <div className="col-12 col-lg-3">
                         <div className="row search-box">
                             <div className="container">
-                                <h1>Search</h1>
+                                <h1 className="header-weight">Search</h1>
                             </div>
                             <div className="col-12">
                                 <label>Search:</label>
@@ -331,7 +331,7 @@ export default function Products() {
                         {!loader ?
                             <React.Fragment>
                                 <div className="container">
-                                    <h3>Showing {products.length} product(s):</h3>
+                                    <h3 className="header-weight">Showing {products.length} product(s):</h3>
                                 </div>
                                 <div className="row">
                                     {products.length ?
@@ -513,7 +513,7 @@ export default function Products() {
                         {!loader ?
                             <React.Fragment>
                                 <div className="container text-center">
-                                    <h4>Showing {products.length} product(s):</h4>
+                                    <h4 className="header-weight">Showing {products.length} product(s):</h4>
                                 </div>
                                 <div className="container d-flex justify-content-evenly flex-wrap">
                                     {products.length ?

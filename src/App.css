@@ -307,6 +307,10 @@ body {
   background-color: rgba(255, 5, 5, 0.448);
 }
 
+.header-weight{
+  font-weight: 600;
+}
+
 .blind-box {
   background-color: rgba(0, 0, 0, 0.29);
   color: white;

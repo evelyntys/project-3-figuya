@@ -83,7 +83,7 @@ export default function SingleProduct() {
                                 <img src={product.image_url} className="desktop-single-product" />
                             </div>
                             <div className="col-6">
-                                <h3 className="m-0 pdt-padding product-name">{product.name}</h3>
+                                <h2 className="m-0 pdt-padding product-name">{product.name}</h2>
                                 {!product.launch_status ?
                                     <div className="pdt-padding">
                                         <span className="badge bg-danger">

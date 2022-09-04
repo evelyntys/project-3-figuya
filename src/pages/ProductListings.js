@@ -8,7 +8,7 @@ export default function ProductListing(props) {
         <React.Fragment>
             {products.map(each => {
                 return (
-                    <div className="col-12 col-md-4">
+                    <div className="col-12 col-md-4" style={{"overflow": "auto"}}>
                         <div className="mx-auto card m-2 card-border" style={{ "width": "16rem" }}>
                             <div className="tags-overlay">
                                 <img src={each.image_url} className={"class-img-top card-img" + (each.quantity ? "" : " sold-out-img")} />
@@ -23,7 +23,7 @@ export default function ProductListing(props) {
                             <div className="card-body pb-0">
                                 <h5 className="card-title view-more text-truncate mb-0" onClick={() => props.showProduct(each.id)}>{each.name}</h5>
                                 <span className="figure-type">{each.figure_type.figure_type} figure</span>
-                                <h4>${(each.cost / 100).toFixed(2)}</h4>
+                                <h5>${(each.cost / 100).toFixed(2)}</h5>
                                 <div>
                                     {/* <span><i className="bi bi-tags-fill m-1" style={{ "color": "#F18300" }}></i></span> */}
                                     <span className="badge card-badges m-1">{each.series.series_name}</span> <br />

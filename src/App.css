@@ -75,7 +75,7 @@ body {
 .search-box {
   /* border: 1px solid #FB8A00;
   border-radius: 0.25rem; */
-  background-color: #face9895;
+  /* background-color: #face9895; */
 }
 
 .search-container {
@@ -84,7 +84,7 @@ body {
 
 .view-more {
   cursor: pointer;
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-weight: 800;
 }
 

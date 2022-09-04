@@ -319,7 +319,7 @@ export default function Products() {
                         </div>
                     </div>
                     <div className="col-12 col-lg-9">
-                        <div className="container-fluid">
+                        {/* <div className="container-fluid">
                             <div className="alert alert-warning">
                                 <div>
                                     <span className="badge bg-warning text-dark blind-box-icon">
@@ -330,11 +330,11 @@ export default function Products() {
                                     Apply FREESHIPPING at checkout for FREE STANDARD DELIVERY.
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         {!loader ?
                             <React.Fragment>
                                 <div className="container">
-                                    <h1>Showing {products.length} product(s):</h1>
+                                    <h3>Showing {products.length} product(s):</h3>
                                 </div>
                                 <div className="row">
                                     {products.length ?
@@ -509,7 +509,7 @@ export default function Products() {
                         {!loader ?
                             <React.Fragment>
                                 <div className="container text-center">
-                                    <h1>Showing {products.length} product(s):</h1>
+                                    <h4>Showing {products.length} product(s):</h4>
                                 </div>
                                 <div className="container d-flex justify-content-evenly flex-wrap">
                                     {products.length ?

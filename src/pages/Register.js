@@ -3,8 +3,7 @@ import axios from '../AxiosInterceptor';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
-export default function Register(props) {
-    const url = props.url;
+export default function Register() {
 
     const navigate = useNavigate();
     const [toShow, setToShow] = React.useState(1);

@@ -160,9 +160,9 @@ export default function Landing() {
                         <h4 className="text-center">Check out the latest products</h4>
                         {newProducts.length ?
                             <React.Fragment>
-                                <div className="col-12 mt-3 mx-auto d-flex d-none d-md-block justify-content-center mob-content">
-                                    <div className="row align-items-center">
-                                        <div className="col-2 text-end">
+                                <div className="container col-12 mt-3 mx-auto d-flex d-none d-md-block justify-content-center mob-content">
+                                    <div className="row align-items-center justify-content-center" style={{"overflow": "hidden"}}>
+                                        <div className="col-1 col-lg-2 text-end">
                                             <button className="btn" onClick={leftArrow}>
                                                 <i class="bi bi-caret-left-fill"></i>
                                             </button>
@@ -176,7 +176,7 @@ export default function Landing() {
                                                     cartContext={cartContext} />
                                             }
                                         </div>
-                                        <div className="col-2">
+                                        <div className="col-1 col-lg-2">
                                             <button className="btn" onClick={rightArrow}><i class="bi bi-caret-right-fill"></i></button>
                                         </div>
                                     </div>

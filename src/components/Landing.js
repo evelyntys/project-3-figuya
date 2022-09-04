@@ -115,7 +115,7 @@ export default function Landing() {
                         />
                         <Carousel.Caption>
                             <h3>Complete Figures</h3>
-                            <p className="caro-p">Typically fixed in position and unmoveable figure parts.</p>
+                            <p className="caro-p">Typically fixed in position and have unmoveable figure parts.</p>
                             <button className="btn header-btn" onClick={complete}>See all complete figures</button>
                         </Carousel.Caption>
                     </Carousel.Item>
@@ -142,8 +142,8 @@ export default function Landing() {
                         <Carousel.Caption>
                             <h3>Blind boxes</h3>
                             <p className="caro-p">
-                                Collectible toy is kept as a mystery until it is opened.<br />
-                                Some figurines are rarer to find than others, these are referred to as "secret", "hidden" or "chase" figures.
+                                Collectible toy that is kept as a mystery until it is opened.<br />
+                                Some figurines are rarer and harder to find than others, and may be known as "secret", "hidden" or "chase" figures.
                             </p>
                             <button className="btn caro-btn" onClick={blind}>Test your luck today!</button>
                         </Carousel.Caption>

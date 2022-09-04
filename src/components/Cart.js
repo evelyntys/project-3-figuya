@@ -221,7 +221,7 @@ export default function Cart() {
                                                                 {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                                 {!each.figure.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
                                                                 {each.figure.blind_box ?
-                                                                    <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind-box</Tooltip>}>
+                                                                    <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind box</Tooltip>}>
                                                                         <span className="blind-box-tag badge bg-warning text-dark"><i className="bi bi-patch-question-fill"></i></span>
                                                                     </OverlayTrigger>
                                                                     : null}
@@ -263,7 +263,7 @@ export default function Cart() {
                                                                 {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                                 {!each.figure.launch_status ? <div className="cart-po-sm"><span>PRE-ORDER</span></div> : null}
                                                                 {each.figure.blind_box ?
-                                                                    <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind-box</Tooltip>}>
+                                                                    <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind box</Tooltip>}>
                                                                         <span className="blind-box-tag badge bg-warning text-dark"><i className="bi bi-patch-question-fill"></i></span>
                                                                     </OverlayTrigger>
                                                                     : null}

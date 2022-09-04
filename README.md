@@ -10,7 +10,7 @@ Test Accounts:
     * Password: admin123
     
     2. Customer at https://figuya.netlify.app/
-    * Username: customer1
+    * Username: customer
     * Password: customer123
 
 ## Project Summary
@@ -29,7 +29,7 @@ Objective(s): To look for figures they are interested in, be it for collection o
     * Search for figures by a specific manufacturer
     * Search for figures by size (if figure is to be put in a specific position/display case)
 * Pain point(s):
-    * Unable to search by size of figures (especially if they have a designated spot to place the figure(s)) 
+    * Unable to search by size of figures (especially if they have a designated spot to place the figure(s)
 
  User Stories    | Acceptance Criteria(s)    
  -------------   | ---------------------      
@@ -39,12 +39,7 @@ As an avid figure collector, I would like to be able to search for the size of t
 ### <b> 2. Scope</b>
 
 <b>Content</b>
-
-Content from the website is largely dependent on contribution from the general public. Contributions will be stored in a database, hence a backend server is required for communication between React and MongoDB. 
-
-An Express server has been set up and deployed to Heroku, and API endpoints are accessible via the base [link](https://etys-tattoo-artists.herokuapp.com/).
-
-The github repository for the restful API can be found [here](https://github.com/evelyntys/project-2-restful-api).
+Products will be provided by the shop owner and admins. A server is also required for communication between the front-end and back-end platform. Hence, an [express server](https://etys-figuya-express.herokuapp.com/) has been set up, which serves as an admin panel and provides the restful API endpoints at the same time.
 
 <b>Functional Requirements</b>
 

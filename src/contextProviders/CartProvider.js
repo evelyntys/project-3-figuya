@@ -109,7 +109,6 @@ export default function CartProvider(props) {
             let newCart = cartResponse.data.cart;
             await setCartItems(newCart)
             return newCart
-            // navigate(cart);
         },
         getTotal: (cart) => {
             console.log(cart)
@@ -121,7 +120,6 @@ export default function CartProvider(props) {
         },
         getAddress: async () => {
             let accessToken = await checkAccessExpiry();
-            // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             let customerResponse = await axios.get("users/profile", {
                 headers: {
                     Authorization: 'Bearer ' + accessToken

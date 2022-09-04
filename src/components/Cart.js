@@ -9,7 +9,7 @@ import { checkAccessExpiry } from '../helpers/helper';
 import { toast, ToastContainer } from 'react-toastify';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-export default function Cart(props) {
+export default function Cart() {
     const cartContext = React.useContext(CartContext);
     const [cart, setCart] = React.useState([]);
     const [quantity, setQuantity] = React.useState([]);
@@ -18,7 +18,6 @@ export default function Cart(props) {
     const navigate = useNavigate();
     const [loader, setLoader] = React.useState();
     let accessToken = JSON.parse(localStorage.getItem('accessToken'));
-    let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
 
     useEffect(() => {
         async function setData() {
@@ -210,20 +209,20 @@ export default function Cart(props) {
                                 <div className="list-group my-2">
                                     {cart.map((each, index) => {
                                         return (
-                                            <React.Fragment>
+                                            <React.Fragment key={'cart ' + each.id}>
                                                 <div className="list-group-item d-none d-lg-block">
                                                     <div className="col-1 text-end d-block d-lg-none">
-                                                        <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
+                                                        <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i className="bi bi-trash-fill"></i></button>
                                                     </div>
                                                     <div className="row">
                                                         <div className="col-11 col-lg-3">
                                                             <div className="tags-overlay d-flex justify-content-center">
-                                                                <img src={each.figure.image_url} className="cart-img" />
+                                                                <img src={each.figure.image_url} className="cart-img" alt='figure' />
                                                                 {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                                 {!each.figure.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
                                                                 {each.figure.blind_box ?
                                                                     <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind-box</Tooltip>}>
-                                                                        <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span>
+                                                                        <span className="blind-box-tag badge bg-warning text-dark"><i className="bi bi-patch-question-fill"></i></span>
                                                                     </OverlayTrigger>
                                                                     : null}
                                                             </div>
@@ -234,20 +233,20 @@ export default function Cart(props) {
                                                             <div className="container">
                                                                 <button className="btn btn-sm qty-btn" name={each.figure.id}
                                                                     onClick={decreaseQuantity}>
-                                                                    <i name={each.figure.id} class="bi bi-dash-circle-fill"></i>
+                                                                    <i name={each.figure.id} className="bi bi-dash-circle-fill"></i>
                                                                 </button>
                                                                 <input type="text" className="form-control text-center" name={each.figure.id}
                                                                     value={quantity[each.figure.id]} onChange={updateQuantity}
                                                                     style={{ "width": "50px", "display": "inline-block" }} />
                                                                 <button className="btn btn-sm qty-btn" name={each.figure.id}
                                                                     onClick={increaseQuantity}>
-                                                                    <i name={each.figure.id} class="bi bi-plus-circle-fill"></i>
+                                                                    <i name={each.figure.id} className="bi bi-plus-circle-fill"></i>
                                                                 </button>
                                                             </div>
                                                             <h6>{each.figure.quantity} remaining in stock</h6>
                                                         </div>
                                                         <div className="col-1 text-end d-none d-lg-block">
-                                                            <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i class="bi bi-trash-fill"></i></button>
+                                                            <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}><i className="bi bi-trash-fill"></i></button>
                                                         </div>
                                                         <div className="d-flex justify-content-end align-items-end">
                                                             Subtotal: ${((each.figure.cost * quantity[each.figure.id]) / 100).toFixed(2)}
@@ -256,16 +255,16 @@ export default function Cart(props) {
                                                 </div>
 
 
-                                                <div className={"list-group-item d-lg-none " + (index == 0 ? "first-list" : "")}>
+                                                <div className={"list-group-item d-lg-none " + (index === 0 ? "first-list" : "")}>
                                                     <div className="row">
                                                         <div className="col-3 pe-0">
                                                             <div className="tags-overlay">
-                                                                <img src={each.figure.image_url} className="cart-img" />
+                                                                <img src={each.figure.image_url} className="cart-img" alt="figure" />
                                                                 {!each.figure.quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                                 {!each.figure.launch_status ? <div className="cart-po-sm"><span>PRE-ORDER</span></div> : null}
                                                                 {each.figure.blind_box ?
                                                                     <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind-box</Tooltip>}>
-                                                                        <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span>
+                                                                        <span className="blind-box-tag badge bg-warning text-dark"><i className="bi bi-patch-question-fill"></i></span>
                                                                     </OverlayTrigger>
                                                                     : null}
                                                             </div>
@@ -275,20 +274,20 @@ export default function Cart(props) {
                                                             <p className="cart-cost-mob text-center m-0">${(each.figure.cost / 100).toFixed(2)}</p>
                                                             <div className="container text-center">
                                                                 <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={decreaseQuantityMob}>
-                                                                    <i name={each.figure.id} class="bi bi-dash-circle-fill"></i>
+                                                                    <i name={each.figure.id} className="bi bi-dash-circle-fill"></i>
                                                                 </button>
                                                                 <input type="text" className="form-control text-center"
                                                                     name={each.figure.id} value={quantity[each.figure.id]}
                                                                     onChange={updateQuantity} style={{ "width": "50px", "display": "inline-block" }} />
                                                                 <button className="btn btn-sm qty-btn" name={each.figure.id} onClick={increaseQuantityMob}>
-                                                                    <i name={each.figure.id} class="bi bi-plus-circle-fill"></i>
+                                                                    <i name={each.figure.id} className="bi bi-plus-circle-fill"></i>
                                                                 </button>
                                                             </div>
                                                             <h6 className="text-center">{each.figure.quantity} remaining in stock</h6>
                                                         </div>
                                                         <div className="col-1 p-0 text-end d-block d-lg-none">
                                                             <button className="btn btn-sm" onClick={() => removeFromCart(each.figure.id)}>
-                                                                <i class="bi bi-trash-fill"></i>
+                                                                <i className="bi bi-trash-fill"></i>
                                                             </button>
                                                         </div>
                                                         <div className="d-flex justify-content-end align-items-end">
@@ -315,7 +314,7 @@ export default function Cart(props) {
                     </React.Fragment>
                     :
                     <div className="container d-flex justify-content-center align-items-center">
-                        <img className="loader-size" src={require("../images/loader.gif")} />
+                        <img className="loader-size" src={require("../images/loader.gif")} alt="figure" />
                     </div>
                 }
             </div>

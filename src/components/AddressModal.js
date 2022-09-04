@@ -10,10 +10,10 @@ export default function AddressModal(props) {
                 size="lg"
                 show={showModal}
                 onHide={() => setShowModal(false)}
-                aria-labelledby="example-modal-sizes-title-lg"
+                aria-labelledby="checkout-modal"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title id="example-modal-sizes-title-lg">
+                    <Modal.Title id="checkout-modal">
                         Choose your shipping address
                     </Modal.Title>
                 </Modal.Header>

@@ -14,8 +14,6 @@ export default class OrderProvider extends React.Component {
         const orderContext = {
             getOrders: async () => {
                 let accessToken = await checkAccessExpiry();
-                // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                // console.log(accessToken);
                 let orderResponse = await axios.get("orders", {
                     headers: {
                         Authorization: 'Bearer ' + accessToken

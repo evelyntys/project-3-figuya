@@ -99,7 +99,7 @@ export default function Landing() {
                         <img
                             className="d-block w-100 caro-overlay"
                             src={require('../images/action.jpg')}
-                            alt="First slide"
+                            alt="action figures"
                         />
                         <Carousel.Caption>
                             <h3>Action Figures</h3>
@@ -111,7 +111,7 @@ export default function Landing() {
                         <img
                             className="d-block w-100 caro-overlay"
                             src={require('../images/complete.jpeg')}
-                            alt="First slide"
+                            alt="complete digures"
                         />
                         <Carousel.Caption>
                             <h3>Complete Figures</h3>
@@ -123,7 +123,7 @@ export default function Landing() {
                         <img
                             className="d-block w-100 caro-overlay"
                             src={require('../images/scale.jpg')}
-                            alt="First slide"
+                            alt="scale figures"
                         />
                         <Carousel.Caption>
                             <h3>Scale Figures</h3>
@@ -137,7 +137,7 @@ export default function Landing() {
                         <img
                             className="d-block w-100 caro-overlay"
                             src={require('../images/blind_box.jpg')}
-                            alt="First slide"
+                            alt="blind boxes"
                         />
                         <Carousel.Caption>
                             <h3>Blind boxes</h3>
@@ -171,24 +171,24 @@ export default function Landing() {
                                             }
                                         </div>
                                         <div className="col-1 col-lg-2">
-                                            <button className="btn" onClick={rightArrow}><i class="bi bi-caret-right-fill"></i></button>
+                                            <button className="btn" onClick={rightArrow}><i className="bi bi-caret-right-fill"></i></button>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="d-md-none mx-auto container justify-content-center row align-items-center">
                                     <div className="col-2">
-                                        <button className="btn" onClick={mobLeft}><i class="bi bi-caret-left-fill"></i></button>
+                                        <button className="btn" onClick={mobLeft}><i className="bi bi-caret-left-fill"></i></button>
                                     </div>
                                     <div className="col-8">
                                         <div className="mx-auto card card-border" style={{ "width": "14rem" }}>
                                             <div className="tags-overlay">
-                                                <img src={newProducts[mobCurrent].image_url} className={"class-img-top card-img" + (newProducts[mobCurrent] ? "" : " sold-out-img")} />
+                                                <img src={newProducts[mobCurrent].image_url} alt="figure" className={"class-img-top card-img" + (newProducts[mobCurrent] ? "" : " sold-out-img")} />
                                                 {!newProducts[mobCurrent].quantity ? <div className="tags badge bg-danger">SOLD OUT</div> : null}
                                                 {!newProducts[mobCurrent].launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
                                                 {newProducts[mobCurrent].blind_box ?
                                                     <OverlayTrigger key={'top'} placement={'top'} overlay={<Tooltip id={'tooltip-top'}>Blind-box</Tooltip>}>
-                                                        <span className="blind-box-tag badge bg-warning text-dark"><i class="bi bi-patch-question-fill"></i></span>
+                                                        <span className="blind-box-tag badge bg-warning text-dark"><i className="bi bi-patch-question-fill"></i></span>
                                                     </OverlayTrigger>
                                                     : null}
                                             </div>
@@ -209,7 +209,7 @@ export default function Landing() {
                                         </div>
                                     </div>
                                     <div className="col-2 text-start">
-                                        <button className="btn" onClick={mobRight}><i class="bi bi-caret-right-fill"></i></button>
+                                        <button className="btn" onClick={mobRight}><i className="bi bi-caret-right-fill"></i></button>
                                     </div>
                                 </div>
                             </React.Fragment>
@@ -217,7 +217,7 @@ export default function Landing() {
                     </div>
                     :
                     <div className="container d-flex justify-content-center align-items-center">
-                        <img className="loader-size" src={require("../images/loader.gif")} />
+                        <img className="loader-size" src={require("../images/loader.gif")} alt="loader" />
                     </div>
                 }
             </div>

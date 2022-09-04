@@ -1,19 +1,16 @@
 import React from 'react';
-import axios from '../helpers/AxiosInterceptor';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Login(props) {
+export default function Login() {
     const navigate = useNavigate();
     const [loginState, setLoginState] = React.useState({
         user: "",
         password: ""
     });
     const userContext = React.useContext(UserContext);
-
-    const url = props.url;
 
     const updateFormField = (e) => {
         setLoginState({
@@ -55,7 +52,7 @@ export default function Login(props) {
             <div className="container mob-content login-container my-5">
                 <div className="row parent-contain align-items-center">
                     <div className="col-12 col-lg-6 d-flex flex-col justify-content-center align-items-center login-img">
-                        <img src={require("../images/logo.png")} className="login-img-logo" /><br />
+                        <img src={require("../images/logo.png")} className="login-img-logo" alt="fortune cat logo" /><br />
                     </div>
                     <div className="container p-5 col-12 col-lg-6">
                         <h1 className="text-center text-lg-start">Login</h1>

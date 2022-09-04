@@ -1,10 +1,8 @@
-import TokenContext from "../context/UserContext";
 import React, { useEffect } from 'react';
 import axios from '../helpers/AxiosInterceptor';
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
-import { toast, ToastContainer } from "react-toastify";
-import jwt_decode from "jwt-decode";
+import { toast } from "react-toastify";
 import { checkAccessExpiry } from "../helpers/helper";
 import CartContext from "../context/CartContext";
 
@@ -42,42 +40,16 @@ export default function UserProvider(props) {
         CheckLogin();
     }, []);
 
-    // useEffect(() => {
-    //     async function CheckLogin() {
-    //         if (localStorage.getItem('refreshToken')) {
-    //             setDefaultStatus({
-    //                 ...defaultStatus,
-    //                 loggedIn: true,
-    //                 first_name: JSON.parse(localStorage.getItem("first_name")),
-    //                 last_name: JSON.parse(localStorage.getItem('last_name'))
-    //             })
-    //             console.log(defaultStatus);
-    //             let cart = cartContext.getCart();
-    //             setCart(cart);
-    //         };
-    //         await checkAccessExpiry();
-    //     }
-    //     CheckLogin();
-    // }, [defaultStatus.loggedIn])
-
     useEffect(() => {
-        // async function CheckLogin() {
-            if (localStorage.getItem('refreshToken')) {
-                setDefaultStatus({
-                    ...defaultStatus,
-                    loggedIn: true,
-                    first_name: JSON.parse(localStorage.getItem("first_name")),
-                    last_name: JSON.parse(localStorage.getItem('last_name'))
-                })
-            //     console.log(defaultStatus);
-            //     let cart = cartContext.getCart();
-            //     setCart(cart);
-            // };
-            // await checkAccessExpiry();
+        if (localStorage.getItem('refreshToken')) {
+            setDefaultStatus({
+                ...defaultStatus,
+                loggedIn: true,
+                first_name: JSON.parse(localStorage.getItem("first_name")),
+                last_name: JSON.parse(localStorage.getItem('last_name'))
+            })
             setCart(cartFromContext)
-            // console.log(cart)
         }
-        // CheckLogin();
     }, [cartFromContext])
 
     let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
@@ -124,7 +96,6 @@ export default function UserProvider(props) {
         },
         getUserState: () => {
             return defaultStatus.loggedIn
-            console.log(defaultStatus.loggedIn)
         },
         getName: () => {
             return defaultStatus.first_name + " " + defaultStatus.last_name

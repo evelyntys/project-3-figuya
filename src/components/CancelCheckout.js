@@ -14,7 +14,7 @@ export default function CancelCheckout() {
             <div className="container d-flex align-items-center justify-content-center" style={{ "height": "80vh" }}>
                 <div className="row">
                     <div className="col-6 d-flex justify-content-center">
-                        <img src={require("../images/checkout_error.png")} style={{ "height": "200px" }} />
+                        <img src={require("../images/checkout_error.png")} style={{ "height": "200px" }} alt="checkout cancelled" />
                     </div>
                     <div className="col-6" style={{ "fontSize": "40px" }}>
                         Checkout has been cancelled...

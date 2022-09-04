@@ -23,12 +23,12 @@ export default function Pagination(props) {
             <ul className="pagination justify-content-end">
                 <li className="page-item">
                     <button className="page-link" onClick={prevPage}>
-                        <i class="bi bi-caret-left-fill"></i>
+                        <i className="bi bi-caret-left-fill"></i>
                     </button>
                 </li>
                 {pageNumbers.map(pgNumber => {
                     return (
-                        <li key={pgNumber} className={`page-item ${currentPage == pgNumber ? 'active' : ''}`}>
+                        <li key={pgNumber} className={`page-item ${currentPage === pgNumber ? 'active' : ''}`}>
                             <button onClick={() => setCurrentPage(pgNumber)} className="page-link">
                                 {pgNumber}
                             </button>
@@ -37,7 +37,7 @@ export default function Pagination(props) {
                 })}
                 <li className="page-item">
                     <button className="page-link" onClick={nextPage}>
-                        <i class="bi bi-caret-right-fill"></i>
+                        <i className="bi bi-caret-right-fill"></i>
                     </button>
                 </li>
             </ul>

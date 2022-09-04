@@ -14,7 +14,6 @@ export default class ProductProvider extends React.Component {
   async componentDidMount() {
     let searchFieldsResponse = await axios.get("products/fields");
     await this.setState({
-      // products: productResponse.data,
       figureTypes: searchFieldsResponse.data.allFigureTypes,
       collections: searchFieldsResponse.data.allCollections
     })
@@ -25,7 +24,6 @@ export default class ProductProvider extends React.Component {
       getProducts: async () => {
         let productResponse = await axios.get("products");
         return productResponse.data;
-        // return this.state.products
       },
       showProduct: async (id) => {
         let productToShowResponse = await axios.get("products/" + id + "/view");
@@ -66,7 +64,6 @@ export default class ProductProvider extends React.Component {
       },
       getFigureType: () => {
         return this.state.figureTypes
-        console.log(this.state.figureTypes)
       },
       getCollections: () => {
         return this.state.collections

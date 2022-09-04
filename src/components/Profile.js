@@ -52,7 +52,7 @@ export default function Profile() {
                                 </button>
                             </div>
                             <div className="d-flex justify-content-center my-1">
-                                <img src={require("../images/user.png")} style={{ "height": "100px" }} />
+                                <img src={require("../images/user.png")} style={{ "height": "100px" }} alt="cat user" />
                             </div>
                             <h3 className="text-center" style={{ "fontWeight": "800" }}>{user.customer.username}</h3>
                             <p className="text-center">Joined on {moment(user.customer.created_date).format("DD-MM-YYYY")}</p>
@@ -89,10 +89,10 @@ export default function Profile() {
                             </div>
                         </div> :
                         <div className="container d-flex justify-content-center align-items-center">
-                            <img className="loader-size" src={require("../images/loader.gif")} />
+                            <img className="loader-size" src={require("../images/loader.gif")} alt="loader" />
                         </div>}
                 </div>
-                <img className="profile-img" src={require('../images/profile.jpg')} />
+                <img className="profile-img" src={require('../images/profile.jpg')} alt="background of figures" />
             </div>
         </React.Fragment>
     )

@@ -53,11 +53,11 @@ export default function MobileNav() {
 
     return (
         <div className="bottom-nav container-fluid d-block d-lg-none d-flex justify-content-evenly">
-            {!userContext.getUserState() ? <button className="btn mob-nav" onClick={home}><i class="bi bi-house-door-fill"></i></button> : ""}
-            <button className="btn mob-nav" onClick={products}><i class="bi bi-shop"></i></button>
+            {!userContext.getUserState() ? <button className="btn mob-nav" onClick={home}><i className="bi bi-house-door-fill"></i></button> : ""}
+            <button className="btn mob-nav" onClick={products}><i className="bi bi-shop"></i></button>
             {userContext.getUserState() ?
                 <React.Fragment>
-                    <button className="btn mob-nav position-relative" onClick={cart}><i class="bi bi-cart4"></i>
+                    <button className="btn mob-nav position-relative" onClick={cart}><i className="bi bi-cart4"></i>
                         {
                             userContext.getUserState() ? (
                                 cartItems.length > 0 ? (<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -65,13 +65,13 @@ export default function MobileNav() {
                                     <span className="visually-hidden">unread messages</span>
                                 </span>) : null) : null
                         }</button>
-                    <button className="btn mob-nav" onClick={profile}><i class="bi bi-person-circle"></i></button>
-                    <button className="btn mob-nav" onClick={orders}><i class="bi bi-receipt"></i></button>
-                    <button className="btn mob-nav" onClick={Logout}><i class="bi bi-box-arrow-right"></i></button>
+                    <button className="btn mob-nav" onClick={profile}><i className="bi bi-person-circle"></i></button>
+                    <button className="btn mob-nav" onClick={orders}><i className="bi bi-receipt"></i></button>
+                    <button className="btn mob-nav" onClick={Logout}><i className="bi bi-box-arrow-right"></i></button>
                 </React.Fragment>
                 :
                 <React.Fragment>
-                    <button className="btn mob-nav" onClick={login}><i class="bi bi-person-circle"></i></button>
+                    <button className="btn mob-nav" onClick={login}><i className="bi bi-person-circle"></i></button>
                 </React.Fragment>}
         </div>
     )

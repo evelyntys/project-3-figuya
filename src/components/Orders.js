@@ -16,7 +16,7 @@ export default function Orders() {
             setLoader(true);
             let orders = await orderContext.getOrders();
             let pendingOrders = orders.filter((each) => { return (each.order_status_id !== 5 && each.order_status_id !== 6) });
-            let completedOrders = orders.filter((each) => { return (each.order_status_id == 5 || each.order_status_id == 6) });
+            let completedOrders = orders.filter((each) => { return (each.order_status_id === 5 || each.order_status_id === 6) });
             await setPendingOrders(pendingOrders);
             await setCompletedOrders(completedOrders);
             setLoader(false);
@@ -25,7 +25,7 @@ export default function Orders() {
     }, []);
 
     const toggleDetails = (id) => {
-        if (showDetails != id) {
+        if (showDetails !== id) {
             setShowDetails(id)
         } else {
             setShowDetails()
@@ -48,7 +48,7 @@ export default function Orders() {
                                     <React.Fragment>
                                         {pendingOrders.map(each => {
                                             return (
-                                                <div className="container my-2" style={{ "border": "1px solid black" }}>
+                                                <div key={each.id} className="container my-2" style={{ "border": "1px solid black" }}>
                                                     <div className="container row">
                                                         <div className="col-6 text-start"><h6>Order #{each.id}</h6></div>
                                                         <div className="col-6 text-end"><h6>{moment(each.ordered_date).format("DD/MM/YYYY", "LTS")}</h6></div>
@@ -63,17 +63,18 @@ export default function Orders() {
                                                             <button className="btn btn-sm mb-2 view-more" style={{ "color": "orange" }} onClick={() => toggleDetails(each.id)}>View details</button>
                                                         </div>
                                                     </div>
-                                                    {showDetails == each.id ?
+                                                    {showDetails === each.id ?
                                                         <div className="row container my-2">
                                                             <div className="col col-lg-2">
-                                                                <img src={each.orderedItems[0].figure.image_url} style={{ "height": "100px", "width": "100px", "objectFit": "cover" }} />
+                                                                <img src={each.orderedItems[0].figure.image_url} style={{ "height": "100px", "width": "100px", "objectFit": "cover" }}
+                                                                alt="first ordered item" />
                                                             </div>
                                                             <div className="col col-lg-5">
                                                                 <ol>
                                                                     Ordered items:
                                                                     {each.orderedItems.map(eachItem => {
                                                                         return (
-                                                                            <li style={{ "fontSize": "12px" }}>{eachItem.figure.name} x {eachItem.quantity}</li>
+                                                                            <li className={eachItem.id} style={{ "fontSize": "12px" }}>{eachItem.figure.name} x {eachItem.quantity}</li>
                                                                         )
                                                                     })}
                                                                 </ol>
@@ -98,7 +99,7 @@ export default function Orders() {
                             </React.Fragment>
                             :
                             <div className="d-flex justify-content-center">
-                                <img src={require("../images/loader.gif")} className="loader-size" />
+                                <img src={require("../images/loader.gif")} className="loader-size" alt="loader" />
                             </div>
                         }
                     </Tab>
@@ -109,7 +110,7 @@ export default function Orders() {
                                     <React.Fragment>
                                         {completedOrders.map(each => {
                                             return (
-                                                <div className="container my-2" style={{ "border": "1px solid black" }}>
+                                                <div key={each.id} className="container my-2" style={{ "border": "1px solid black" }}>
                                                     <div className="container row">
                                                         <div className="col-6 text-start"><h6>Order #{each.id}</h6></div>
                                                         <div className="col-6 text-end"><h6>{moment(each.ordered_date).format("DD/MM/YYYY", "LTS")}</h6></div>
@@ -124,17 +125,18 @@ export default function Orders() {
                                                             <button className="btn btn-sm mb-2 view-more" style={{ "color": "orange" }} onClick={() => toggleDetails(each.id)}>View details</button>
                                                         </div>
                                                     </div>
-                                                    {showDetails == each.id ?
+                                                    {showDetails === each.id ?
                                                         <div className="row container my-2">
                                                             <div className="col col-lg-2">
-                                                                <img src={each.orderedItems[0].figure.image_url} style={{ "height": "100px", "width": "100px", "objectFit": "cover" }} />
+                                                                <img src={each.orderedItems[0].figure.image_url} style={{ "height": "100px", "width": "100px", "objectFit": "cover" }}
+                                                                alt="first ordered item" />
                                                             </div>
                                                             <div className="col col-lg-5">
                                                                 <ol>
                                                                     Ordered items:
                                                                     {each.orderedItems.map(eachItem => {
                                                                         return (
-                                                                            <li style={{ "fontSize": "12px" }}>{eachItem.figure.name} x {eachItem.quantity}</li>
+                                                                            <li key={eachItem.id} style={{ "fontSize": "12px" }}>{eachItem.figure.name} x {eachItem.quantity}</li>
                                                                         )
                                                                     })}
                                                                 </ol>
@@ -159,7 +161,7 @@ export default function Orders() {
                             </React.Fragment>
                             :
                             <div className="d-flex justify-content-center">
-                                <img src={require("../images/loader.gif")} className="loader-size" />
+                                <img src={require("../images/loader.gif")} className="loader-size" alt="loader" />
                             </div>
                         }
                     </Tab>

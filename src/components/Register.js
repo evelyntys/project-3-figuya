@@ -147,11 +147,11 @@ export default function Register() {
             <div className="container mob-content login-container my-5">
                 <div className="row parent-contain align-items-center">
                     <div className="col-12 col-lg-6 d-flex flex-col justify-content-center align-items-center login-img">
-                        <img src={require("../images/logo.png")} className="login-img-logo" /><br />
+                        <img src={require("../images/logo.png")} className="login-img-logo" alt="cat logo" /><br />
                     </div>
                     <div className="p-5 container col-12 col-lg-6">
                         <h1 className="text-center text-lg-start">Sign up for a new account</h1>
-                        {toShow == 1 ?
+                        {toShow === 1 ?
                             <div className="first-page">
                                 <div>
                                     <label>Username: </label>

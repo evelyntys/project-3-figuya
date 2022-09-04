@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { BrowserRouter as Router, Routes, Route, Link, NavLink, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Orders from './components/Orders';
 import Login from './components/Login';
 import ProductProvider from './contextProviders/ProductProvider';

@@ -23,7 +23,7 @@ export default function Products() {
         launch_status: "a",
         series: "",
         release_date: "",
-        manufacturer: 0,
+        manufacturer: "0",
     });
     const [loader, setLoader] = React.useState();
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -130,7 +130,7 @@ export default function Products() {
             launch_status: "a",
             series: "",
             release_date: "",
-            manufacturer: 0
+            manufacturer: "0"
         });
         const emptySearch = {
             search: "",
@@ -143,7 +143,8 @@ export default function Products() {
             blind_box: "a",
             launch_status: "a",
             series: "",
-            release_date: ""
+            release_date: "",
+            manufacturer: "0"
         };
         let baseProducts = await productContext.filterProducts(emptySearch);
         await setProducts(baseProducts)
@@ -173,7 +174,7 @@ export default function Products() {
             launch_status: "a",
             series: "",
             release_date: "",
-            manufacturer: 0
+            manufacturer: "0"
         });
         const emptySearch = {
             search: "",
@@ -187,7 +188,7 @@ export default function Products() {
             launch_status: "a",
             series: "",
             release_date: "",
-            manufacturer: 0
+            manufacturer: "0"
         };
         let baseProducts = await productContext.filterProducts(emptySearch);
         await setProducts(baseProducts)
@@ -270,13 +271,13 @@ export default function Products() {
                             </div>
 
                             <div className="col-12 my-1">
-                                        <select className="form-select" value={searchBox.manufacturer} onChange={updateSearchField} name="manufacturer">
-                                            <option value={0}>Choose a manufacturer</option>
-                                            {productContext.getManufacturers().map(each => {
-                                                return <option key={each[1]} value={each[0]}>{each[1]}</option>
-                                            })}
-                                        </select>
-                                    </div>
+                                <select className="form-select" value={searchBox.manufacturer} onChange={updateSearchField} name="manufacturer">
+                                    <option value="0">Choose a manufacturer</option>
+                                    {productContext.getManufacturers().map(each => {
+                                        return <option key={each[1]} value={each[0]}>{each[1]}</option>
+                                    })}
+                                </select>
+                            </div>
 
                             <div className="col-6">
                                 <label>Min height(cm):</label>
@@ -346,15 +347,17 @@ export default function Products() {
                                 <div className="container">
                                     <h3 className="header-weight">Showing {products.length} product(s):</h3>
                                 </div>
-                                <div className="row">
+                                <div className="container row">
                                     {products.length ?
                                         <React.Fragment>
                                             <ProductListing products={currentProducts} showProduct={showProduct}
                                                 cartContext={cartContext} />
+                                            <Pagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
                                         </React.Fragment>
-                                        : null}
+                                        : <div className="container no-results">
+                                            no products found...
+                                        </div>}
                                 </div>
-                                <Pagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
                             </React.Fragment>
                             :
                             <div className="d-flex justify-content-center">
@@ -436,7 +439,7 @@ export default function Products() {
 
                                     <div className="col-12 my-1">
                                         <select className="form-select" value={searchBox.manufacturer} onChange={updateSearchField} name="manufacturer">
-                                            <option value={0}>Choose a manufacturer</option>
+                                            <option value="0">Choose a manufacturer</option>
                                             {productContext.getManufacturers().map(each => {
                                                 return <option key={each[1]} value={each[0]}>{each[1]}</option>
                                             })}
@@ -542,10 +545,11 @@ export default function Products() {
                                         <React.Fragment>
                                             <ProductListing products={currentProductsMob} cartContext={cartContext}
                                                 showProduct={showProduct} />
-                                        </React.Fragment> : null
+                                            <Pagination nPages={nPagesMob} currentPage={currentPageMob} setCurrentPage={setCurrentPageMob} />
+                                        </React.Fragment> :
+                                        <div className="container no-results text-center">no products found...</div>
                                     }
                                 </div>
-                                <Pagination nPages={nPagesMob} currentPage={currentPageMob} setCurrentPage={setCurrentPageMob} />
                             </React.Fragment>
                             : <div className="d-flex justify-content-center">
                                 <img src={require("../images/loader.gif")} className="loader-size" alt="loader" />

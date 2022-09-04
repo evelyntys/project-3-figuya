@@ -63,7 +63,7 @@ export default class ProductProvider extends React.Component {
         if (searchBox.release_date) {
           products = products.filter(each => { return moment(each.release_date).format("DD/MM/YYYY") === moment(searchBox.release_date).format("DD/MM/YYYY") })
         }
-        if (searchBox.manufacturer) {
+        if (parseInt(searchBox.manufacturer) !== 0) {
           products = products.filter(each => { return each.manufacturer.id === parseInt(searchBox.manufacturer) })
         }
         await this.setState({

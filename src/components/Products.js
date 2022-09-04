@@ -21,7 +21,8 @@ export default function Products() {
         max_height: "",
         blind_box: "a",
         launch_status: "a",
-        series: ""
+        series: "",
+        release_date: ""
     });
     const [loader, setLoader] = React.useState();
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -65,7 +66,7 @@ export default function Products() {
                         ...searchBox,
                         figureType: ['3']
                     })
-                } else if (filterChose === "blind-box"){
+                } else if (filterChose === "blind-box") {
                     await setSearchBox({
                         ...searchBox,
                         blind_box: '1'
@@ -126,7 +127,8 @@ export default function Products() {
             max_height: "",
             blind_box: "a",
             launch_status: "a",
-            series: ""
+            series: "",
+            release_date: ""
         });
         const emptySearch = {
             search: "",
@@ -138,7 +140,8 @@ export default function Products() {
             max_height: "",
             blind_box: "a",
             launch_status: "a",
-            series: ""
+            series: "",
+            release_date: ""
         };
         let baseProducts = await productContext.filterProducts(emptySearch);
         await setProducts(baseProducts)
@@ -166,7 +169,8 @@ export default function Products() {
             max_height: "",
             blind_box: "a",
             launch_status: "a",
-            series: ""
+            series: "",
+            release_date: ""
         });
         const emptySearch = {
             search: "",
@@ -178,7 +182,8 @@ export default function Products() {
             max_height: "",
             blind_box: "a",
             launch_status: "a",
-            series: ""
+            series: "",
+            release_date: ""
         };
         let baseProducts = await productContext.filterProducts(emptySearch);
         await setProducts(baseProducts)
@@ -206,13 +211,13 @@ export default function Products() {
                             <div className="col-12">
                                 <label>Search:</label>
                                 <input type="text" className="form-control" value={searchBox.search}
-                                    placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
+                                    placeholder="e.g. luffy, levi ackerman" onChange={updateSearchField}
                                     name="search" />
                             </div>
                             <div className="col-12">
                                 <label>Series:</label>
                                 <input type="text" className="form-control" value={searchBox.series}
-                                    placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
+                                    placeholder="e.g. one piece, pokemon" onChange={updateSearchField}
                                     name="series" />
                             </div>
 
@@ -227,6 +232,13 @@ export default function Products() {
                                 <input type="text" className="form-control" value={searchBox.max_cost}
                                     placeholder="100" onChange={updateSearchField}
                                     name="max_cost" />
+                            </div>
+
+                            <div className="col-12">
+                                <label>Release date:</label>
+                                <input type="date" className="form-control" value={searchBox.release_date}
+                                    onChange={updateSearchField}
+                                    name="release_date" />
                             </div>
 
                             <div className="col-12">
@@ -353,7 +365,7 @@ export default function Products() {
                             <div className={showSearch ? "col-12" : "col-8 my-2"}>
                                 <label>Search:</label>
                                 <input type="text" className="form-control" value={searchBox.search}
-                                    placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
+                                    placeholder="e.g. luffy, levi ackerman" onChange={updateSearchField}
                                     name="search" />
                             </div>
                             {showSearch ?
@@ -361,7 +373,7 @@ export default function Products() {
                                     <div className="col-12">
                                         <label>Series:</label>
                                         <input type="text" className="form-control" value={searchBox.series}
-                                            placeholder="e.g. one piece, levi ackerman" onChange={updateSearchField}
+                                            placeholder="e.g. one piece, pokemon" onChange={updateSearchField}
                                             name="series" />
                                     </div>
 
@@ -376,6 +388,13 @@ export default function Products() {
                                         <input type="text" className="form-control" value={searchBox.max_cost}
                                             placeholder="100" onChange={updateSearchField}
                                             name="max_cost" />
+                                    </div>
+
+                                    <div className="col-12">
+                                        <label>Release date:</label>
+                                        <input type="date" className="form-control" value={searchBox.release_date}
+                                            onChange={updateSearchField}
+                                            name="release_date" />
                                     </div>
 
                                     <div className="col-12">

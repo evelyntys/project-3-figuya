@@ -1,6 +1,8 @@
 import ProductContext from "../context/ProductContext";
 import React from 'react';
 import axios from '../helpers/AxiosInterceptor';
+const moment = require('moment-timezone');
+moment.tz.setDefault('Asia/Taipei');
 
 export default class ProductProvider extends React.Component {
   state = {
@@ -56,7 +58,9 @@ export default class ProductProvider extends React.Component {
         if (searchBox.series) {
           products = products.filter(each => { return each.series.series_name.includes(searchBox.series.toLowerCase()) })
         }
-        console.log(products);
+        if (searchBox.release_date) {
+          products = products.filter(each => { return moment(each.release_date).format("DD/MM/YYYY") === moment(searchBox.release_date).format("DD/MM/YYYY") })
+        }
         await this.setState({
           products: products
         });

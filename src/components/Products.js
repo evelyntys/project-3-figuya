@@ -222,13 +222,13 @@ export default function Products() {
                             </div>
 
                             <div className="col-6">
-                                <label>Min cost:</label>
+                                <label>Min cost($):</label>
                                 <input type="text" className="form-control" value={searchBox.min_cost}
                                     placeholder="0" onChange={updateSearchField}
                                     name="min_cost" />
                             </div>
                             <div className="col-6">
-                                <label>Max cost:</label>
+                                <label>Max cost($):</label>
                                 <input type="text" className="form-control" value={searchBox.max_cost}
                                     placeholder="100" onChange={updateSearchField}
                                     name="max_cost" />
@@ -266,13 +266,13 @@ export default function Products() {
                             </div>
 
                             <div className="col-6">
-                                <label>Min height:</label>
+                                <label>Min height(cm):</label>
                                 <input type="text" className="form-control" value={searchBox.min_height}
                                     placeholder="0" onChange={updateSearchField}
                                     name="min_height" />
                             </div>
                             <div className="col-6">
-                                <label>Max height:</label>
+                                <label>Max height(cm):</label>
                                 <input type="text" className="form-control" value={searchBox.max_height}
                                     placeholder="100" onChange={updateSearchField}
                                     name="max_height" />
@@ -378,13 +378,13 @@ export default function Products() {
                                     </div>
 
                                     <div className="col-6">
-                                        <label>Min cost:</label>
+                                        <label>Min cost($):</label>
                                         <input type="text" className="form-control" value={searchBox.min_cost}
                                             placeholder="0" onChange={updateSearchField}
                                             name="min_cost" />
                                     </div>
                                     <div className="col-6">
-                                        <label>Max cost:</label>
+                                        <label>Max cost($):</label>
                                         <input type="text" className="form-control" value={searchBox.max_cost}
                                             placeholder="100" onChange={updateSearchField}
                                             name="max_cost" />
@@ -422,13 +422,13 @@ export default function Products() {
                                     </div>
 
                                     <div className="col-6">
-                                        <label>Min height:</label>
+                                        <label>Min height(cm):</label>
                                         <input type="text" className="form-control" value={searchBox.min_height}
                                             placeholder="0" onChange={updateSearchField}
                                             name="min_height" />
                                     </div>
                                     <div className="col-6">
-                                        <label>Max height:</label>
+                                        <label>Max height(cm):</label>
                                         <input type="text" className="form-control" value={searchBox.max_height}
                                             placeholder="100" onChange={updateSearchField}
                                             name="max_height" />

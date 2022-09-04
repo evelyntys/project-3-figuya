@@ -1,14 +1,16 @@
 # FIGU屋
 The live demo of the site can be found [here](https://figuya.netlify.app/).
 
+Github repository for admin panel can be found [here](https://github.com/evelyntys/project-3-express).
+
 Test Accounts: 
-1. Admin at [admin site](https://etys-figuya-express.herokuapp.com/)
+
+    1. Admin at https://etys-figuya-express.herokuapp.com/
     * Username: admin
     * Password: admin123
-
-    Github repository for admin panel can be found [here](https://github.com/evelyntys/project-3-express).
-2. Customer at [figuya](https://figuya.netlify.app/)
-    * Username: customer2
+    
+    2. Customer at https://figuya.netlify.app/
+    * Username: customer1
     * Password: customer123
 
 ## Project Summary

@@ -1,6 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Kosugi+Maru&family=Mochiy+Pop+One&family=Yomogi&family=Yrsa:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&family=Almarai:wght@300;400;700;800&family=Didact+Gothic&family=Hachi+Maru+Pop&family=Kosugi+Maru&family=Lexend:wght@100;200;300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Mochiy+Pop+One&family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&family=Yomogi&family=Yrsa:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
-body {}
+body {
+  font-family: "Quicksand";
+  font-weight: 500;
+}
 
 .dropdown-menu {
   min-width: inherit;
@@ -82,6 +85,7 @@ body {}
 .view-more {
   cursor: pointer;
   text-transform: capitalize;
+  font-weight: 800;
 }
 
 .view-more:hover {
@@ -108,13 +112,23 @@ body {}
 }
 
 .accordion-button:not(.collapsed) {
+  font-weight: 500;
   background-color: #face98;
   color: #361900;
 }
 
 .accordion-button:focus {
+  font-weight: 500;
   border-color: transparent !important;
   box-shadow: none;
+}
+
+.accordion-header{
+  font-weight: 500;
+}
+
+.accordion-button{
+  font-weight: 500;
 }
 
 /* .card-badges{
@@ -133,7 +147,7 @@ body {}
   height: 200px;
 }
 
-.caro-overlay{
+.caro-overlay {
   height: 300px;
   object-fit: cover;
 }
@@ -274,6 +288,7 @@ body {}
 
 .product-name {
   text-transform: uppercase;
+  font-weight: 800;
 }
 
 .desktop-single-product {
@@ -361,21 +376,22 @@ body {}
   color: white;
   font-weight: 800;
   font-size: 10px;
-  background-color: rgba(255, 155, 5, 0.798);
+  background-color: rgba(255, 5, 5, 0.448);
 }
 
-.active>.page-link, .page-link.active{
+.active>.page-link,
+.page-link.active {
   background-color: rgba(255, 155, 5, 0.798);
   border-color: rgba(255, 155, 5, 0.798);
   color: white;
 }
 
-.page-link{
+.page-link {
   color: black;
   border-color: transparent;
 }
 
-.page-link:focus{
+.page-link:focus {
   color: black;
   border-color: transparent;
   box-shadow: none;
@@ -445,6 +461,55 @@ fieldset:disabled {
   color: #66402B;
 }
 
+
+.profile-container {
+  border: 1px solid black;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.638);
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+}
+
+.profile-text > p{
+  margin: 5px;
+}
+
+.mob-content-profile{
+  background-color: #FFC277;
+  padding-bottom: 10vh !important;
+}
+
+.wrapper {
+  left: 0px;
+  padding: 0px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+/* .profile-container{
+  position: relative;
+  z-index: 5;
+} */
+
+.image-cont{
+  width: 100vw;
+  height: 93vh;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
+  top: 1;
+  left: 0;
+}
+
+
 @media screen and (min-width: 992px) {
   .cart-img {
     height: 150px;
@@ -482,6 +547,13 @@ fieldset:disabled {
 
   .login-img-logo {
     height: 200px;
+  }
+
+  .profile-container{
+    width: 50vw;
+  }
+  .mob-content-profile{
+    padding-bottom: 0vh !important;
   }
 
 }

@@ -20,6 +20,10 @@ export default function UserProvider(props) {
     const navigate = useNavigate();
     const cartContext = React.useContext(CartContext);
     const cartFromContext = cartContext.getState();
+    const [pwErrors, setPwErrors] = React.useState({
+        password: "",
+        confirm_password: ""
+    })
 
     useEffect(() => {
         async function CheckLogin() {
@@ -38,8 +42,41 @@ export default function UserProvider(props) {
         CheckLogin();
     }, []);
 
+    // useEffect(() => {
+    //     async function CheckLogin() {
+    //         if (localStorage.getItem('refreshToken')) {
+    //             setDefaultStatus({
+    //                 ...defaultStatus,
+    //                 loggedIn: true,
+    //                 first_name: JSON.parse(localStorage.getItem("first_name")),
+    //                 last_name: JSON.parse(localStorage.getItem('last_name'))
+    //             })
+    //             console.log(defaultStatus);
+    //             let cart = cartContext.getCart();
+    //             setCart(cart);
+    //         };
+    //         await checkAccessExpiry();
+    //     }
+    //     CheckLogin();
+    // }, [defaultStatus.loggedIn])
+
     useEffect(() => {
-        setCart(cartFromContext)
+        async function CheckLogin() {
+            if (localStorage.getItem('refreshToken')) {
+                setDefaultStatus({
+                    ...defaultStatus,
+                    loggedIn: true,
+                    first_name: JSON.parse(localStorage.getItem("first_name")),
+                    last_name: JSON.parse(localStorage.getItem('last_name'))
+                })
+                console.log(defaultStatus);
+                let cart = cartContext.getCart();
+                setCart(cart);
+            };
+            await checkAccessExpiry();
+            setCart(cartFromContext)
+        }
+        CheckLogin();
     }, [cartFromContext])
 
     let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
@@ -86,26 +123,72 @@ export default function UserProvider(props) {
         },
         getUserState: () => {
             return defaultStatus.loggedIn
+            console.log(defaultStatus.loggedIn)
         },
         getName: () => {
             return defaultStatus.first_name + " " + defaultStatus.last_name
         },
         getProfile: async () => {
-            let accessToken = await checkAccessExpiry();
-            console.log(accessToken)
-            let userProfileResponse = await axios.get("users/profile", {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            });
-            setDefaultStatus({
-                ...defaultStatus,
-                user: userProfileResponse.data
-            })
-            return userProfileResponse.data
+            if (localStorage.getItem('refreshToken')) {
+                let accessToken = await checkAccessExpiry();
+                let userProfileResponse = await axios.get("users/profile", {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                });
+                setDefaultStatus({
+                    ...defaultStatus,
+                    user: userProfileResponse.data
+                })
+                let cart = cartContext.getCart();
+                setCart(cart);
+                return userProfileResponse.data
+            };
         },
         getCart: () => {
             return cart
+        },
+        updatePassword: async (password, confirm_password) => {
+            let changePWToast = toast.loading("Updating your password");
+            let accessToken = await checkAccessExpiry();
+            try {
+                let updateResponse = await axios.post('users/password/update', {
+                    password,
+                    confirm_password
+                }, {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    }
+                });
+                console.log(updateResponse.data);
+                setPwErrors({
+                    ...pwErrors,
+                    password: "",
+                    confirm_password: ""
+                })
+                toast.update(changePWToast, {
+                    render: "Password updated successfully",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 2000
+                })
+            } catch (e) {
+                console.log(e);
+                setPwErrors({
+                    ...pwErrors,
+                    password: e.response.data.password,
+                    confirm_password: e.response.data.confirm_password
+                })
+                toast.update(changePWToast, {
+                    render: "Please check the fields again",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 2000
+                })
+            }
+        },
+        getPWErrors: () => {
+            return pwErrors
         }
     }
     return (

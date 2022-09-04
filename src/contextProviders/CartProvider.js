@@ -34,7 +34,6 @@ export default function CartProvider(props) {
         },
         getCart: async () => {
             let accessToken = await checkAccessExpiry();
-            console.log(accessToken);
             let cartResponse = await axios.get("cart", {
                 headers: {
                     Authorization: 'Bearer ' + accessToken

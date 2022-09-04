@@ -10,16 +10,16 @@ import CartContext from "../context/CartContext";
 
 
 export default function UserProvider(props) {
+    const cartContext = React.useContext(CartContext);
     const [defaultStatus, setDefaultStatus] = React.useState({
         loggedIn: false,
         first_name: "",
         last_name: "",
         user: "",
     });
-    const [cart, setCart] = React.useState([]);
-    const navigate = useNavigate();
-    const cartContext = React.useContext(CartContext);
     const cartFromContext = cartContext.getState();
+    const [cart, setCart] = React.useState(cartFromContext);
+    const navigate = useNavigate();
     const [pwErrors, setPwErrors] = React.useState({
         password: "",
         confirm_password: ""
@@ -61,7 +61,7 @@ export default function UserProvider(props) {
     // }, [defaultStatus.loggedIn])
 
     useEffect(() => {
-        async function CheckLogin() {
+        // async function CheckLogin() {
             if (localStorage.getItem('refreshToken')) {
                 setDefaultStatus({
                     ...defaultStatus,
@@ -69,14 +69,15 @@ export default function UserProvider(props) {
                     first_name: JSON.parse(localStorage.getItem("first_name")),
                     last_name: JSON.parse(localStorage.getItem('last_name'))
                 })
-                console.log(defaultStatus);
-                let cart = cartContext.getCart();
-                setCart(cart);
-            };
-            await checkAccessExpiry();
+            //     console.log(defaultStatus);
+            //     let cart = cartContext.getCart();
+            //     setCart(cart);
+            // };
+            // await checkAccessExpiry();
             setCart(cartFromContext)
+            // console.log(cart)
         }
-        CheckLogin();
+        // CheckLogin();
     }, [cartFromContext])
 
     let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));

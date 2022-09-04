@@ -5,7 +5,7 @@ import Products from './Products';
 import Cart from './Cart';
 import Profile from './Profile';
 import Register from './Register';
-import axios from 'axios';
+import axios from '../AxiosInterceptor';
 import '../App.css'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import Orders from './Orders';
@@ -20,12 +20,11 @@ import UserContext from '../context/UserContext';
 
 
 export default function NavigationBar() {
-    const url = "https://3000-evelyntys-project3expre-g5hw291acox.ws-us63.gitpod.io/api/"
     const cartContext = React.useContext(CartContext);
     const userContext = React.useContext(UserContext);
     const user = userContext.getName();
-    const [cart, setCart] = React.useState([]);
     let userCart = userContext.getCart();
+    const [cart, setCart] = React.useState(userCart);
     // const navigate = useNavigate();
 
     useEffect(() => {

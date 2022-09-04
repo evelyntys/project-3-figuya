@@ -22,7 +22,8 @@ export default function Products() {
         blind_box: "a",
         launch_status: "a",
         series: "",
-        release_date: ""
+        release_date: "",
+        manufacturer: 0,
     });
     const [loader, setLoader] = React.useState();
     const [currentPage, setCurrentPage] = React.useState(1);
@@ -128,7 +129,8 @@ export default function Products() {
             blind_box: "a",
             launch_status: "a",
             series: "",
-            release_date: ""
+            release_date: "",
+            manufacturer: 0
         });
         const emptySearch = {
             search: "",
@@ -170,7 +172,8 @@ export default function Products() {
             blind_box: "a",
             launch_status: "a",
             series: "",
-            release_date: ""
+            release_date: "",
+            manufacturer: 0
         });
         const emptySearch = {
             search: "",
@@ -183,7 +186,8 @@ export default function Products() {
             blind_box: "a",
             launch_status: "a",
             series: "",
-            release_date: ""
+            release_date: "",
+            manufacturer: 0
         };
         let baseProducts = await productContext.filterProducts(emptySearch);
         await setProducts(baseProducts)
@@ -256,7 +260,7 @@ export default function Products() {
                                 })}
                             </div>
 
-                            <div className="col-12">
+                            <div className="col-12 my-1">
                                 <select className="form-select" value={searchBox.collection} onChange={updateSearchField} name="collection">
                                     <option value={0}>Choose a collection</option>
                                     {productContext.getCollections().map(each => {
@@ -264,6 +268,15 @@ export default function Products() {
                                     })}
                                 </select>
                             </div>
+
+                            <div className="col-12 my-1">
+                                        <select className="form-select" value={searchBox.manufacturer} onChange={updateSearchField} name="manufacturer">
+                                            <option value={0}>Choose a manufacturer</option>
+                                            {productContext.getManufacturers().map(each => {
+                                                return <option key={each[1]} value={each[0]}>{each[1]}</option>
+                                            })}
+                                        </select>
+                                    </div>
 
                             <div className="col-6">
                                 <label>Min height(cm):</label>
@@ -412,10 +425,19 @@ export default function Products() {
                                         })}
                                     </div>
 
-                                    <div className="col-12">
+                                    <div className="col-12 my-1">
                                         <select className="form-select" value={searchBox.collection} onChange={updateSearchField} name="collection">
                                             <option value={0}>Choose a collection</option>
                                             {productContext.getCollections().map(each => {
+                                                return <option key={each[1]} value={each[0]}>{each[1]}</option>
+                                            })}
+                                        </select>
+                                    </div>
+
+                                    <div className="col-12 my-1">
+                                        <select className="form-select" value={searchBox.manufacturer} onChange={updateSearchField} name="manufacturer">
+                                            <option value={0}>Choose a manufacturer</option>
+                                            {productContext.getManufacturers().map(each => {
                                                 return <option key={each[1]} value={each[0]}>{each[1]}</option>
                                             })}
                                         </select>

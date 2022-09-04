@@ -10,6 +10,7 @@ export default class ProductProvider extends React.Component {
     productToShow: [],
     figureTypes: [],
     collections: [],
+    manufacturers: [],
     filter: ""
   };
 
@@ -17,7 +18,8 @@ export default class ProductProvider extends React.Component {
     let searchFieldsResponse = await axios.get("products/fields");
     await this.setState({
       figureTypes: searchFieldsResponse.data.allFigureTypes,
-      collections: searchFieldsResponse.data.allCollections
+      collections: searchFieldsResponse.data.allCollections,
+      manufacturers: searchFieldsResponse.data.allManufacturers
     })
   };
 
@@ -61,6 +63,9 @@ export default class ProductProvider extends React.Component {
         if (searchBox.release_date) {
           products = products.filter(each => { return moment(each.release_date).format("DD/MM/YYYY") === moment(searchBox.release_date).format("DD/MM/YYYY") })
         }
+        if (searchBox.manufacturer) {
+          products = products.filter(each => { return each.manufacturer.id === parseInt(searchBox.manufacturer) })
+        }
         await this.setState({
           products: products
         });
@@ -71,6 +76,9 @@ export default class ProductProvider extends React.Component {
       },
       getCollections: () => {
         return this.state.collections
+      },
+      getManufacturers: () => {
+        return this.state.manufacturers
       },
       getActionFigures: async () => {
         let productResponse = await axios.get("products/search", {

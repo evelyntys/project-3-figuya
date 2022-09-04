@@ -75,7 +75,7 @@ export default function SingleProduct() {
                             <div className="col-12">
                                 <button className="btn" onClick={products}>
                                     <i className="bi bi-arrow-90deg-left"></i>
-                                    </button>
+                                </button>
                             </div>
                             <div className="col-6">
                                 <img src={product.image_url} className="desktop-single-product" alt="figure" />
@@ -105,6 +105,10 @@ export default function SingleProduct() {
                                             <tr>
                                                 <td width="50%">Height</td>
                                                 <td width="50%">{product.height / 10} cm</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Figure Type</td>
+                                                <td width="50%" className="detail-text">{product.figure_type.figure_type}</td>
                                             </tr>
                                             <tr>
                                                 <td width="50%">Series</td>
@@ -139,13 +143,13 @@ export default function SingleProduct() {
                                 <div className="container d-flex justify-content-center align-items-center mt-3">
                                     <button className="btn qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null} disabled={product.quantity <= 1 || productQty <= 1}>
                                         <i className="bi bi-dash-circle-fill"></i>
-                                        </button>
+                                    </button>
                                     <input type="text" className="form-control text-center" name="productQty" value={productQty}
                                         onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} />
-                                    <button className="btn qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null} 
-                                    disabled={productQty >= product.quantity}>
+                                    <button className="btn qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null}
+                                        disabled={productQty >= product.quantity}>
                                         <i className="bi bi-plus-circle-fill"></i>
-                                        </button>
+                                    </button>
                                     <button className="btn main-btn" onClick={() => cartContext.addToCart(product.id, productQty)} disabled={productQty > product.quantity}>Add to cart</button>
                                 </div>
                                 <div className="container d-flex justify-content-center my-2">
@@ -170,7 +174,7 @@ export default function SingleProduct() {
                             <div className="col-12">
                                 <button className="btn" onClick={products}>
                                     <i className="bi bi-arrow-90deg-left"></i>
-                                    </button>
+                                </button>
                             </div>
                             <div className="col-12 text-center">
                                 <div className="d-flex justify-content-center">
@@ -197,6 +201,10 @@ export default function SingleProduct() {
                                             <tr>
                                                 <td width="50%">Height</td>
                                                 <td width="50%">{product.height / 10} cm</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%">Figure Type</td>
+                                                <td width="50%" className="detail-text">{product.figure_type.figure_type}</td>
                                             </tr>
                                             <tr>
                                                 <td width="50%">Series</td>
@@ -230,12 +238,12 @@ export default function SingleProduct() {
                                 <div className="container d-flex justify-content-center align-items-center mt-3">
                                     <button className="btn btn-sm qty-btn" onClick={() => productQty > 1 ? setProductQty(parseInt(productQty) - 1) : null}>
                                         <i className="bi bi-dash-circle-fill"></i>
-                                        </button>
+                                    </button>
                                     <input type="text" className="form-control text-center" name="productQty" value={productQty}
                                         onChange={updateQty} style={{ "width": "50px", "display": "inline-block" }} />
                                     <button className="btn btn-sm qty-btn" onClick={() => productQty >= 1 ? setProductQty(parseInt(productQty) + 1) : null} disabled={productQty >= product.quantity}>
                                         <i className="bi bi-plus-circle-fill"></i>
-                                        </button>
+                                    </button>
                                     <button className="btn btn-sm main-btn my-1" onClick={() => cartContext.addToCart(product.id, productQty)} disabled={productQty > product.quantity}>Add to cart</button>
                                 </div>
                                 {product.quantity ? <h6>{product.quantity} left in stock</h6>
@@ -266,7 +274,7 @@ export default function SingleProduct() {
                                                         {!each.launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
                                                         {each.blind_box ? <span className="blind-box-tag badge bg-warning text-dark">
                                                             <i className="bi bi-patch-question-fill"></i>
-                                                            </span> : null}
+                                                        </span> : null}
                                                     </div>
                                                     <div className="card-body pb-0">
                                                         <h5 className="card-title view-more text-truncate mb-0" onClick={() => showProduct(each.id)}>{each.name}</h5>
@@ -295,7 +303,7 @@ export default function SingleProduct() {
                                         <div className="col-2 text-end">
                                             <button className="btn" onClick={mobLeft}>
                                                 <i className="bi bi-caret-left-fill"></i>
-                                                </button>
+                                            </button>
                                         </div>
                                         <div className="col-8">
                                             <div className="mx-auto card m-2 card-border" style={{ "width": "16rem" }}>
@@ -305,7 +313,7 @@ export default function SingleProduct() {
                                                     {!relatedProducts[mobCurrent].launch_status ? <div className="po-banner"><span>PRE-ORDER</span></div> : null}
                                                     {relatedProducts[mobCurrent].blind_box ? <span className="blind-box-tag badge bg-warning text-dark">
                                                         <i className="bi bi-patch-question-fill"></i>
-                                                        </span> : null}
+                                                    </span> : null}
                                                 </div>
                                                 <div className="card-body pb-0">
                                                     <h5 className="card-title view-more text-truncate mb-0" onClick={() => showProduct(relatedProducts[mobCurrent].id)}>{relatedProducts[mobCurrent].name}</h5>
@@ -326,7 +334,7 @@ export default function SingleProduct() {
                                         <div className="col-2 text-start">
                                             <button className="btn" onClick={mobRight}>
                                                 <i className="bi bi-caret-right-fill"></i>
-                                                </button>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

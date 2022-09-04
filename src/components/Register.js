@@ -116,7 +116,7 @@ export default function Register() {
                 && !errorMessages.password
                 && !errorMessages.confirm_password) {
                 toast.update(registerToast, {
-                    render: "Please proceed to the next page",
+                    render: "Bringing you to the next section",
                     type: "success",
                     isLoading: false,
                     autoClose: 2000

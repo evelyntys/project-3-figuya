@@ -65,8 +65,7 @@ export default function Products() {
                         ...searchBox,
                         figureType: ['3']
                     })
-                } else {
-                    console.log("BLIND")
+                } else if (filterChose === "blind-box"){
                     await setSearchBox({
                         ...searchBox,
                         blind_box: '1'

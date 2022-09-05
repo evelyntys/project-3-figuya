@@ -58,7 +58,7 @@ export default function NavigationBar() {
                                         </NavDropdown.Item>
                                     </NavDropdown>
                                 </React.Fragment>
-                                : <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
+                                : <Nav.Link as={NavLink} to="/login">Login/Register</Nav.Link>
                             }
                         </Nav>
                     </Navbar.Collapse>

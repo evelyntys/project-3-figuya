@@ -98,7 +98,7 @@ FIGU屋 <i>(FIGUYA)</i> is chosen as the brand name as it sounds similar to how 
 屋 <i>prounounced 'ya',</i> also represents 'house' or 'shop' in Japanese. Hence, making FIGU屋 appropriate as the brand name for a shop selling figures.
 
 ## Testing
-Test cases for the website can be found [here](https://docs.google.com/document/d/1nqA3VW_iyYqFOlb0kp0soIr6w2RUmiqKBuuBDq27NEw/edit?usp=sharing).
+Test cases for the website can be found [here](/readme/test-cases.pdf).
 
 
 ## Technologies Used

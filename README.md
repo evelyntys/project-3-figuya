@@ -68,7 +68,7 @@ Products will be provided by the shop owner and admins. A server is also require
 ![Structure of the website](/readme/structure.png)
 
 ### <b> 4. Skeleton</b>
-An initial wireframe of the site layout has been attached [here]() for reference.
+An initial low fidelity wireframe of the site layout has been attached [here](/readme/project-3-figuya-wireframe.pdf) for reference.
 
 
 ### <b> 5. Surface</b>

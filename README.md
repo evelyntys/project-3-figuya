@@ -38,7 +38,7 @@ Objective(s): To look for figures they are interested in, or to discover new fig
  -------------   | ---------------------      
 As someone with a casual interest, I would like to view the figures available and their price points.| <ul><li>Products to be searchable by price points</li><li>Show newly listed products to know what is new on the market</li><li>Display similar products from same series</li></ul>
 As a figure collector, I would like to be able to search for the size of the figure so that I could see if it would fit in my display case. | <ul><li>Products to have a field for size, and be searchable by size</li></ul>
-As a figure collector, I would like to be able to search for all the figures produced by a specific manufacturuer/company. | <ul><li>Products to be searchable by manufacturer</li></ul>
+As a figure collector, I would like to be able to search for all the figures produced by a specific manufacturer/company. | <ul><li>Products to be searchable by manufacturer</li></ul>
 
 ### <b> 2. Scope</b>
 
@@ -75,8 +75,12 @@ An initial low fidelity wireframe of the site layout has been attached [here](/r
 * The main colours used in this website include various shades of orange to achieve a bright and fun image, associated with that of hobbies.
 * Fonts used in this website include:
     * Quicksand for general body text
-    * Yomogi for site branding
+    * Yomogi for site branding to create a playful fun vibe
 
+<b>Branding</b>
+
+FIGU屋 <i>(FIGUYA)</i> is chosen as the brand name as it sounds similar to how figures are pronounced in Japanese <i>(figyua)</i>. 
+屋 <i>prounounced 'ya',</i> also represents 'house' or 'shop' in Japanese. Hence, making FIGU屋 appropriate as the brand name for a shop selling figures.
 
 ## Testing
 Test cases for the website can be found [here](https://docs.google.com/document/d/1nqA3VW_iyYqFOlb0kp0soIr6w2RUmiqKBuuBDq27NEw/edit?usp=sharing).

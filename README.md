@@ -42,6 +42,14 @@ As a figure collector, I would like to be able to search for all the figures pro
 
 ### <b> 2. Scope</b>
 
+<b>Database design & structure</b>
+
+Entity relationship diagram(ERD):
+![ERD diagram](/readme/erd.png);
+
+Logical schema diagram:
+![Logical schema](/readme/logical_schema.png)
+
 <b>Content</b>
 
 Products will be provided by the shop owner and admins. A server is also required for communication between the front-end and back-end platform. Hence, an [express server](https://etys-figuya-express.herokuapp.com/) has been set up, which serves as an admin panel and provides the restful API endpoints at the same time.
@@ -52,23 +60,30 @@ Products will be provided by the shop owner and admins. A server is also require
     * Search filters for figures including but not limited to: name, series, figure type, height, manufacturer
     * Customer registration & login
     * Password management
-    * Cart functionalities, payment & orders
+    * Cart functionalities: adding to cart, updating cart items, removing cart items & display of cart items
+    * Checkout and payment
+    * Orders display
 
 2. Admin panel
     * Search filters for figures including but not limited to: name, series, figure type, stock status
-    * Login, password management and user management
+    * Login, registration of new admin & password management
+    * User management: reading of users, updating of customers by admin
     * Product management: creation, reading, updating & deletion of products
-    * Orders management: reading & updating
+    * Orders management: reading & updating of orders
 
 <b>Non-functional Requirements</b>
 * Mobile responsiveness: the site's functionality should still remain on mobile version and their experience should still be optimized
 * Loading gif to indicate that the site is still retrieving data from the restful API
 
 ### <b> 3. Structure</b>
-![Structure of the website](/readme/structure.png)
+Structure of the front end React App:
+![Structure of React](/readme/frontend_structure.png)
+
+Structure of the backend admin panel:
+![Structure of Heroku](/readme/backend_structure.png)
 
 ### <b> 4. Skeleton</b>
-An initial low fidelity wireframe of the site layout has been attached [here](/readme/project-3-figuya-wireframe.pdf) for reference.
+An initial low fidelity wireframe of the site layout for the frontend React App has been attached [here](/readme/project-3-figuya-wireframe.pdf) for reference.
 
 
 ### <b> 5. Surface</b>
@@ -98,11 +113,12 @@ Test cases for the website can be found [here](https://docs.google.com/document/
 8. [express-session](https://www.npmjs.com/package/express-session) to manage sessions
 9. [express-flash](https://github.com/RGBboy/express-flash) to display lflash messages
 10. [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) for user authentication on front-end
-11. [handlebars](https://handlebarsjs.com/) to generate templates
-12. [Cloudinary](https://cloudinary.com/) for image upload
-13. [Bootstrap v5.2](https://getbootstrap.com/) for general styling of the website
-14. [Bootstrap icons](https://icons.getbootstrap.com/)
-15. [Canva color wheel](https://www.canva.com/colors/color-wheel/) to help generate color palettes
+11. [handlebars](https://handlebarsjs.com/) to generate template
+12. [handlebar helpers](https://github.com/helpers/handlebars-helpers)
+13. [Cloudinary](https://cloudinary.com/) for image upload
+14. [Bootstrap v5.2](https://getbootstrap.com/) for general styling of the website
+15. [Bootstrap icons](https://icons.getbootstrap.com/)
+16. [Canva color wheel](https://www.canva.com/colors/color-wheel/) to help generate color palettes
 
 <b> Frontend </b>
 1. [ReactJS](https://reactjs.org/) for the frontend framework
@@ -151,11 +167,32 @@ Test cases for the website can be found [here](https://docs.google.com/document/
 
 ### Adapted codes/functionality
 1. [Pagination](https://levelup.gitconnected.com/a-simple-guide-to-pagination-in-react-facd6f785bd0)
+2. [Integration of Stripe on Express with React](https://www.youtube.com/watch?v=72iEz5iopqQ&ab_channel=ChaooCharles)
 
 
 ## Deployment
 ### <b>Backend</b>
 Deployment for express server was completed using [Heroku](https://www.heroku.com/).
+
+### <b>Environment variables used for backend</b>
+    CLOUDINARY_NAME=
+    CLOUDINARY_API_KEY=
+    CLOUDINARY_API_SECRET=
+    CLOUDINARY_UPLOAD_PRESET=
+    DB_DRIVER=
+    DB_USER=
+    DB_PASSWORD=
+    DB_DATABASE=
+    DB_HOST=
+    SESSION_SECRET_KEY=
+    STRIPE_PUBLISHABLE_KEY=
+    STRIPE_SECRET_KEY=
+    STRIPE_SUCCESS_URL=
+    STRIPE_CANCEL_URL=
+    STRIPE_ENDPOINT_SECRET=
+    TOKEN_SECRET=
+    REFRESH_TOKEN_SECRET=
+
 
 ### <b>Frontend</b>
 Deployment for React app was completed using [Netlify](https://www.netlify.com/).

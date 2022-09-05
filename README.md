@@ -1,7 +1,10 @@
 # FIGU屋
+![Landing Page](/readme/landing.png)
+![Products page](/readme/products.png)
+
 The live demo of the site can be found [here](https://figuya.netlify.app/).
 
-Github repository for admin panel can be found [here](https://github.com/evelyntys/project-3-express).
+Github repository for admin panel & database design can be found [here](https://github.com/evelyntys/project-3-express).
 
 Test Accounts: 
 
@@ -14,45 +17,47 @@ Test Accounts:
     * Password: customer123
 
 ## Project Summary
-FIGU屋 <i>(FIGUYA)</i> is an e-commerce platform meant for the sale of various kinds of figures. With the boom of social media platforms such as TikTok and Instagram, where people are able to share snippets of their lives & hobbies easily, there seems to be an increase in casual interest in figure collection. For example, blind boxes (where the figure you get remains a secret until the packaging is opened) has recently seen a great increase in general interest, possibly due to the mystery factor as well.
+FIGU屋 <i>(FIGUYA)</i> is an e-commerce platform meant for the sale of various kinds of figures. With the boom of social media platforms such as TikTok and Instagram, where people are able to share snippets of their lives & hobbies easily, there seems to be an increase in general interest in figure collection. For example, blind boxes (where the figure you get remains a secret until the packaging is opened) has recently seen a great increase in general interest, especially on TikTok, possibly due to the mystery factor as well.
 
 ## The Five Planes of UI/UX
 ### <b>1. Strategy</b>
 #### Organisation's Goals
-Objective(s): To target figure collectors and the general crowd that have an interest in figures/figure collection.
+Objective(s): To target figure collectors and the general crowd that possess an interest in figures/figure collection.
 
 #### Users's Goals:
-Objective(s): To look for figures they are interested in, be it for collection or for general display for avid collections and/or individuals with a casual interest
+Objective(s): To look for figures they are interested in, or to discover new figures and/or the latest figures.
 * Needs: 
     * Search for figures for a specific character
     * Search for figures from a specific series and/or collection
     * Search for figures by a specific manufacturer
     * Search for figures by size (if figure is to be put in a specific position/display case)
 * Pain point(s):
-    * Unable to search by size of figures (especially if they have a designated spot to place the figure(s)
+    * Unable to search by size of figures (especially if they have a designated spot to place the figure(s))
 
  User Stories    | Acceptance Criteria(s)    
  -------------   | ---------------------      
-As someone with a casual interest, I would like to view the figures available and their price points.| <ul><li>Products to be searchable by price points.</li><li>Show newly listed products to know what is new on the market</li><li>Display similar products from same series</li></ul>
-As an avid figure collector, I would like to be able to search for the size of the figure so that I could see if it would fit in my display case. | <ul><li>Products to have a field for size, and be searchable by size.</li></ul>
+As someone with a casual interest, I would like to view the figures available and their price points.| <ul><li>Products to be searchable by price points</li><li>Show newly listed products to know what is new on the market</li><li>Display similar products from same series</li></ul>
+As a figure collector, I would like to be able to search for the size of the figure so that I could see if it would fit in my display case. | <ul><li>Products to have a field for size, and be searchable by size</li></ul>
+As a figure collector, I would like to be able to search for all the figures produced by a specific manufacturuer/company. | <ul><li>Products to be searchable by manufacturer</li></ul>
 
 ### <b> 2. Scope</b>
 
 <b>Content</b>
+
 Products will be provided by the shop owner and admins. A server is also required for communication between the front-end and back-end platform. Hence, an [express server](https://etys-figuya-express.herokuapp.com/) has been set up, which serves as an admin panel and provides the restful API endpoints at the same time.
 
 <b>Functional Requirements</b>
 
 1. eCommerce Platform
-    * Search filters for figures including but not limited to: name, series, figure type, height
+    * Search filters for figures including but not limited to: name, series, figure type, height, manufacturer
     * Customer registration & login
     * Password management
     * Cart functionalities, payment & orders
 
 2. Admin panel
     * Search filters for figures including but not limited to: name, series, figure type, stock status
-    * Login and password management
-    * Product management: creation, reading, updating & deletion
+    * Login, password management and user management
+    * Product management: creation, reading, updating & deletion of products
     * Orders management: reading & updating
 
 <b>Non-functional Requirements</b>
@@ -74,6 +79,8 @@ An initial wireframe of the site layout has been attached [here]() for reference
 
 
 ## Testing
+Test cases for the website can be found [here](https://docs.google.com/document/d/1nqA3VW_iyYqFOlb0kp0soIr6w2RUmiqKBuuBDq27NEw/edit?usp=sharing).
+
 
 ## Technologies Used
 <b >Backend </b>
@@ -135,6 +142,7 @@ An initial wireframe of the site layout has been attached [here]() for reference
 11. Figure guides:
     * https://solarisjapan.com/blogs/news/anime-figure-collect-guide
     * https://medium.com/the-crown-writer/all-about-anime-figurines-62d42db514e#:~:text=To%20put%20it%20simply%2C%20a,in%20a%20variety%20of%20styles.
+12. [Multi Device Website Mockup Generator](http://techsini.com/multi-mockup/index.php) for creating device mockups of the website
 
 
 ### Adapted codes/functionality

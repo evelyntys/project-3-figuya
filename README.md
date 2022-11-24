@@ -8,7 +8,7 @@ Github repository for admin panel & database design can be found [here](https://
 
 Test Accounts: 
 
-    1. Admin at https://etys-figuya-express.herokuapp.com/
+    1. Admin at https://project-3-express.onrender.com/
     * Username: admin
     * Password: admin123
     
@@ -52,7 +52,7 @@ Logical schema diagram:
 
 <b>Content</b>
 
-Products will be provided by the shop owner and admins. A server is also required for communication between the front-end and back-end platform. Hence, an [express server](https://etys-figuya-express.herokuapp.com/) has been set up, which serves as an admin panel and provides the restful API endpoints at the same time.
+Products will be provided by the shop owner and admins. A server is also required for communication between the front-end and back-end platform. Hence, an [express server](https://project-3-express.onrender.com/) has been set up, which serves as an admin panel and provides the restful API endpoints at the same time.
 
 <b>Functional Requirements</b>
 
